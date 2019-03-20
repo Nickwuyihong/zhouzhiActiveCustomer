@@ -5,8 +5,8 @@
 			<text style="margin: auto;font-size: 50upx;font-weight: bold;">扫一扫</text>
 		</view>
 		<view class="bottom">
-			<view v-for="item in items" :key="item.index" class="items">
-				<image :src='item.src' class="box-image1" :id="item.index" v-on:click="jump"></image>
+			<view v-for="(item,index) in items" :key="item.index" class="items">
+				<image :src='item.src' class="box-image1" :id="item.index" v-on:click="jump(index)"></image>
 				<text style="margin: auto;font-size: 37upx;color: grey;">{{item.text}}</text>
 			</view>
 		</view>
@@ -40,17 +40,31 @@
 		},
 		onLoad() {},
 		methods: {
-			jump:function(){
-				console.log('adadasd')
-				uni.navigateTo({
-					url:'editActive/editActive'
-				})
+			jump:function(index){
+				console.log('adadasd');
+				if(index==3){
+					uni.navigateTo({
+						url:'authorityManagemengt/authorityManagement',
+					})
+				}
+				else if(index==2){
+					uni.navigateTo({
+						url:'selectAndpush/selectAndpush',
+					})
+				}
+				else{
+					uni.navigateTo({
+						url:'editActive/editActive',
+					})
+				}
+					
+				
 			}
 		}
 	};
 </script>
 
-<style>
+<style scoped>
 	.body {
 		height: 83vh;
 		width: 100%;

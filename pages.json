@@ -38,6 +38,36 @@
 		{
 			"path": "pages/tabbar/tabbar-1/editActive/editActive",
 			"style": {}
+		},
+		{
+			"path": "pages/tabbar/tabbar-1/authorityManagemengt/authorityManagement",
+			"style": {
+				"navigationBarTitleText": "权限管理"
+			}
+		},
+		{
+			"path": "pages/tabbar/tabbar-1/authorityManagemengt/operationManagement/operationManagement",
+			"style": {
+				"navigationBarTitleText": "运营管理"
+			}
+		},
+		{
+			"path": "pages/tabbar/tabbar-1/selectAndpush/selectAndpush",
+			"style": {
+				"navigationBarTitleText": "查看"
+			}
+		},
+		{
+			"path": "pages/tabbar/tabbar-1/selectAndpush/selectCoupons/selectCoupons",
+			"style": {
+				"navigationBarTitleText": "筛选"
+			}
+		},
+		{
+			"path": "pages/tabbar/tabbar-1/selectAndpush/scanCoupons/scanCoupons",
+			"style": {
+				"navigationBarTitleText": "查看"
+			}
 		}
 	],
 	"globalStyle": {
