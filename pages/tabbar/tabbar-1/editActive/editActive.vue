@@ -1,16 +1,16 @@
 <template>
 	<view class="body">
 		<view class="three">
-			<view class="items" style="border-bottom:3px #F2F2F2 solid;border-right:3px #F2F2F2 solid;">
-				<image src='../../../../static/img/qa.png' class="box-image1" id="0" v-on:click="jump"></image>
-				<text style="margin: auto;font-size: 37upx;color: grey;">详情页编辑</text>
+			<view class="items" style="border-bottom:3px #F2F2F2 solid;border-right:3px #F2F2F2 solid;" id="0" v-on:click="jump">
+				<image src='../../../../static/img/qa.png' class="box-image1"></image>
+				<text style="margin: auto;font-size: 37upx;color: grey;">限定模式</text>
 			</view>
-			<view class="items" style="border-bottom:3px #F2F2F2 solid;">
-				<image src='../../../../static/img/release.png' class="box-image1" id="1" v-on:click="jump"></image>
-				<text style="margin: auto;font-size: 37upx;color: grey;">发布页编辑</text>
+			<view class="items" style="border-bottom:3px #F2F2F2 solid;" id="1" v-on:click="jump">
+				<image src='../../../../static/img/release.png' class="box-image1"></image>
+				<text style="margin: auto;font-size: 37upx;color: grey;">随机模式</text>
 			</view>
-			<view class="items" style="border-right:3px #F2F2F2 solid;">
-				<image src='../../../../static/img/video.png' class="box-image1" id="2" v-on:click="jump"></image>
+			<view class="items" style="border-right:3px #F2F2F2 solid;" id="2" v-on:click="jump">
+				<image src='../../../../static/img/video.png' class="box-image1"></image>
 				<text style="margin: auto;font-size: 37upx;color: grey;">历史活动</text>
 			</view>
 		</view>
@@ -22,6 +22,25 @@
 		data() {
 			return {
 
+			}
+		},
+		onLoad() {},
+		methods: {
+			jump: function(e) {
+				console.log(e)
+				if (e.currentTarget.id == 0) {
+					uni.navigateTo({
+						url: 'limitedMode/limitedMode'
+					})
+				} else if (e.currentTarget.id == 1) {
+					uni.navigateTo({
+						url: 'randomMode/randomMode'
+					})
+				} else {
+					uni.navigateTo({
+						url: 'historyActive/historyActive'
+					})
+				}
 			}
 		}
 	}

@@ -21,11 +21,7 @@
 				title: 'Hello',
 				items: [{
 						src: '../../../static/img/qa.png',
-						text: '活动编辑'
-					},
-					{
-						src: '../../../static/img/release.png',
-						text: '券中心'
+						text: '活动中心'
 					},
 					{
 						src: '../../../static/img/video.png',
@@ -42,12 +38,12 @@
 		methods: {
 			jump:function(index){
 				console.log('adadasd');
-				if(index==3){
+				if(index==2){
 					uni.navigateTo({
 						url:'authorityManagemengt/authorityManagement',
 					})
 				}
-				else if(index==2){
+				else if(index==1){
 					uni.navigateTo({
 						url:'selectAndpush/selectAndpush',
 					})
@@ -57,8 +53,6 @@
 						url:'editActive/editActive',
 					})
 				}
-					
-				
 			}
 		}
 	};
