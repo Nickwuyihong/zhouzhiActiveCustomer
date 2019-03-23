@@ -1,7 +1,7 @@
 <template>
 	<view class="body">
 		<view class="content">
-			<image src="../../../static/img/scan.png" class="box-image"></image>
+			<image src="../../../static/img/scan.png" class="box-image"  @click="scanning"></image>
 			<text style="margin: auto;font-size: 50upx;font-weight: bold;">扫一扫</text>
 		</view>
 		<view class="bottom">
@@ -53,6 +53,11 @@
 						url:'editActive/editActive',
 					})
 				}
+			},
+			scanning:function(){
+				uni.navigateTo({
+					url:'scanning/success',
+				})
 			}
 		}
 	};

@@ -54,6 +54,12 @@
 			}
 		},
 		{
+			"path": "pages/tabbar/tabbar-1/editActive/limitedMode/coupon",
+			"style": {
+				"navigationBarTitleText":"券详情"
+			}
+		},
+		{
 			"path": "pages/tabbar/tabbar-1/editActive/historyActive/historyActive",
 			"style": {
 				"navigationBarTitleText":"历史活动"
@@ -63,12 +69,6 @@
 			"path": "pages/tabbar/tabbar-1/authorityManagemengt/authorityManagement",
 			"style": {
 				"navigationBarTitleText": "权限管理"
-			}
-		},
-		{
-			"path": "pages/tabbar/tabbar-1/authorityManagemengt/operationManagement/operationManagement",
-			"style": {
-				"navigationBarTitleText": "运营管理"
 			}
 		},
 		{
@@ -87,6 +87,42 @@
 			"path": "pages/tabbar/tabbar-1/selectAndpush/scanCoupons/scanCoupons",
 			"style": {
 				"navigationBarTitleText": "查看"
+			}
+		},
+		{
+			"path": "pages/tabbar/tabbar-1/scanning/success",
+			"style": {
+				"navigationBarTitleText": "扫描成功"
+			}
+		},
+		{
+			"path": "pages/tabbar/tabbar-1/scanning/sure",
+			"style": {
+				"navigationBarTitleText": "劵已兑换"
+			}
+		},
+		{
+			"path": "pages/tabbar/tabbar-1/authorityManagemengt/editShop/editShop",
+			"style": {
+				"navigationBarTitleText": "门店编辑"
+			}
+		},
+		{
+			"path": "pages/tabbar/tabbar-1/authorityManagemengt/editShop/bindingShop/binding",
+			"style": {
+				"navigationBarTitleText": "门店编辑"
+			}
+		},
+		{
+			"path": "pages/tabbar/tabbar-1/authorityManagemengt/editShop/delectingCoupons/delectingCoupons",
+			"style": {
+				"navigationBarTitleText": "劵核销"
+			}
+		},
+		{
+			"path": "pages/tabbar/tabbar-1/authorityManagemengt/editShop/operationShop/operationShop",
+			"style": {
+				"navigationBarTitleText": "运营管理"
 			}
 		}
 	],

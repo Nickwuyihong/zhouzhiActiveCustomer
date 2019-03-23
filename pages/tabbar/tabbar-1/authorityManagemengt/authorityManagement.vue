@@ -1,76 +1,61 @@
 <template>
 	<view class="body">
-		<view class='content'>
-			<view class='content-1'>
-				<image src='../../../../static/img/tabbar/me.png' class="box-image" id="0" v-on:click="jump('./operationManagement/operationManagement')"></image>
-				<text class='text-world'>运营者管理</text>
-			</view>
-			<view class='content-1'>
-				<image src='../../../../static/img/tabbar/meactive.png' class="box-image" id="0" v-on:click="jump()"></image>
-			<text class='text-world'>劵核销员管理</text>
-			</view>	
-		</view>
+		 <scroll-view  :scroll-top="scrollTop" scroll-y="true" class="scroll-Y">
+			 <view class="content">
+			 <image class="box-image" src='../../../../static/img/tabbar/addactive.png' @click="addShop"></image>
+			 <text class="text-content">添加门店</text>
+              </view>
+	     </scroll-view>
 	</view>
 </template>
 
 <script>
-	export default {
-		data() {
-			return {
-	        fullHeight:document.documentElement.clientHeight,
-			fullWidth:document.documentElement.clientWidth
-			}
-		},
-		methods:{
-			jump(url){
+	 export default {
+		 data() {
+			 return {
+				 scrollTop:0,
+				
+			 }
+		 },
+		 methods:{
+			 addShop:function(){
 				uni.navigateTo({
-					url
-				});
-			}
-		},
-		mounted(){
-			const that = this
-			window.onresize = () =>{
-				return (()=> {
-					window.fullHeight = document.documentElement.clientHeight
-					window.fullWidth = document.documentElement.clientWidth
-					that.fullWidth =window.fullWidth
-					that.fullHeight =window.fullHeight
-				})()
-			}
-			console.log(this.fullHeight)
-			console.log(this.fullWidth)
-		}
+				url:'./editShop/editShop'
+				})
+			 }
+			 
+		 }
 	}
 </script>
 
 <style scoped>
-	.body {
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		height: 90vh;
-		width: 100%;
-	}
-	.box-image{
-		   display: block;
-			height: 100upx;
-			width: 100upx;
-			border-radius: 100%;
-			 margin: auto;
-			margin-bottom: 0;		
-	}
-	.content-1{
+	.body{
 		display: block;
-		margin-bottom:150upx;
+		height:100vh;
+		width: 100%;
+		background-color: #F8F8F8;
 	}
 	.content{
+		display: flex;
+		flex-direction: row;
+		padding:35upx 0;
+		height: 70upx;
+		width: 100%;
+		border-top: 1upx solid #F2F2F2;
 	}
-	.text-world{
+	.box-image{
+			height:70upx;
+			width: 70upx;
+			margin: 0 10upx;
+			/* border-radius: 1upx; */
+	}
+	.scroll-Y{
+		background-color:#FFFFFF;
+	}
+	.text-content{
+		line-height: 70upx;
 		text-align:center;
-		display:block;
-		margin:auto;
-		font-size: 37upx;
+		font-size: 30upx;
 		color: grey;
 	}
 </style>
