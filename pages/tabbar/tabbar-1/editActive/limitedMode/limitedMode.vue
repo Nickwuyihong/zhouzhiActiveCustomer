@@ -2,7 +2,7 @@
 	<view class="body">
 		<view class="title">活动名称</view>
 		<view class="activeName">
-			<input type="text" value="" placeholder="请输入活动名称" style="width: 90%;margin: auto;" />
+			<input type="text" :value="activeName" placeholder="请输入活动名称" style="width: 90%;margin: auto;" v-model="activeName"/>
 		</view>
 		<view class="title">活动内容</view>
 		<view class="preview">
@@ -34,76 +34,164 @@
 		
 		<view class="title" style="margin-top: 50upx;">优惠设置</view>
 		
-		<view v-if="hasDiscount==false" class="add_reward" v-on:click="add_discount">
-			<image src="../../../../../static/img/add_admin.png"></image>
-			<text>添加优惠</text>
+		<view v-if="couponList.length>0" class="">
+			<view v-for="(item,index) in couponList" :key="index">
+				<view style="width: 90%;display: flex;justify-content: space-between;margin: auto;align-items: center;height: 100upx;">
+					<text>优惠{{index + 1}}</text>
+					<button type="default" size="mini" style="margin: 0;" @click="modify(index)">修改</button>
+				</view>
+				<view v-if="item.modifyDiscount==true">
+					<view class="add_reward2">
+						<view class="couponImg">
+							<view class="left">
+								<text style="margin: auto;">{{item.organization}}</text>
+								<text style="font-size: x-large;margin: auto;margin-top: 0;">{{item.couponName}}</text>
+							</view>
+							<view class="right">
+								<button v-if="item.disable==true" size="mini" style="background: #BBBBBB;">查看详情</button>
+								<button v-else size="mini" v-on:click="toDetail(item + 1)">查看详情</button>
+							</view>
+						</view>
+						<text style="padding-top: 20upx;color: #BBBBBB;">券预览图</text>
+						<view style="width: 90%;padding-top: 20upx;">填写相关信息</view>
+						<view class="inputs">
+							<text style="width: 20%;">券名：</text>
+							<input type="text" :value="item.couponName" placeholder="请输入券名" style="width: 85%;border-bottom: 1px solid #F2F2F2;" :id="index + 1" v-on:input="setName"/>
+						</view>
+						<view class="inputs">
+							<view style="width: 30%;">可用时间：</view>
+							<input type="text" :value="item.availableTime" placeholder="请输入优惠券可用时间" style="width: 70%;border-bottom: 1px solid #F2F2F2;" :id="index + 1" v-on:input="setATime"/>
+						</view>
+						<view class="inputs">
+							<view style="width: 30%;">有效日期：</view>
+							<input type="text" :value="item.exTime" placeholder="请输入优惠券有效日期" style="width: 70%;border-bottom: 1px solid #F2F2F2;" :id="index + 1" v-on:input="setETime"/>
+						</view>
+						<view class="inputs">
+							<view style="width: 30%;">发券机构：</view>
+							<select v-model="couponList[index].organization">
+								<option value="volvo" style="display: none;">请选择机构</option>
+								<option v-for="item2 in organizationList" :key="item2.index" :value="item2">{{item2}}</option>
+							</select>
+						</view>
+						<view class="inputs" style="align-items: flex-start;">
+							<view style="width: 30%;">使用规则：</view>
+							<textarea type="text" auto-height="true" placeholder="请输入使用规则" style="width: 70%;border-bottom: 1px solid #F2F2F2;" :id="index + 1" v-on:input="setRule" v-model="item.rule"><s:property :value="item.rule"/></textarea>
 		</view>
-		
-		<view v-else class="add_reward2">
+
+		<button class="btn" @click="save(index)">确定</button>
+	</view>
+	</view>
+	<view v-else>
+		<view class="add_reward">
 			<view class="couponImg">
 				<view class="left">
-					<text style="margin: auto;">{{coupon.organization}}</text>
-					<text style="font-size: x-large;margin: auto;margin-top: 0;">{{coupon.couponName}}</text>
+					<text style="margin: auto;">{{item.organization}}</text>
+					<text style="font-size: x-large;margin: auto;margin-top: 0;">{{item.couponName}}</text>
 				</view>
 				<view class="right">
-					<button v-if="disable==true" size="mini" style="background: #BBBBBB;">查看详情</button>
-					<button v-else size="mini" v-on:click="toDetail">查看详情</button>
+					<button v-if="item.disable==true" size="mini" style="background: #BBBBBB;">查看详情</button>
+					<button v-else size="mini" v-on:click="toDetail(index + 1)">查看详情</button>
 				</view>
 			</view>
-			<text style="padding-top: 20upx;color: #BBBBBB;">券预览图</text>
-			<view style="width: 90%;padding-top: 20upx;">填写相关信息</view>
-			<view class="inputs">
-				<text style="width: 20%;">券名：</text>
-				<input type="text" value="" placeholder="请输入券名" style="width: 85%;border-bottom: 1px solid #F2F2F2;" v-on:input="setName"/>
-			</view>
-			<view class="inputs">
-				<view style="width: 30%;">可用时间：</view>
-				<input type="text" value="" placeholder="请输入优惠券可用时间" style="width: 70%;border-bottom: 1px solid #F2F2F2;" v-on:input="setATime"/>
-			</view>
-			<view class="inputs">
-				<view style="width: 30%;">兑换时间：</view>
-				<input type="text" value="" placeholder="请输入优惠券兑换时间" style="width: 70%;border-bottom: 1px solid #F2F2F2;" v-on:input="setETime"/>
-			</view>
-			<view class="inputs">
-				<view style="width: 30%;">发券机构：</view>
-				<select v-model="coupon.organization">
-					<option value="volvo" style="display: none;">请选择机构</option>
-					<option v-for="item in organizationList" :key="item.index" :value="item">{{item}}</option>
-				</select>
-			</view>
-			<view class="inputs" style="align-items: flex-start;">
-				<view style="width: 30%;">使用规则：</view>
-				<textarea type="text" value="" auto-height="true" placeholder="请输入使用规则" style="width: 70%;border-bottom: 1px solid #F2F2F2;" v-on:input="setRule"/>
-			</view>
-			
-			<button class="btn" @click="sure">确定</button>
 		</view>
+	</view>
+	</view>
+	</view>
+
+	<view style="width: 90%;display: flex;justify-content: space-between;margin: auto;align-items: center;height: 100upx;">
+		<text>优惠{{couponList.length + 1}}</text>
+	</view>
+	<view v-if="coupon.modifyDiscount==false" class="add_reward" v-on:click="add_discount">
+		<image src="../../../../../static/img/add_admin.png"></image>
+		<text>添加优惠</text>
+	</view>
+
+	<view v-else class="add_reward2">
+		<view class="couponImg">
+			<view class="left">
+				<text style="margin: auto;">{{coupon.organization}}</text>
+				<text style="font-size: x-large;margin: auto;margin-top: 0;">{{coupon.couponName}}</text>
+			</view>
+			<view class="right">
+				<button v-if="coupon.disable==true" size="mini" style="background: #BBBBBB;">查看详情</button>
+				<button v-else size="mini" v-on:click="toDetail(0)">查看详情</button>
+			</view>
+		</view>
+		<text style="padding-top: 20upx;color: #BBBBBB;">券预览图</text>
+		<view style="width: 90%;padding-top: 20upx;">填写相关信息</view>
+		<view class="inputs">
+			<text style="width: 20%;">券名：</text>
+			<input type="text" value="" placeholder="请输入券名" style="width: 85%;border-bottom: 1px solid #F2F2F2;" id="0"
+			 v-on:input="setName" />
+		</view>
+		<view class="inputs">
+			<view style="width: 30%;">可用时间：</view>
+			<input type="text" value="" placeholder="请输入优惠券可用时间" style="width: 70%;border-bottom: 1px solid #F2F2F2;" id="0"
+			 v-on:input="setATime" />
+		</view>
+		<view class="inputs">
+			<view style="width: 30%;">有效日期：</view>
+			<input type="text" value="" placeholder="请输入优惠券有效日期" style="width: 70%;border-bottom: 1px solid #F2F2F2;" id="0"
+			 v-on:input="setETime" />
+		</view>
+		<view class="inputs">
+			<view style="width: 30%;">发券机构：</view>
+			<select v-model="coupon.organization">
+				<option value="volvo" style="display: none;">请选择机构</option>
+				<option v-for="item in organizationList" :key="item.index" :value="item">{{item}}</option>
+			</select>
+		</view>
+		<view class="inputs" style="align-items: flex-start;">
+			<view style="width: 30%;">使用规则：</view>
+			<textarea type="text" value="" auto-height="true" placeholder="请输入使用规则" style="width: 70%;border-bottom: 1px solid #F2F2F2;"
+			 id="0" v-on:input="setRule" v-model="coupon.rule" />
+			</view>
+				
+				<button class="btn" @click="addCoupon">确定</button>
+			</view>
 		
+		<view v-if="couponList.length>0" style="width: 80%;display: flex;justify-content: space-between;margin: auto;margin-top: 100upx;">
+			<button type="primary" size="default" style="width: 250upx;">保存</button>
+			<button type="default" size="default" style="width: 250upx;" @click="createActive">创建活动</button>
+		</view>
+		<xy-dialog 
+			ref="xyDialog02" 
+			title="false"
+			message="确定创建？"
+			@cancelButton="handleClose" 
+			@confirmButton="handleConfirm"
+		></xy-dialog>
 		<view class="title"></view>
 	</view>
 </template>
 
 <script>
+	import xyDialog from '@/pages/components/xy-dialog/xy-dialog.vue'
 	export default {
 		data() {
 			return {
+				activeName: '',
 				ads:[],
-				hasDiscount: false,
 				coupon:{
 					couponName: '请输入券名',
 					availableTime: '',
 					exTime: '',
 					organization: '请输入发券机构',
-					rule: ''
+					rule: '',
+					disable: true,
+					modifyDiscount: false,
 				},
-				disable: true,
 				organizationList: [
 					'特斯了1',
 					'特斯了2',
 					'特斯了3',
 					'特斯了4'
-				]
+				],
+				couponList:[]
 			}
+		},
+		components:{
+			xyDialog
 		},
 		onLoad() {
 			
@@ -129,7 +217,7 @@
 				}
 			},
 			add_discount:function(){
-				this.hasDiscount = true
+				this.coupon.modifyDiscount = true
 			},
 			add_img:function(){
 				uni.chooseImage({
@@ -145,86 +233,192 @@
 			setLink:function(e){
 				this.ads[e.currentTarget.id].link = e.detail.value
 			},
-			setOrganization:function(e){
-				console.log(e)
-				this.coupon.organization = e
-				if(this.coupon.couponName.length>0&&
-					this.coupon.couponName!='请输入券名'&&
-					this.coupon.availableTime.length>0&&
-					this.coupon.exTime.length>0&&
-					this.coupon.organization!='请输入发券机构'&&
-					this.coupon.organization.length>0&&
-					this.coupon.rule.length>0){
-					this.disable = false
-				}else{
-					this.disable = true
-				}
-			},
 			setName:function(e){
 				console.log(e)
-				this.coupon.couponName = e.detail.value
-				if(this.coupon.couponName.length>0&&
-					this.coupon.couponName!='请输入券名'&&
-					this.coupon.availableTime.length>0&&
-					this.coupon.exTime.length>0&&
-					this.coupon.organization!='请输入发券机构'&&
-					this.coupon.organization.length>0&&
-					this.coupon.rule.length>0){
-					this.disable = false
+				if(e.currentTarget.id == 0){
+					this.coupon.couponName = e.detail.value
+					if(this.coupon.couponName.length>0&&
+						this.coupon.couponName!='请输入券名'&&
+						this.coupon.availableTime.length>0&&
+						this.coupon.exTime.length>0&&
+						this.coupon.organization!='请输入发券机构'&&
+						this.coupon.organization.length>0&&
+						this.coupon.rule.length>0){
+						this.coupon.disable = false
+					}else{
+						this.coupon.disable = true
+					}
 				}else{
-					this.disable = true
+					var i = e.currentTarget.id - 1
+					console.log(i)
+					this.couponList[i].couponName = e.detail.value
+					if(this.couponList[i].couponName.length>0&&
+						this.couponList[i].couponName!='请输入券名'&&
+						this.couponList[i].availableTime.length>0&&
+						this.couponList[i].exTime.length>0&&
+						this.couponList[i].organization!='请输入发券机构'&&
+						this.couponList[i].organization.length>0&&
+						this.couponList[i].rule.length>0){
+						this.couponList[i].disable = false
+					}else{
+						this.couponList[i].disable = true
+					}
 				}
 			},
 			setATime:function(e){
-				console.log(e)
-				this.coupon.availableTime = e.detail.value
-				if(this.coupon.couponName.length>0&&
-					this.coupon.couponName!='请输入券名'&&
-					this.coupon.availableTime.length>0&&
-					this.coupon.exTime.length>0&&
-					this.coupon.organization!='请输入发券机构'&&
-					this.coupon.organization.length>0&&
-					this.coupon.rule.length>0){
-					this.disable = false
+				if(e.currentTarget.id == 0){
+					this.coupon.availableTime = e.detail.value
+					if(this.coupon.couponName.length>0&&
+						this.coupon.couponName!='请输入券名'&&
+						this.coupon.availableTime.length>0&&
+						this.coupon.exTime.length>0&&
+						this.coupon.organization!='请输入发券机构'&&
+						this.coupon.organization.length>0&&
+						this.coupon.rule.length>0){
+						this.coupon.disable = false
+					}else{
+						this.coupon.disable = true
+					}
 				}else{
-					this.disable = true
+					var i = e.currentTarget.id - 1
+					this.couponList[i].availableTime = e.detail.value
+					if(this.couponList[i].couponName.length>0&&
+						this.couponList[i].couponName!='请输入券名'&&
+						this.couponList[i].availableTime.length>0&&
+						this.couponList[i].exTime.length>0&&
+						this.couponList[i].organization!='请输入发券机构'&&
+						this.couponList[i].organization.length>0&&
+						this.couponList[i].rule.length>0){
+						this.couponList[i].disable = false
+					}else{
+						this.couponList[i].disable = true
+					}
 				}
 			},
 			setETime:function(e){
-				console.log(e)
-				this.coupon.exTime = e.detail.value
-				if(this.coupon.couponName.length>0&&
-					this.coupon.couponName!='请输入券名'&&
-					this.coupon.availableTime.length>0&&
-					this.coupon.exTime.length>0&&
-					this.coupon.organization!='请输入发券机构'&&
-					this.coupon.organization.length>0&&
-					this.coupon.rule.length>0){
-					this.disable = false
+				if(e.currentTarget.id == 0){
+					this.coupon.exTime = e.detail.value
+					if(this.coupon.couponName.length>0&&
+						this.coupon.couponName!='请输入券名'&&
+						this.coupon.availableTime.length>0&&
+						this.coupon.exTime.length>0&&
+						this.coupon.organization!='请输入发券机构'&&
+						this.coupon.organization.length>0&&
+						this.coupon.rule.length>0){
+						this.coupon.disable = false
+					}else{
+						this.coupon.disable = true
+					}
 				}else{
-					this.disable = true
+					var i = e.currentTarget.id - 1
+					this.couponList[i].exTime = e.detail.value
+					if(this.couponList[i].couponName.length>0&&
+						this.couponList[i].couponName!='请输入券名'&&
+						this.couponList[i].availableTime.length>0&&
+						this.couponList[i].exTime.length>0&&
+						this.couponList[i].organization!='请输入发券机构'&&
+						this.couponList[i].organization.length>0&&
+						this.couponList[i].rule.length>0){
+						this.couponList[i].disable = false
+					}else{
+						this.couponList[i].disable = true
+					}
 				}
 			},
 			setRule:function(e){
-				console.log(e)
-				this.coupon.rule = e.detail.value
-				if(this.coupon.couponName.length>0&&
-					this.coupon.couponName!='请输入券名'&&
-					this.coupon.availableTime.length>0&&
-					this.coupon.exTime.length>0&&
-					this.coupon.organization!='请输入发券机构'&&
-					this.coupon.organization.length>0&&
-					this.coupon.rule.length>0){
-					this.disable = false
+				if(e.currentTarget.id == 0){
+					this.coupon.rule = e.detail.value
+					if(this.coupon.couponName.length>0&&
+						this.coupon.couponName!='请输入券名'&&
+						this.coupon.availableTime.length>0&&
+						this.coupon.exTime.length>0&&
+						this.coupon.organization!='请输入发券机构'&&
+						this.coupon.organization.length>0&&
+						this.coupon.rule.length>0){
+						this.coupon.disable = false
+					}else{
+						this.coupon.disable = true
+					}
 				}else{
-					this.disable = true
+					var i = e.currentTarget.id - 1
+					this.couponList[i].rule = e.detail.value
+					if(this.couponList[i].couponName.length>0&&
+						this.couponList[i].couponName!='请输入券名'&&
+						this.couponList[i].availableTime.length>0&&
+						this.couponList[i].exTime.length>0&&
+						this.couponList[i].organization!='请输入发券机构'&&
+						this.couponList[i].organization.length>0&&
+						this.couponList[i].rule.length>0){
+						this.couponList[i].disable = false
+					}else{
+						this.couponList[i].disable = true
+					}
 				}
 			},
-			toDetail:function(){
-				uni.navigateTo({
-					url: 'coupon?detail=' + JSON.stringify(this.coupon) 
+			toDetail:function(e){
+				if(e==0){
+					uni.navigateTo({
+						url: 'coupon?detail=' + JSON.stringify(this.coupon) + "&ads=" + JSON.stringify(this.ads)
+					})
+				}else{
+					e--
+					console.log(e)
+					uni.navigateTo({
+						url: 'coupon?detail=' + JSON.stringify(this.couponList[e]) + "&ads=" + JSON.stringify(this.ads)
+					})
+				}
+			},
+			addCoupon:function(){
+				if(this.coupon.disable==false){
+					this.coupon.modifyDiscount = false
+					this.couponList.push(this.coupon)
+					this.coupon = {
+						couponName: '请输入券名',
+						availableTime: '',
+						exTime: '',
+						organization: '请输入发券机构',
+						rule: '',
+						disable: true,
+						modifyDiscount: false
+					}
+				}else{
+					uni.showToast({
+						title: '请填写完整信息',
+						icon: 'none'
+					})
+				}
+			},
+			modify:function(e){
+				this.couponList[e].modifyDiscount = true
+			},
+			save:function(e){
+				this.couponList[e].modifyDiscount = false
+			},
+			createActive:function(){
+				if(this.activeName.length>0&&this.ads.length>0&&this.couponList.length>0){
+					this.$refs.xyDialog02.alert()
+				}else{
+					uni.showToast({
+						title: '活动尚未完成编辑，未能创建!',
+						icon: 'none'
+					})
+				}
+			},
+			handleClose () {
+				console.log('点击关闭按钮')
+				uni.showToast({
+					title: '点击关闭按钮,触发自定义事件',
+					icon: 'none'
 				})
-			}
+			},
+			// 确定按钮方法
+			handleConfirm () {
+				console.log('点击确定按钮')
+				uni.showToast({
+					title: '您没有权限进行创建!',
+					icon: 'none'
+				})
+			},
 		}
 	}
 </script>
@@ -333,11 +527,12 @@
 	}
 	
 	.couponImg{
-		height: 200upx;
+		height: 150upx;
 		width: 90%;
 		border: 3px solid #ffdd00;
-		border-radius: 50upx;
+		border-radius: 20upx;
 		display: flex;
+		margin: auto;
 	}
 	
 	.btn {

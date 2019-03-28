@@ -15,6 +15,18 @@
 					<text>11111111111</text>
 				</view>
 				<view class="items">
+					<text style="color: #888888;">中奖概率：</text>
+					<text>{{coupon.probability}}</text>
+				</view>
+				<view class="items">
+					<text style="color: #888888;">数量上限：</text>
+					<text>{{coupon.toplimit}}</text>
+				</view>
+				<view class="items">
+					<text style="color: #888888;">发券时间：</text>
+					<text>{{coupon.publishTime}}</text>
+				</view>
+				<view class="items">
 					<text style="color: #888888;">有效日期：</text>
 					<text>{{coupon.exTime}}</text>
 				</view>
@@ -41,8 +53,7 @@
 			return {
 				coupon: {},
 				ads: [],
-				active: true,
-				space: '  '
+				active: true
 			}
 		},
 		onLoad(e) {

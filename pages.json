@@ -48,6 +48,12 @@
 			}
 		},
 		{
+			"path": "pages/tabbar/tabbar-1/editActive/randomMode/randomCoupon",
+			"style": {
+				"navigationBarTitleText":"券详情"
+			}
+		},
+		{
 			"path": "pages/tabbar/tabbar-1/editActive/limitedMode/limitedMode",
 			"style": {
 				"navigationBarTitleText":"限定模式"

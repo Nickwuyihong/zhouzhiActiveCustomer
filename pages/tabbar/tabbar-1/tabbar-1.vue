@@ -34,7 +34,9 @@
 				]
 			};
 		},
-		onLoad() {},
+		onLoad() {
+			
+		},
 		methods: {
 			jump:function(index){
 				console.log('adadasd');
