@@ -15,6 +15,9 @@
 </template>
 
 <script>
+	import App from '../../../App.vue'
+	import Api from '../../../api.js'
+	var app = getApp()
 	export default {
 		data() {
 			return {
@@ -35,7 +38,16 @@
 			};
 		},
 		onLoad() {
-			
+			console.log(App.getToken())
+			uni.request({
+				url: Api.usersAccount(),
+				header: {
+					token: App.getToken()
+				},
+				success:function(res){
+					console.log(res)
+				}
+			})
 		},
 		methods: {
 			jump:function(index){

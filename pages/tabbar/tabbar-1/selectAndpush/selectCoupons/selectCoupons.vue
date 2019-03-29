@@ -1,5 +1,5 @@
 <template>
-	<view class="body">
+	<view class="dialog">
 		<view class="content">
 			<text class="text-content">请填写筛选条件:</text>
 			<checkbox-group v-for='(iterm,index) in customers'>
@@ -9,34 +9,36 @@
 				</checkbox>
 				</label>
 			</checkbox-group>
-			<text class="text-content">默认选项:</text>
+			<text class="text-content">选项:</text>
 			<checkbox-group>
 				<label><checkbox v-bind:checked="checkedBottom">检测重复发布者</checkbox></label>
 				<label><checkbox v-bind:checked="checkedBottom">筛选从最符合条件者开始</checkbox></label>
 				<label><checkbox v-bind:checked="checkedBottom">提示该用户活动期间第几次发布</checkbox></label>
 			</checkbox-group>
 			<button class="btn" @click="readySelect">进行预筛选</button>	
-			<view class="content-main" v-if="showed">
-				<view class="content-main-1">
-					<text class="text-content">预筛选结果</text>
+		</view>
+		<view class="dialog-cover" v-show="showed">
+			<view class="dialog-content" >
+				<view class="dialog-content-title">
+					<view class="text-content">预筛选结果</view>
 				</view>
-				<view class="content-main-2">
+				<view class='dialog-main'>
 					<view class="text-content">本次活动共30人参与;</view>
 					<view class="text-content">符合筛选条件的内容20篇;</view>
 					<view class="text-content">其中重复发布0篇;</view>
 					<view class="text-content">...</view>
 				</view>
-				<view class="content-main-3">
-					<button class="btn-1">开始筛选</button>
-				</view>
-				<view class="content-main-4">
-					<button class="btn-1" style="background: green;" @click="renewClick">重新设置筛选条件</button>
-				</view>
-			</view>
+			   <view class="dialog-content-1">
+				<button class="btn-1" @click="startClick">开始筛选</button>
+			   </view>
+			   <view class="dialog-content-2">
+				<button class="btn-1" style="background: green;" @click="renewClick">重新设置筛选条件</button>
+			   </view>
+			</view>   
+		</view>	
 		</view>
 	</view>
 </template>
-
 <script>
 	export default{
 		data() {
@@ -93,57 +95,22 @@
 				},
 				renewClick:function(){
 					this.showed=false;
+				},
+				startClick:function(){
+					uni.navigateTo({
+						url:'./select/select'
+					})
 				}
 			}		
 	}
 </script>
-
 <style scoped>
-	.content{
-		display: block;
-		position: relative;
-		z-index: 200;
-	}
-	.content-main{
-		display: flex;
-		flex-direction: column;
-		position: absolute;
-		width:600upx;
-		height: 75vh;
-		border: 2px solid #808080;
-		top: 50%;
-		left: 50%;
-		-webkit-transform: translate(-50%, -50%);
-		-moz-transform: translate(-50%, -50%);
-		-ms-transform: translate(-50%, -50%);
-		-o-transform: translate(-50%, -50%);
-		transform: translate(-50%, -50%);
+	.dialog{
+		position:relative;
+		color: #2e2c2d;
 		background: #FFFFFF;
-		z-index: 300;
-	}
-	.content-main-1{
-		display: flex;
-		flex: 1;
-		align-items: center;
-		justify-content: center;
-	}
-	.content-main-2{
-		display: flex;
-		flex: 3;
-		flex-direction: column;
-		align-items: center;
-		justify-content: center;
-	}
-	.content-main-3{
-		display: flex;
-		flex: 1;
-		align-items: center;
-		justify-content: center;
-	}
-	.content-main-4{
-		display: flex;
-		flex: 1;
-		justify-content: center;
+		font-size: 16upx;	
+		height: calc(100vh - var(--window-top));
 	}
 	input{
 		display: block;
@@ -155,6 +122,58 @@
 		font-size: 30upx;
 		display: block;
 		margin: 0upx 40upx 40upx 40upx;
+	}
+	.content{
+		display: block;
+		position: relative;
+		z-index: 200;
+	}
+	.dialog-cover{
+		display: flex;
+		position: fixed;
+		height:100%;
+		width: 100%;
+		top:0;
+		left: 0;
+		z-index: 300;
+		background:rgba(0,0,0,0.8);
+	}
+	.dialog-content{
+		opacity: 1;
+		display: flex;
+		flex-direction: column;
+		height: 500upx;
+		width: 500upx;
+		margin: auto;
+		background: #FFFFFF;
+		width:600upx;
+		height: 75vh;
+		border: 2px solid #808080;
+	}
+	.dialog-content-title{
+		display: flex;
+		flex: 1;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+	}
+	.dialog-main{
+		display: flex;
+		flex: 3;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+	}
+	.dialog-content-1{
+		display: flex;
+		flex: 1;
+		align-items: center;
+		justify-content: center;
+	}
+	.dialog-content-2{
+		display: flex;
+		flex: 1;
+		align-items: center;
 	}
 	.text-content{
 		font-size: 30upx;
@@ -174,7 +193,7 @@
 		background: rgb(255,100,100);
 		margin-top: 200upx;
 		border-radius: 25upx;
-		height: 100Upx;
+		height: 100upx;
 		width: 450upx;
-	};
+	}
 </style>

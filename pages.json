@@ -38,37 +38,37 @@
 		{
 			"path": "pages/tabbar/tabbar-1/editActive/editActive",
 			"style": {
-				"navigationBarTitleText":"活动中心"
+				"navigationBarTitleText": "活动中心"
 			}
 		},
 		{
 			"path": "pages/tabbar/tabbar-1/editActive/randomMode/randomMode",
 			"style": {
-				"navigationBarTitleText":"随机模式"
+				"navigationBarTitleText": "随机模式"
 			}
 		},
 		{
 			"path": "pages/tabbar/tabbar-1/editActive/randomMode/randomCoupon",
 			"style": {
-				"navigationBarTitleText":"券详情"
+				"navigationBarTitleText": "券详情"
 			}
 		},
 		{
 			"path": "pages/tabbar/tabbar-1/editActive/limitedMode/limitedMode",
 			"style": {
-				"navigationBarTitleText":"限定模式"
+				"navigationBarTitleText": "限定模式"
 			}
 		},
 		{
 			"path": "pages/tabbar/tabbar-1/editActive/limitedMode/coupon",
 			"style": {
-				"navigationBarTitleText":"券详情"
+				"navigationBarTitleText": "券详情"
 			}
 		},
 		{
 			"path": "pages/tabbar/tabbar-1/editActive/historyActive/historyActive",
 			"style": {
-				"navigationBarTitleText":"历史活动"
+				"navigationBarTitleText": "历史活动"
 			}
 		},
 		{
@@ -129,6 +129,29 @@
 			"path": "pages/tabbar/tabbar-1/authorityManagemengt/editShop/operationShop/operationShop",
 			"style": {
 				"navigationBarTitleText": "运营管理"
+			}
+		}, {
+			"path": "pages/tabbar/tabbar-1/selectAndpush/selectCoupons/select/select",
+			"style": {
+				"navigationBarTitleText": "筛选"
+			}
+		},
+		{
+			"path": "pages/tabbar/tabbar-1/selectAndpush/selectCoupons/select/scanCustomer/scanCustomer",
+			"style": {
+				"navigationBarTitleText": "查看名单"
+			}
+		},
+		{
+			"path": "pages/tabbar/tabbar-1/selectAndpush/selectCoupons/select/scanCustomer/startSelect/startSelect",
+			"style": {
+				"navigationBarTitleText": "选择卷"
+			}
+		},
+		{
+			"path": "pages/tabbar/tabbar-1/selectAndpush/selectCoupons/select/scanCustomer/startSelect/scanCoupons/scanCoupons",
+			"style": {
+				"navigationBarTitleText": "选择卷"
 			}
 		}
 	],
