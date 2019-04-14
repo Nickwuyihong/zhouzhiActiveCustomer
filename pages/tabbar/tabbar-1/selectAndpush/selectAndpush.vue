@@ -1,126 +1,152 @@
 <template>
 	<view class="body">
-	 <scroll-view  :scroll-top="scrollTop" scroll-y="true" class="scroll-Y">
-				 <view class="content" v-for="(coupon,index) in coupons">
-					  <view class="content-left">
-					  <text class="text-content-1" >{{coupon.date}}</text>
-					  <text class="text-content-2">({{coupon.title}})</text>
-					  </view>
-					   <view class="content-right">
-	          <button v-color="coupon.features" class='btn' @click="scanFeatures(index)">{{coupon.features}}</button>
-					  </view>
-	     </view>
-	</scroll-view>
+		<scroll-view :scroll-top="scrollTop" scroll-y="true" class="scroll-Y">
+			<view class="content" v-for="(coupon,index) in coupons">
+				<view class="content-left">
+					<text class="text-content-1" style="color: #4d4d4d;">{{coupon.date}}</text>
+					<text class="text-content-2" style="color: #b5b5b6;">({{coupon.title}})</text>
+				</view>
+				<view class="content-right">
+					<button v-color="coupon.features" class='btn' @click="scanFeatures(index)">{{coupon.features}}</button>
+				</view>
+			</view>
+		</scroll-view>
 	</view>
 </template>
 
 <script>
-	 export default {
-		 data() {
-			 return {
-				 scrollTop:0,
-				 coupons:[
-				{
-					 date:'2019-2-22期',
-					 title:'未发布优惠券',
-					 features:'筛选'
-				 },
-				 {
-				 	 date:'2019-2-22期',
-				 	 title:'已发布优惠券',
-				 	 features:'查看'
-				 },
-				 {
-				 	 date:'2019-5-22期',
-				 	 title:'已发布优惠券',
-				 	 features:'筛选'
-				 }
-				 ],
-			 }
-		 },
-		 methods:{
-			 scanFeatures:function(index){
-				if(this.coupons[index].features=='查看'){
+	import App from '../../../../App.vue'
+	import Api from '../../../../api.js'
+	export default {
+		data() {
+			return {
+				scrollTop: 0,
+				companyid: [],
+				shops: [],
+				coupons: [{
+						date: '2019-2-22期',
+						title: '未发布优惠券',
+						features: '筛选'
+					},
+					{
+						date: '2019-2-22期',
+						title: '已发布优惠券',
+						features: '查看'
+					},
+					{
+						date: '2019-5-22期',
+						title: '已发布优惠券',
+						features: '筛选'
+					}
+				],
+			}
+		},
+		onLoad() {
+			var that = this;
+			uni.request({
+				url: Api.shop(),
+				header: {
+					token: App.getToken()
+				},
+				success: function(res) {
+					console.log(res)
+					that.shops = res.data.value;
+					console.log(that.shops);
+					for (let id in that.shops) {
+						console.log(that.shops[id].company_id)
+						uni.request({
+							url: Api.companyId(that.shops[id].company_id),
+							header: {
+								token: App.getToken()
+							},
+							success: function(res) {
+								console.log(res)
+							}
+						})
+					}
+				}
+			})
+		},
+		methods: {
+			scanFeatures: function(index) {
+				if (this.coupons[index].features == '查看') {
 					this.scan(index);
-			    }
-			    else{
+				} else {
 					this.select(index);
 					console.log(1)
 				}
-		    },
-			scan:function(index){
+			},
+			scan: function(index) {
 				uni.navigateTo({
-					url:'./scanCoupons/scanCoupons'
+					url: './scanCoupons/scanCoupons'
 				})
 			},
-			select:function(index){
+			select: function(index) {
 				uni.navigateTo({
-					url:'./selectCoupons/selectCoupons'
+					url: './selectCoupons/selectCoupons'
 				})
 			}
-		 
-	},
-	 directives:{
-  	'color':{
-  		bind(el,binding,vnode){
-  			if(binding.value=='查看'){
-				el.style.background='rgb(0,255,0)';
-  		}
-		else{
-			el.style.background='rgb(255,100,100)';
-		}
-  	}
-  }
-	},
+
+		},
+		directives: {
+			'color': {
+				bind(el, binding, vnode) {
+					if (binding.value == '查看') {
+						el.style.background = '#5acc93';
+					} else {
+						el.style.background = '#ff6e6e';
+					}
+				}
+			}
+		},
 	}
 </script>
 
 <style scoped>
-	.content{
+	.body {
 		display: block;
-		position:relative;
-		padding:40upx 0;
-		height: 60upx;
+		height: calc(100vh - var(--window-top));
 		width: 100%;
-		border-top: 1upx solid #F2F2F2;
+		background-color: #f7f8f8;
 	}
-	.body{
-		display: block;
-		height:100vh;
+
+	.content {
+		display: flex;
+		height: 132upx;
 		width: 100%;
-		background-color: #F8F8F8;
+		border-top: 4upx solid #F7F8F8;
 	}
-	.scroll-Y{
-		background-color:#FFFFFF;
+
+	.scroll-Y {
+		background-color: #FFFFFF;
 	}
+
 	.content-left {
-		display: block;
-		float: left;
+		display: flex;
+		flex: 5;
+		align-items: center;
 	}
-	.content-right {
-		display: block;
-		float:right;
-	}
-	.text-content-1{
-			line-height:60upx;
-			font-size: 35upx;
-			text-align:center;
-		    margin-right: 20upx;
-			margin-left: 20upx;
-	}
-	.text-content-2{
-		line-height:60upx;
+
+	.text-content-1 {
 		font-size: 35upx;
-		text-align: center;
-		color: grey;
+		margin-right: 20upx;
+		margin-left: 20upx;
 	}
-	.btn{
-		margin-right: 30upx;
+
+	.content-right {
+		display: flex;
+		flex: 1;
+		align-items: center;
+	}
+
+	.btn {
+		display: flex;
+		margin-right: 20upx;
+		align-items: center;
 		font-size: 30upx;
 		color: #FFFFFF;
-		border-radius: 42%;
-		line-height: 60upx;
+		border-radius: 30upx;
 		width: 120upx;
 		height: 60upx;
-		}
+	}
 </style>

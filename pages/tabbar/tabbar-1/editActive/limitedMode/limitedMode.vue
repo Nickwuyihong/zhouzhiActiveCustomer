@@ -2,7 +2,8 @@
 	<view class="body">
 		<view class="title">活动名称</view>
 		<view class="activeName">
-			<input type="text" :value="activeName" placeholder="请输入活动名称" style="width: 90%;margin: auto;" v-model="activeName"/>
+			<input type="text" :value="activeName" placeholder="请输入活动名称" style="width: 90%;margin: auto;" v-on:input="setTitle"
+			 v-model="activeName" />
 		</view>
 		<view class="title">活动内容</view>
 		<view class="preview">
@@ -14,7 +15,7 @@
 
 		<view v-if="ads.length==0" class="add_img">
 			<view style="margin: auto;margin-left: 50upx;">添加广告图片</view>
-			<image src="../../../../../static/img/add_topic.png" v-on:click="add_img"></image>
+			<image src="../../../../../static/img/addImg.png" v-on:click="add_img"></image>
 			<view style="margin: auto;margin-left: 50upx;margin-top: 0;">输入广告链接</view>
 			<textarea type="text" value="" placeholder="请输入广告推文链接" style="width: 85%;margin: auto;margin-left: 70upx;margin-top: 0;color: #007AFF;height: 100upx;" />
 			</view>
@@ -27,12 +28,12 @@
 				<textarea type="text" :value="item.link" placeholder="请输入广告推文链接" v-on:input="setLink" :id="index" style="width: 85%;margin: auto;margin-left: 70upx;margin-top: 0;color: #007AFF;height: 100upx;" />
 			</view>
 			<view class="add_reward" style="margin-top: 40upx;">
-				<image src="../../../../../static/img/add_admin.png" v-on:click="add_img"></image>
+				<image src="../../../../../static/img/addReward.png" v-on:click="add_img"></image>
 				<text>继续添加广告图片</text>
 			</view>
 		</view>
 		
-		<view class="title" style="margin-top: 50upx;">优惠设置</view>
+		<view class="title" style="margin-top: 50upx;">奖励设置</view>
 		
 		<view v-if="couponList.length>0" class="">
 			<view v-for="(item,index) in couponList" :key="index">
@@ -59,6 +60,10 @@
 							<input type="text" :value="item.couponName" placeholder="请输入券名" style="width: 85%;border-bottom: 1px solid #F2F2F2;" :id="index + 1" v-on:input="setName"/>
 						</view>
 						<view class="inputs">
+							<view style="width: 30%;">数量上限：</view>
+							<input type="text" :value="item.toplimit" placeholder="请输入该券数量上限 (例: 300张)" style="width: 70%;border-bottom: 1px solid #F2F2F2;" :id="index + 1" v-on:input="setToplimit"/>
+						</view>
+						<view class="inputs">
 							<view style="width: 30%;">可用时间：</view>
 							<input type="text" :value="item.availableTime" placeholder="请输入优惠券可用时间" style="width: 70%;border-bottom: 1px solid #F2F2F2;" :id="index + 1" v-on:input="setATime"/>
 						</view>
@@ -70,14 +75,13 @@
 							<view style="width: 30%;">发券机构：</view>
 							<select v-model="couponList[index].organization">
 								<option value="volvo" style="display: none;">请选择机构</option>
-								<option v-for="item2 in organizationList" :key="item2.index" :value="item2">{{item2}}</option>
+								<option v-for="(item2,index2) in organizationList" :key="item2.company_id" :value="item2.company_name">{{item2.company_name}}</option>
 							</select>
 						</view>
 						<view class="inputs" style="align-items: flex-start;">
 							<view style="width: 30%;">使用规则：</view>
 							<textarea type="text" auto-height="true" placeholder="请输入使用规则" style="width: 70%;border-bottom: 1px solid #F2F2F2;" :id="index + 1" v-on:input="setRule" v-model="item.rule"><s:property :value="item.rule"/></textarea>
 		</view>
-
 		<button class="btn" @click="save(index)">确定</button>
 	</view>
 	</view>
@@ -102,8 +106,8 @@
 		<text>优惠{{couponList.length + 1}}</text>
 	</view>
 	<view v-if="coupon.modifyDiscount==false" class="add_reward" v-on:click="add_discount">
-		<image src="../../../../../static/img/add_admin.png"></image>
-		<text>添加优惠</text>
+		<image src="../../../../../static/img/addReward.png"></image>
+		<text>添加奖励</text>
 	</view>
 
 	<view v-else class="add_reward2">
@@ -125,6 +129,11 @@
 			 v-on:input="setName" />
 		</view>
 		<view class="inputs">
+			<view style="width: 30%;">数量上限：</view>
+			<input type="text" placeholder="请输入该券数量上限 (例: 300张)" style="width: 70%;border-bottom: 1px solid #F2F2F2;" id="0"
+			 v-on:input="setToplimit" />
+		</view>
+		<view class="inputs">
 			<view style="width: 30%;">可用时间：</view>
 			<input type="text" value="" placeholder="请输入优惠券可用时间" style="width: 70%;border-bottom: 1px solid #F2F2F2;" id="0"
 			 v-on:input="setATime" />
@@ -138,7 +147,7 @@
 			<view style="width: 30%;">发券机构：</view>
 			<select v-model="coupon.organization">
 				<option value="volvo" style="display: none;">请选择机构</option>
-				<option v-for="item in organizationList" :key="item.index" :value="item">{{item}}</option>
+				<option v-for="item in organizationList" :key="item.company_id" :value="item.company_name">{{item.company_name}}</option>
 			</select>
 		</view>
 		<view class="inputs" style="align-items: flex-start;">
@@ -151,8 +160,8 @@
 			</view>
 		
 		<view v-if="couponList.length>0" style="width: 80%;display: flex;justify-content: space-between;margin: auto;margin-top: 100upx;">
-			<button type="primary" size="default" style="width: 250upx;">保存</button>
-			<button type="default" size="default" style="width: 250upx;" @click="createActive">创建活动</button>
+			<button class="btnSave" size="default">保存</button>
+			<button class="btnCreate" size="default" @click="createActive"  :disabled="readyToUpdate">创建活动</button>
 		</view>
 		<xy-dialog 
 			ref="xyDialog02" 
@@ -167,27 +176,27 @@
 
 <script>
 	import xyDialog from '@/pages/components/xy-dialog/xy-dialog.vue'
+	import Api from "../../../../../api.js"
+	import App from "../../../../../App.vue"
 	export default {
 		data() {
 			return {
 				activeName: '',
 				ads:[],
+				readyToUpdate: true,
 				coupon:{
 					couponName: '请输入券名',
 					availableTime: '',
 					exTime: '',
-					organization: '请输入发券机构',
+					organization: '请选择机构',
 					rule: '',
 					disable: true,
 					modifyDiscount: false,
+					toplimit: '',
 				},
-				organizationList: [
-					'特斯了1',
-					'特斯了2',
-					'特斯了3',
-					'特斯了4'
-				],
-				couponList:[]
+				organizationList: [],
+				couponList: [],
+				activityId: 0
 			}
 		},
 		components:{
@@ -197,7 +206,25 @@
 			
 		},
 		created() {
+			var that = this
 			this.coupon.organization = '请输入发券机构'
+			uni.request({
+				url: Api.usersCompany(),
+				header:{
+					token: App.getToken()
+				},
+				success:function(res) {
+					console.log(res)
+					if(res.data.code==200){
+						that.organizationList = res.data.value
+					}else{
+						uni.showToast({
+							title: '获取发券机构列表失败',
+							icon: 'none'
+						})
+					}
+				}
+			})
 		},
 		methods: {
 			jump: function(e) {
@@ -229,15 +256,35 @@
 						this.ads.push(a)
 					}
 				})
+				if(this.activeName.length>0&&this.ads.length>0&&this.couponList.length>0){
+					this.readyToUpdate = false
+				}else{
+					this.readyToUpdate = true
+				}
+			},
+			setTitle:function(e){
+				this.activeName = e.detail.value
+				console.log(this.activeName)
+				if(this.activeName.length>0&&this.ads.length>0&&this.couponList.length>0){
+					this.readyToUpdate = false
+				}else{
+					this.readyToUpdate = true
+				}
 			},
 			setLink:function(e){
 				this.ads[e.currentTarget.id].link = e.detail.value
+				if(this.activeName.length>0&&this.ads.length>0&&this.couponList.length>0){
+					this.readyToUpdate = false
+				}else{
+					this.readyToUpdate = true
+				}
 			},
 			setName:function(e){
 				console.log(e)
 				if(e.currentTarget.id == 0){
 					this.coupon.couponName = e.detail.value
 					if(this.coupon.couponName.length>0&&
+						this.coupon.toplimit.length>0&&
 						this.coupon.couponName!='请输入券名'&&
 						this.coupon.availableTime.length>0&&
 						this.coupon.exTime.length>0&&
@@ -254,6 +301,41 @@
 					this.couponList[i].couponName = e.detail.value
 					if(this.couponList[i].couponName.length>0&&
 						this.couponList[i].couponName!='请输入券名'&&
+						this.couponList[i].toplimit.length>0&&
+						this.couponList[i].availableTime.length>0&&
+						this.couponList[i].exTime.length>0&&
+						this.couponList[i].organization!='请输入发券机构'&&
+						this.couponList[i].organization.length>0&&
+						this.couponList[i].rule.length>0){
+						this.couponList[i].disable = false
+					}else{
+						this.couponList[i].disable = true
+					}
+				}
+			},
+			setToplimit:function(e){
+				console.log(e)
+				if(e.currentTarget.id == 0){
+					this.coupon.toplimit = e.detail.value
+					if(this.coupon.couponName.length>0&&
+						this.coupon.couponName!='请输入券名'&&
+						this.coupon.toplimit.length>0&&
+						this.coupon.availableTime.length>0&&
+						this.coupon.exTime.length>0&&
+						this.coupon.organization!='请输入发券机构'&&
+						this.coupon.organization.length>0&&
+						this.coupon.rule.length>0){
+						this.coupon.disable = false
+					}else{
+						this.coupon.disable = true
+					}
+				}else{
+					var i = e.currentTarget.id - 1
+					console.log(i)
+					this.couponList[i].toplimit = e.detail.value
+					if(this.couponList[i].couponName.length>0&&
+						this.couponList[i].couponName!='请输入券名'&&
+						this.couponList[i].toplimit.length>0&&
 						this.couponList[i].availableTime.length>0&&
 						this.couponList[i].exTime.length>0&&
 						this.couponList[i].organization!='请输入发券机构'&&
@@ -270,6 +352,7 @@
 					this.coupon.availableTime = e.detail.value
 					if(this.coupon.couponName.length>0&&
 						this.coupon.couponName!='请输入券名'&&
+						this.coupon.toplimit.length>0&&
 						this.coupon.availableTime.length>0&&
 						this.coupon.exTime.length>0&&
 						this.coupon.organization!='请输入发券机构'&&
@@ -284,6 +367,7 @@
 					this.couponList[i].availableTime = e.detail.value
 					if(this.couponList[i].couponName.length>0&&
 						this.couponList[i].couponName!='请输入券名'&&
+						this.couponList[i].toplimit.length>0&&
 						this.couponList[i].availableTime.length>0&&
 						this.couponList[i].exTime.length>0&&
 						this.couponList[i].organization!='请输入发券机构'&&
@@ -300,6 +384,7 @@
 					this.coupon.exTime = e.detail.value
 					if(this.coupon.couponName.length>0&&
 						this.coupon.couponName!='请输入券名'&&
+						this.coupon.toplimit.length>0&&
 						this.coupon.availableTime.length>0&&
 						this.coupon.exTime.length>0&&
 						this.coupon.organization!='请输入发券机构'&&
@@ -314,6 +399,7 @@
 					this.couponList[i].exTime = e.detail.value
 					if(this.couponList[i].couponName.length>0&&
 						this.couponList[i].couponName!='请输入券名'&&
+						this.couponList[i].toplimit.length>0&&
 						this.couponList[i].availableTime.length>0&&
 						this.couponList[i].exTime.length>0&&
 						this.couponList[i].organization!='请输入发券机构'&&
@@ -330,6 +416,7 @@
 					this.coupon.rule = e.detail.value
 					if(this.coupon.couponName.length>0&&
 						this.coupon.couponName!='请输入券名'&&
+						this.coupon.toplimit.length>0&&
 						this.coupon.availableTime.length>0&&
 						this.coupon.exTime.length>0&&
 						this.coupon.organization!='请输入发券机构'&&
@@ -344,6 +431,7 @@
 					this.couponList[i].rule = e.detail.value
 					if(this.couponList[i].couponName.length>0&&
 						this.couponList[i].couponName!='请输入券名'&&
+						this.couponList[i].toplimit.length>0&&
 						this.couponList[i].availableTime.length>0&&
 						this.couponList[i].exTime.length>0&&
 						this.couponList[i].organization!='请输入发券机构'&&
@@ -379,13 +467,19 @@
 						organization: '请输入发券机构',
 						rule: '',
 						disable: true,
-						modifyDiscount: false
+						modifyDiscount: false,
+						toplimit: ''
 					}
 				}else{
 					uni.showToast({
 						title: '请填写完整信息',
 						icon: 'none'
 					})
+				}
+				if(this.activeName.length>0&&this.ads.length>0&&this.couponList.length>0){
+					this.readyToUpdate = false
+				}else{
+					this.readyToUpdate = true
 				}
 			},
 			modify:function(e){
@@ -395,14 +489,15 @@
 				this.couponList[e].modifyDiscount = false
 			},
 			createActive:function(){
-				if(this.activeName.length>0&&this.ads.length>0&&this.couponList.length>0){
-					this.$refs.xyDialog02.alert()
-				}else{
-					uni.showToast({
-						title: '活动尚未完成编辑，未能创建!',
-						icon: 'none'
-					})
-				}
+// 				if(this.activeName.length>0&&this.ads.length>0&&this.couponList.length>0){
+// 					this.$refs.xyDialog02.alert()
+// 				}else{
+// 					uni.showToast({
+// 						title: '活动尚未完成编辑，未能创建!',
+// 						icon: 'none'
+// 					})
+// 				}
+				this.$refs.xyDialog02.alert()
 			},
 			handleClose () {
 				console.log('点击关闭按钮')
@@ -413,11 +508,75 @@
 			},
 			// 确定按钮方法
 			handleConfirm () {
+				var that = this
 				console.log('点击确定按钮')
-				uni.showToast({
-					title: '您没有权限进行创建!',
-					icon: 'none'
-				})
+				for(var x=0;x<that.couponList.length;x++){
+					console.log(x)
+					var companyId = 0
+					for(var i=0;i<that.organizationList.length;i++){
+						if(that.organizationList[i].company_name==that.couponList[x].organization){
+							console.log(x)
+							companyId = that.organizationList[i].company_id
+							const index = x
+							uni.request({
+								url: Api.companyActivity(),
+								method: 'POST',
+								header:{
+									'content-type': 'application/x-www-form-urlencoded',
+									token: App.getToken()
+								},
+								data:{
+									name: that.activeName,
+									companyId: companyId
+								},
+								success:function(res){
+									console.log(res)
+									if(res.data.code==200){
+										that.activityId = res.data.value.activity_id
+										console.log(index)
+										uni.request({
+											url: Api.company(),
+											method:	'POST',
+											header:{
+												'content-type': 'application/x-www-form-urlencoded',
+												token: App.getToken()
+											},
+											data:{
+												companyId: companyId,
+												activityId: that.activityId,
+												name: that.couponList[index].couponName,
+												state: '奖励',
+												vaildDays: '',
+												typeName: 1,
+												num: that.couponList[index].toplimit
+											},
+											success:function(res){
+												console.log(res)
+												if(res.data.status == 1){
+													uni.showToast({
+														title: '第' + index +'个活动创建成功'
+													})
+												}else{
+													uni.showToast({
+														title: '第' + index +'个' + '您没有权限进行创建!',
+														icon: 'none'
+													})
+												}
+											}
+										})
+										
+									}else{
+										uni.showToast({
+											title: '第' + index +'个' + '获取活动id失败',
+											icon: 'none'
+										})
+									}
+								}
+							})
+						}
+					}
+				}
+				
 			},
 		}
 	}
@@ -571,5 +730,17 @@
 		background: #FFBB00;
 		color: #FFFFFF;
 		border-radius: 60upx;
+	}
+	
+	.btnSave{
+		background: #22BB22;
+		width: 250upx;
+		color: #FFFFFF;
+	}
+	
+	.btnCreate{
+		background: #FFBB00;
+		width: 250upx;
+		color: #FFFFFF;
 	}
 </style>

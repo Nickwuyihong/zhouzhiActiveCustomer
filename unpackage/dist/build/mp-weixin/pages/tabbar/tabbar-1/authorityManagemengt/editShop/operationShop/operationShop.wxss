@@ -1,0 +1,119 @@
+
+.body.data-v-129f62b2{
+	display: block;
+	height:100vh;
+	width: 100%;
+	background-color: #F8F8F8;
+}
+.content.data-v-129f62b2{
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-orient: horizontal;
+	-webkit-box-direction: normal;
+	-webkit-flex-direction: row;
+	    -ms-flex-direction: row;
+	        flex-direction: row;
+	padding:35rpx 0;
+	height: 70rpx;
+	width: 100%;
+	border-top: 1rpx solid #F2F2F2;
+}
+.content-1.data-v-129f62b2{
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-flex: 1;
+	-webkit-flex: 1;
+	    -ms-flex: 1;
+	        flex: 1;
+	-webkit-align-content: center;
+	    -ms-flex-line-pack: center;
+	        align-content: center;
+	-webkit-box-pack: center;
+	-webkit-justify-content: center;
+	    -ms-flex-pack: center;
+	        justify-content: center;
+}
+.content-2.data-v-129f62b2{
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-flex: 5;
+	-webkit-flex: 5;
+	    -ms-flex: 5;
+	        flex: 5;
+}
+.content-left.data-v-129f62b2{
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-align-content: center;
+	    -ms-flex-line-pack: center;
+	        align-content: center;
+	-webkit-box-pack: center;
+	-webkit-justify-content: center;
+	    -ms-flex-pack: center;
+	        justify-content: center;
+	-webkit-box-flex: 1;
+	-webkit-flex: 1;
+	    -ms-flex: 1;
+	        flex: 1;
+}
+.content-right.data-v-129f62b2{
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-align-content: center;
+	    -ms-flex-line-pack: center;
+	        align-content: center;
+	-webkit-box-pack: center;
+	-webkit-justify-content: center;
+	    -ms-flex-pack: center;
+	        justify-content: center;
+	-webkit-box-flex: 1;
+	-webkit-flex: 1;
+	    -ms-flex: 1;
+	        flex: 1;
+}
+.content-center.data-v-129f62b2{
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-flex:4;
+	-webkit-flex:4;
+	    -ms-flex:4;
+	        flex:4;
+}
+.box-image.data-v-129f62b2{
+		height:70rpx;
+		width: 70rpx;
+		/* border-radius: 1upx; */
+}
+.scroll-Y.data-v-129f62b2{
+	background-color:#FFFFFF;
+}
+.text-content.data-v-129f62b2{
+	line-height: 60rpx;
+	text-align:center;
+	display:block;
+	font-size: 35rpx;
+	color: grey;
+}
+.btn.data-v-129f62b2{
+	font-size: 30rpx;
+	margin-right: 20rpx;
+	color: #FFFFFF;
+	border-radius: 42%;
+	line-height: 60rpx;
+	width: 150rpx;
+	height: 60rpx;
+	background-color: rgb(255,100,100);
+}
+

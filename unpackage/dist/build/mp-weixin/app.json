@@ -1,0 +1,40 @@
+{
+  "pages": [
+    "pages/tabbar/tabbar-1/tabbar-1",
+    "pages/tabbar/tabbar-2/tabbar-2",
+    "pages/tabbar/tabbar-3/tabbar-3",
+    "pages/tabbar/tabbar-4/tabbar-4",
+    "pages/tabbar/tabbar-5/tabbar-5",
+    "pages/tabbar-3-detial/tabbar-3-release/tabbar-3-release",
+    "pages/tabbar-3-detial/tabbar-3-video/tabbar-3-video",
+    "pages/tabbar-3-detial/tabbar-3-qa/tabbar-3-qa",
+    "pages/tabbar/tabbar-1/editActive/editActive",
+    "pages/tabbar/tabbar-1/editActive/randomMode/randomMode",
+    "pages/tabbar/tabbar-1/editActive/randomMode/randomCoupon",
+    "pages/tabbar/tabbar-1/editActive/limitedMode/limitedMode",
+    "pages/tabbar/tabbar-1/editActive/limitedMode/coupon",
+    "pages/tabbar/tabbar-1/editActive/historyActive/historyActive",
+    "pages/tabbar/tabbar-1/authorityManagemengt/authorityManagement",
+    "pages/tabbar/tabbar-1/selectAndpush/selectAndpush",
+    "pages/tabbar/tabbar-1/selectAndpush/selectCoupons/selectCoupons",
+    "pages/tabbar/tabbar-1/selectAndpush/scanCoupons/scanCoupons",
+    "pages/tabbar/tabbar-1/scanning/success",
+    "pages/tabbar/tabbar-1/scanning/sure",
+    "pages/tabbar/tabbar-1/authorityManagemengt/editShop/editShop",
+    "pages/tabbar/tabbar-1/authorityManagemengt/editShop/bindingShop/binding",
+    "pages/tabbar/tabbar-1/authorityManagemengt/editShop/delectingCoupons/delectingCoupons",
+    "pages/tabbar/tabbar-1/authorityManagemengt/editShop/operationShop/operationShop",
+    "pages/tabbar/tabbar-1/selectAndpush/selectCoupons/select/select",
+    "pages/tabbar/tabbar-1/selectAndpush/selectCoupons/select/scanCustomer/scanCustomer",
+    "pages/tabbar/tabbar-1/selectAndpush/selectCoupons/select/scanCustomer/startSelect/startSelect",
+    "pages/tabbar/tabbar-1/selectAndpush/selectCoupons/select/scanCustomer/startSelect/scanCoupons/scanCoupons"
+  ],
+  "subPackages": [],
+  "window": {
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "i周知商家版",
+    "navigationBarBackgroundColor": "#F8F8F8",
+    "backgroundColor": "#F8F8F8"
+  },
+  "usingComponents": {}
+}

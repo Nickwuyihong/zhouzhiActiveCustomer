@@ -1,5 +1,5 @@
 {
-    "name" : "test6",
+    "name" : "周知视界",
     "appid" : "__UNI__D11E981",
     "description" : "",
     "versionName" : "1.0.0",
@@ -48,9 +48,11 @@
     /* 快应用特有相关 */
     "mp-weixin" : {
         /* 小程序特有相关 */
-        "appid" : "wx9dcdaed5b2bc94ad",
+        "appid" : "wxb7b69952d96e72c0",
         "setting" : {
-            "urlCheck" : false
+            "urlCheck" : false,
+            "postcss" : true,
+            "minified" : true
         }
     }
 }

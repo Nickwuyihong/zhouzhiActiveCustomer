@@ -1,7 +1,7 @@
 <template>
 	<view class="body">
 		<view class="content">
-			<image src="../../../static/img/scan.png" class="box-image"  @click="scanning"></image>
+			<image src="../../../static/img/scan.png" class="box-image" @click="scanning"></image>
 			<text style="margin: auto;font-size: 50upx;font-weight: bold;">扫一扫</text>
 		</view>
 		<view class="bottom">
@@ -23,16 +23,16 @@
 			return {
 				title: 'Hello',
 				items: [{
-						src: '../../../static/img/qa.png',
+						src: '../../../static/img/activeCenter.png',
 						text: '活动中心'
 					},
 					{
-						src: '../../../static/img/video.png',
+						src: '../../../static/img/screening&publishing.png',
 						text: '筛选及发布'
 					},
 					{
-						src: '../../../static/logo.png',
-						text: '权限管理'
+						src: '../../../static/img/privilegeManagement.png',
+						text: '管理'
 					},
 				]
 			};
@@ -44,33 +44,31 @@
 				header: {
 					token: App.getToken()
 				},
-				success:function(res){
+				success: function(res) {
 					console.log(res)
 				}
 			})
 		},
 		methods: {
-			jump:function(index){
+			jump: function(index) {
 				console.log('adadasd');
-				if(index==2){
+				if (index == 2) {
 					uni.navigateTo({
-						url:'authorityManagemengt/authorityManagement',
+						url: 'authorityManagemengt/authorityManagement',
 					})
-				}
-				else if(index==1){
+				} else if (index == 1) {
 					uni.navigateTo({
-						url:'selectAndpush/selectAndpush',
+						url: 'selectAndpush/selectAndpush',
 					})
-				}
-				else{
+				} else {
 					uni.navigateTo({
-						url:'editActive/editActive',
+						url: 'editActive/editActive',
 					})
 				}
 			},
-			scanning:function(){
+			scanning: function() {
 				uni.navigateTo({
-					url:'scanning/success',
+					url: 'scanning/success',
 				})
 			}
 		}
@@ -79,13 +77,18 @@
 
 <style scoped>
 	.body {
-		height: 83vh;
+		/* #ifdef H5 */
+		height: calc(100vh - var(--window-bottom) - var(--window-top));
+		/* #endif */
+		/* #ifndef H5 */
+		height: 100vh;
+		/* #endif */
 		width: 100%;
 	}
 
 	.content {
 		text-align: center;
-		height: 80%;
+		height: 88%;
 		width: 100%;
 		background: #f2f2f2;
 		display: flex;
@@ -100,21 +103,21 @@
 	}
 
 	.bottom {
-		height: 20%;
+		height: 12%;
 		width: 100%;
 		display: flex;
 		align-items: center;
 	}
-	
-	.box-image1{
+
+	.box-image1 {
 		height: 100upx;
 		width: 100upx;
 		border-radius: 100%;
 		margin: auto;
 		margin-bottom: 0;
 	}
-	
-	.items{
+
+	.items {
 		display: flex;
 		flex-direction: column;
 		margin: auto;

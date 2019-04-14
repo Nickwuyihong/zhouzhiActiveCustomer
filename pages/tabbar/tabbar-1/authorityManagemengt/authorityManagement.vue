@@ -1,61 +1,66 @@
 <template>
 	<view class="body">
-		 <scroll-view  :scroll-top="scrollTop" scroll-y="true" class="scroll-Y">
-			 <view class="content">
-			 <image class="box-image" src='../../../../static/img/tabbar/addactive.png' @click="addShop"></image>
-			 <text class="text-content">添加门店</text>
-              </view>
-	     </scroll-view>
+		<scroll-view :scroll-top="scrollTop" scroll-y="true" class="scroll-Y">
+			<view class="content" v-for="(iterm,index) in shops" @click="jump(index)">
+				<view>{{iterm.company_name}}</view>
+			</view>
+		</scroll-view>
 	</view>
 </template>
 
 <script>
-	 export default {
-		 data() {
-			 return {
-				 scrollTop:0,
-				
-			 }
-		 },
-		 methods:{
-			 addShop:function(){
+	import App from '../../../../App.vue'
+	import Api from '../../../../api.js'
+	export default {
+		data() {
+			return {
+				scrollTop: 0,
+				shops: [],
+				shop: {},
+			}
+		},
+		methods: {
+			jump: function(index) {
+				this.shop = this.shops[index]
 				uni.navigateTo({
-				url:'./editShop/editShop'
+					url: './editShop/editShop?shop=' + JSON.stringify(this.shop)
 				})
-			 }
-			 
-		 }
+			}
+
+		},
+		created() {
+			var that = this;
+			uni.request({
+				url: Api.shop(),
+				header: {
+					token: App.getToken()
+				},
+				success: function(res) {
+					console.log(res)
+					that.shops = res.data.value;
+					console.log(that.shops);
+				}
+			})
+		}
 	}
 </script>
 
 <style scoped>
-	.body{
-		display: block;
-		height:100vh;
+	.body {
+		height: calc(100vh - var(--window-top));
 		width: 100%;
-		background-color: #F8F8F8;
+		background: #f7f8f8;
 	}
-	.content{
+
+	.content {
 		display: flex;
-		flex-direction: row;
-		padding:35upx 0;
-		height: 70upx;
+		padding-left: 40upx;
+		background: #FFFFFF;
+		align-items: center;
+		font-size: 35upx;
+		color: #595757;
+		height: 120upx;
 		width: 100%;
-		border-top: 1upx solid #F2F2F2;
-	}
-	.box-image{
-			height:70upx;
-			width: 70upx;
-			margin: 0 10upx;
-			/* border-radius: 1upx; */
-	}
-	.scroll-Y{
-		background-color:#FFFFFF;
-	}
-	.text-content{
-		line-height: 70upx;
-		text-align:center;
-		font-size: 30upx;
-		color: grey;
+		margin-bottom: 20upx;
 	}
 </style>

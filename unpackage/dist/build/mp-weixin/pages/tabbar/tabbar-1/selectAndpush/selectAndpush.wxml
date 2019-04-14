@@ -1,0 +1,2 @@
+<import src="./selectAndpush.vue.wxml" />
+    <template is="7fd1d428" data="{{ ...$root['0'], $root }}"/>

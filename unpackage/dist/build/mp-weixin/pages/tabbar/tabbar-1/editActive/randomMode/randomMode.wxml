@@ -1,0 +1,2 @@
+<import src="./randomMode.vue.wxml" />
+    <template is="044c9742" data="{{ ...$root['0'], $root }}"/>

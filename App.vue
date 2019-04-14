@@ -3,7 +3,7 @@
 
 	export default {
 		data: {
-			token: 'fd201416521b90e7ca01948911ff95cb',
+			token: 'k',
 			height: 0
 		},
 		onLaunch: function() {

@@ -2,16 +2,16 @@
 	<view class="body">
 		<view class="three">
 			<view class="items" style="border-bottom:3px #F2F2F2 solid;border-right:3px #F2F2F2 solid;" id="0" v-on:click="jump">
-				<image src='../../../../static/img/qa.png' class="box-image1"></image>
-				<text style="margin: auto;font-size: 37upx;color: grey;">限定模式</text>
+				<image src='../../../../static/img/rankReward.png' class="box-image1"></image>
+				<text style="margin: auto;font-size: 37upx;color: grey;margin-top: 0;">排名奖励</text>
 			</view>
 			<view class="items" style="border-bottom:3px #F2F2F2 solid;" id="1" v-on:click="jump">
-				<image src='../../../../static/img/release.png' class="box-image1"></image>
-				<text style="margin: auto;font-size: 37upx;color: grey;">随机模式</text>
+				<image src='../../../../static/img/randomReward.png' class="box-image1"></image>
+				<text style="margin: auto;font-size: 37upx;color: grey;margin-top: 0;">随机模式</text>
 			</view>
 			<view class="items" style="border-right:3px #F2F2F2 solid;" id="2" v-on:click="jump">
-				<image src='../../../../static/img/video.png' class="box-image1"></image>
-				<text style="margin: auto;font-size: 37upx;color: grey;">历史活动</text>
+				<image src='../../../../static/img/historyActive.png' class="box-image1"></image>
+				<text style="margin: auto;font-size: 37upx;color: grey;margin-top: 0;">历史活动</text>
 			</view>
 		</view>
 	</view>
@@ -53,8 +53,8 @@
 	}
 
 	.box-image1 {
-		height: 100upx;
-		width: 100upx;
+		height: 150upx;
+		width: 150upx;
 		border-radius: 100%;
 		margin: auto;
 		margin-bottom: 0;

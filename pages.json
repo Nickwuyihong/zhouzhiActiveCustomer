@@ -4,7 +4,7 @@
 		{
 			"path": "pages/tabbar/tabbar-1/tabbar-1",
 			"style": {
-				"navigationBarTitleText": "首页"
+				"navigationBarTitleText": "商家版"
 			}
 		},
 		{
@@ -56,7 +56,7 @@
 		{
 			"path": "pages/tabbar/tabbar-1/editActive/limitedMode/limitedMode",
 			"style": {
-				"navigationBarTitleText": "限定模式"
+				"navigationBarTitleText": "排名奖励"
 			}
 		},
 		{
@@ -153,58 +153,18 @@
 			"style": {
 				"navigationBarTitleText": "选择卷"
 			}
-		}
+		},
+		{
+            "path" : "pages/tabbar/tabbar-1/selectAndpush/selectCoupons/select/scanCustomer/startSelect/scanCoupons/couponsDetails/couponsDetails",
+            "style" : {
+				"navigationBarTitleText": "卷详情"
+			}
+        }
 	],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "i周知商家版",
 		"navigationBarBackgroundColor": "#F8F8F8",
 		"backgroundColor": "#F8F8F8"
-	},
-	"tabBar": {
-		"borderStyle": "black",
-		"backgroundColor": "#FFF",
-		"color": "#000",
-		"selectedColor": "#17489C",
-		"list": [{
-				"pagePath": "pages/tabbar/tabbar-1/tabbar-1",
-				"iconPath": "static/img/tabbar/home.png",
-				"selectedIconPath": "static/img/tabbar/homeactive.png",
-				"text": "首页"
-			},
-			{
-				"pagePath": "pages/tabbar/tabbar-2/tabbar-2",
-				"iconPath": "static/img/tabbar/guanzhu.png",
-				"selectedIconPath": "static/img/tabbar/guanzhuactive.png",
-				"text": "关注"
-			},
-			//#ifdef MP-WEIXIN
-			{
-				"pagePath": "pages/tabbar/tabbar-3/tabbar-3",
-				"iconPath": "static/img/tabbar/add.png",
-				"selectedIconPath": "static/img/tabbar/addactive.png",
-				"text": "发布"
-			},
-			//#endif
-			//#ifndef MP-WEIXIN
-			{
-				"pagePath": "pages/tabbar/tabbar-3/tabbar-3",
-				"iconPath": "static/img/tabbar/add.png",
-				"selectedIconPath": "static/img/tabbar/addactive.png"
-			},
-			//#endif
-			{
-				"pagePath": "pages/tabbar/tabbar-4/tabbar-4",
-				"iconPath": "static/img/tabbar/news.png",
-				"selectedIconPath": "static/img/tabbar/newsactive.png",
-				"text": "消息"
-			},
-			{
-				"pagePath": "pages/tabbar/tabbar-5/tabbar-5",
-				"iconPath": "static/img/tabbar/me.png",
-				"selectedIconPath": "static/img/tabbar/meactive.png",
-				"text": "我"
-			}
-		]
 	}
 }

@@ -1,0 +1,2 @@
+<import src="./authorityManagement.vue.wxml" />
+    <template is="2b988661" data="{{ ...$root['0'], $root }}"/>
