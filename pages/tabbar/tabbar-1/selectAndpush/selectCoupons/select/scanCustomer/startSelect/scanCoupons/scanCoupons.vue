@@ -5,23 +5,20 @@
 			<view class="content-main">
 				<view class="picture">
 					<view class="picture-left">
-						<view :class="company_name" style="font-size: 30upx;margin-left: 30upx;margin-bottom: 20upx;">{{company_name}}</view>
-						<view :class="coupon_name" style="font-size: 45upx;margin-left: 30upx;">{{coupon_name}}</view>
+						<view style="font-size: 30upx;margin-left: 30upx;margin-top: 10upx;">{{couponsInfor.companyName}}</view>
+						<view style="font-size: 45upx;margin-left: 30upx;">{{couponsInfor.couponName}}</view>
 					</view>
 					<view class="picture-right">
 						<button class="btn-1" @click="scan">查看详情</button>
 					</view>
 				</view>
 			</view>
-			<view style="font-size: 27upx;color: #808080;margin: 14upx;text-align: center;">{{coupon.coupontype}}
-				{{coupon.couponName}}</view>
-			<view style="font-size: 25upx;color: #808080;margin:0upx 0upx 20upx 30upx;">本期名单:</view>
+			<view style="font-size: 25upx;color: #808080;margin:30upx 0upx 20upx 30upx;">本期名单:</view>
 			<view class="content-center">
 				<scroll-view class="picture-1" scroll-y="true">
 					<view class="picture-avtatar">
-						<view v-for="iterm in customers" class="avatar">
-							{{iterm.name}}
-						</view>
+						<image v-for="iterm in customers" class="avatar" :src="iterm.author_image">
+						</image>
 					</view>
 				</scroll-view>
 			</view>
@@ -29,43 +26,85 @@
 		<view class="content-bottom">
 			<button class="btn" @click="jump">确定发布</button>
 		</view>
+		<view class="dialog-cover" v-if="showed">
+			<view class="sure">
+				<view style="display: flex;flex:1;align-items: center;justify-content: center;">发布成功</view>
+				<view style="display: flex;flex:1;">
+					<button class="btn" @click="recall">回到主页</button>
+				</view>
+			</view>
+		</view>
 	</view>
 </template>
 
 <script>
+	import Api from '../../../../../../../../../api.js'
+	import App from '../../../../../../../../../App.vue'
 	export default {
 		data() {
 			return {
-				company_name: '新枝公司',
-				coupon_name: '周知满减劵',
-				coupon: {},
-				customers: []
+				couponsInfor: {},
+				customers: [],
+				showed: false
 			};
 		},
 		methods: {
-			jump: function() {
-				uni.navigateTo({
-
+			recall:function(){
+				uni.redirectTo({
+					url:'../../../../../intoCoupons/intoCoupons'
 				})
+			},
+			jump: function() {
+				var that = this
+				for (let iterm in that.customers) {
+					uni.request({
+						url: Api.postCoupons(),
+						method: 'POST',
+						header: {
+							"Content-Type": "application/x-www-form-urlencoded",
+							token: App.getToken()
+						},
+						data: {
+							userId: that.customers[iterm].author_id,
+							companyId: '5',
+							typeId: that.couponsInfor.coupon_type_id
+						},
+						success(res) {
+							console.log(res)
+						}
+					})
+					console.log(that.customers[iterm].author_id)
+					console.log(that.couponsInfor.coupon_type_id)
+				}
+				this.showed = true;
+			},
+			recall: function() {
+				this.showed = false;
 			},
 			scan: function() {
 				uni.navigateTo({
-					url: "./couponsDetails/couponsDetails"
+					url: "./couponsDetails/couponsDetails?couponsInfor=" + JSON.stringify( this.couponsInfor)
 				})
 			}
 		},
 		onLoad(data) {
 			console.log(data);
-			this.coupon = JSON.parse(data.img);
 			this.customers = JSON.parse(data.avatars);
-			console.log(this.coupon);
+			this.couponsInfor = JSON.parse(data.couponsInfor);
+			console.log(this.couponsInfor);
+			console.log(this.customers);
 		}
 	}
 </script>
 
 <style scoped>
 	.body {
-		height: calc(100vh - var(--window-top));
+		/* #ifdef H5 */
+		height: calc(100vh - var(--window-bottom) - var(--window-top));
+		/* #endif */
+		/* #ifndef H5 */
+		height: 100vh;
+		/* #endif */
 		width: 100%;
 		background: #F7F8F8;
 	}
@@ -161,7 +200,7 @@
 	.btn-1 {
 		display: flex;
 		height: 70upx;
-		width: 80%;
+		width: 200upx;
 		font-size: 30upx;
 		margin: auto;
 		align-items: center;
@@ -169,5 +208,26 @@
 		color: #FFFFFF;
 		background-color: #f8b62d;
 		border-radius: 25upx;
+	}
+
+	.dialog-cover {
+		display: flex;
+		position: fixed;
+		height: 100%;
+		width: 100%;
+		top: 0;
+		left: 0;
+		z-index: 300;
+		background: rgba(f, f, f, 0.8);
+	}
+
+	.sure {
+		display: flex;
+		flex-direction: column;
+		height: 300upx;
+		width: 500upx;
+		background: #FFFFFF;
+		border: 1upx solid #808080;
+		margin: auto;
 	}
 </style>

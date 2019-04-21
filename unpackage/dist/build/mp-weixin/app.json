@@ -17,6 +17,7 @@
     "pages/tabbar/tabbar-1/authorityManagemengt/authorityManagement",
     "pages/tabbar/tabbar-1/selectAndpush/selectAndpush",
     "pages/tabbar/tabbar-1/selectAndpush/selectCoupons/selectCoupons",
+    "pages/tabbar/tabbar-1/selectAndpush/intoCoupons/intoCoupons",
     "pages/tabbar/tabbar-1/selectAndpush/scanCoupons/scanCoupons",
     "pages/tabbar/tabbar-1/scanning/success",
     "pages/tabbar/tabbar-1/scanning/sure",
@@ -27,7 +28,9 @@
     "pages/tabbar/tabbar-1/selectAndpush/selectCoupons/select/select",
     "pages/tabbar/tabbar-1/selectAndpush/selectCoupons/select/scanCustomer/scanCustomer",
     "pages/tabbar/tabbar-1/selectAndpush/selectCoupons/select/scanCustomer/startSelect/startSelect",
-    "pages/tabbar/tabbar-1/selectAndpush/selectCoupons/select/scanCustomer/startSelect/scanCoupons/scanCoupons"
+    "pages/tabbar/tabbar-1/selectAndpush/selectCoupons/select/scanCustomer/startSelect/scanCoupons/scanCoupons",
+    "pages/tabbar/tabbar-1/selectAndpush/selectCoupons/select/scanCustomer/startSelect/scanCoupons/couponsDetails/couponsDetails",
+    "pages/tabbar/tabbar-1/selectAndpush/scanwinner/scanwinner"
   ],
   "subPackages": [],
   "window": {

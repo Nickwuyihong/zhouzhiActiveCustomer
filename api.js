@@ -31,5 +31,29 @@ export default {
 	},
 	companyId: function(id) {
 		return BASE_URL + 'business/companyId=' + id
-	}
+	},
+		getActivity: function() {
+		return BASE_URL + 'company/activity'
+	},
+	getCoupons: function(a) {
+		return BASE_URL + 'company/activity/' + a
+	},
+		//优惠券详情
+	getCouponsdetail:function(id){
+		return BASE_URL + 'business/id='+id
+	},
+	//获得文章
+	postCoupons: function() {
+		return BASE_URL + 'business'
+	},
+	//获得中奖用户
+	getUser:function(id){
+		return BASE_URL + 'business/typeId=' + id
+	},
+	getArtical: function() {
+		return BASE_URL2 + 'searchCyid'
+	},
+	getContent: function() {
+		return BASE_URL2 + 'readCyinfor'
+	},
 }

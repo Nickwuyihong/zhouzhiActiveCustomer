@@ -2,38 +2,56 @@
 	<view class="dialog">
 		<view class="content">
 			<text class="text-content">请填写筛选条件:</text>
-			<checkbox-group v-for='(iterm,index) in customers'>
-				<label>
-					<checkbox v-bind:checked="iterm.checked" v-on:click="switchchecked(index)">
-						{{iterm.title}}
-						<view class="input-wrapper"><input :class='inputType(index)' type="text" v-model="iterm.number"
-							 v-bind:placeholder="iterm.placeholderName"></view>{{iterm.ending}}
-					</checkbox>
-				</label>
+			<checkbox-group>
+				<view class="content-main">
+					<checkbox v-bind:checked="customers[0].checked" v-on:click="switchchecked(0)"></checkbox>
+					{{customers[0].title}}
+					<view class="input-wrapper">
+						<input class='input1' v-model="customers[0].number" v-bind:placeholder="customers[0].placeholderName">
+					</view>
+					{{customers[0].ending}}
+				</view>
+				<view class="content-main">
+					<checkbox v-bind:checked="customers[1].checked" v-on:click="switchchecked(1)"></checkbox>
+					{{customers[1].title}}
+					<view class="input-wrapper">
+						<input v-model="customers[1].number" v-bind:placeholder="customers[1].placeholderName">
+					</view>
+					{{customers[1].ending}}
+				</view>
+				<view class="content-main">
+					<checkbox v-bind:checked="customers[2].checked" v-on:click="switchchecked(2)"></checkbox>
+					{{customers[2].title}}
+					<view class="input-wrapper">
+						<input v-model="customers[2].number" v-bind:placeholder="customers[2].placeholderName">
+					</view>
+					{{customers[2].ending}}
+				</view>
 			</checkbox-group>
+
 			<text class="text-content">选项:</text>
 			<checkbox-group>
-				<label>
+				<view class="content-main">
 					<checkbox v-bind:checked="checkedBottom" @click='checkedbottom'>检测重复发布者</checkbox>
-				</label>
-				<label>
-					<checkbox v-bind:checked="checkedBottom">筛选从最符合条件者开始</checkbox>
-				</label>
-				<label>
-					<checkbox v-bind:checked="checkedBottom">提示该用户活动期间第几次发布</checkbox>
-				</label>
+				</view>
+				<view class="content-main">
+					<checkbox checked="true">筛选从最符合条件者开始</checkbox>
+				</view>
+				<view class="content-main">
+					<checkbox checked="true">提示该用户活动期间第几次发布</checkbox>
+				</view>
 			</checkbox-group>
 			<button class="btn" @click="readySelect">进行预筛选</button>
 		</view>
-		<view class="dialog-cover" v-show="showed">
+		<view class="dialog-cover" v-if="showed">
 			<view class="dialog-content">
 				<view class="dialog-content-title">
 					<view class="text-content">预筛选结果</view>
 				</view>
 				<view class='dialog-main'>
-					<view class="text-content">本次活动共30人参与;</view>
-					<view class="text-content">符合筛选条件的内容20篇;</view>
-					<view class="text-content">其中重复发布0篇;</view>
+					<view class="text-content">本次活动共{{number}}人参与;</view>
+					<view class="text-content">符合筛选条件的内容{{number}}篇;</view>
+					<view class="text-content">其中重复发布{{repeat}}篇;</view>
 					<view class="text-content">...</view>
 				</view>
 				<view class="dialog-content-1">
@@ -45,7 +63,6 @@
 			</view>
 		</view>
 	</view>
-	</view>
 </template>
 <script>
 	import App from '../../../../../App.vue'
@@ -56,9 +73,13 @@
 				showed: false,
 				checkedBottom: true,
 				time: [],
-				companyId: '1',
+				number: 0,
+				repeat: 0,
+				companyId: '',
 				startTime: '',
 				endTime: '',
+				cyid: [],
+				couponsInfor: {},
 				customers: [{
 						number: '',
 						placeholderName: '2019/2/19 00:00-2019/2/26 24:00',
@@ -80,15 +101,14 @@
 						checked: false,
 						ending: '个'
 					},
-					{
-						number: '',
-						placeholderName: '20',
-						title: '随机挑选',
-						checked: false,
-						ending: '名'
-					}
 				]
 			}
+		},
+		onLoad(data) {
+			var that = this
+			that.couponsInfor = JSON.parse(data.couponsInfor)
+			console.log(that.couponsInfor)
+			that.companyId=that.couponsInfor.companyId
 		},
 		methods: {
 			inputType: function(index) {
@@ -104,6 +124,7 @@
 				this.checkedBottom = !this.checkedBottom;
 			},
 			readySelect: function() {
+				var that = this;
 				for (let customer in this.customers) {
 					if (this.customers[customer].checked == true) {
 						if (this.customers[customer].number == '') {
@@ -114,13 +135,8 @@
 				}
 				this.showed = true;
 				this.time = this.customers[0].number.split('-');
-				this.startTime = (new Date(this.time[0])).getTime();
-				this.endTime = (new Date(this.time[1])).getTime();
-			},
-			renewClick: function() {
-				this.showed = false;
-			},
-			submit: function() {
+				this.startTime = Math.round(new Date(this.time[0]) / 1000);
+				this.endTime = Math.round(new Date(this.time[1]) / 1000);
 				console.log(App.getToken())
 				console.log(this.startTime)
 				console.log(this.endTime)
@@ -130,23 +146,37 @@
 				console.log(this.companyId)
 				uni.request({
 					url: Api.screenUser(),
+					method: "POST",
 					header: {
+						"Content-Type": "application/x-www-form-urlencoded",
 						token: App.getToken()
 					},
 					data: {
 						companyId: this.companyId,
 						start: this.startTime,
 						end: this.endTime,
-						upNo: this.customers[1].number,
-						upNum: this.customers[2].number,
+						upNo: this.customers[2].number,
+						upNum: this.customers[1].number,
 						repeat: this.checkedBottom
 					},
 					success: function(res) {
 						console.log(res);
-						uni.navigateTo({
-							url: './select/select'
-						})
+						for (let iterm in res.data.value.result) {
+							that.cyid.push(res.data.value.result[iterm].cyid)
+						}
+						that.number = res.data.value.number;
+						that.repeat = res.data.value.repeat;
+						console.log(that.cyid);
 					}
+				})
+			},
+			renewClick: function() {
+				this.showed = false;
+			},
+			submit: function() {
+				var that = this
+				uni.navigateTo({
+					url: './select/select?cyid=' + JSON.stringify(that.cyid) + '&couponsInfor=' + JSON.stringify(that.couponsInfor)
 				})
 			},
 		}
@@ -158,7 +188,12 @@
 		color: #2e2c2d;
 		background: #FFFFFF;
 		font-size: 16upx;
-		height: calc(100vh - var(--window-top));
+		/* #ifdef H5 */
+		height: calc(100vh - var(--window-bottom) - var(--window-top));
+		/* #endif */
+		/* #ifndef H5 */
+		height: 100vh;
+		/* #endif */
 	}
 
 	input-wrapper {
@@ -171,7 +206,7 @@
 		border: 1px solid #c9caca;
 		margin: 0upx 20upx;
 		height: 70upx;
-		width: 70upx;
+		width: 100upx;
 	}
 
 	.input1 {
@@ -182,9 +217,11 @@
 		width: 450upx;
 	}
 
-	label {
+	.content-main {
 		font-size: 30upx;
-		display: block;
+		display: flex;
+		flex-direction: row;
+		align-items: center;
 		margin: 0upx 40upx 40upx 40upx;
 	}
 

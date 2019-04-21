@@ -17,8 +17,8 @@
 				</view>
 			</view>
 		</view>
-		<view class="dialog-cover" v-show="showed">
-			<view class="sure">
+		<view class="dialog-cover" v-if="showed">
+			<view class="sure" v-if="showed2">
 				<view class="sure-content1">
 					<view style="font-size:35upx ;color: #595757;line-height: 50upx;">确认绑定</view>
 					<view style="font-size:35upx ;color: #595757;line-height: 50upx;">"{{circles}}"?</view>
@@ -27,6 +27,15 @@
 					<view class="sure-content2-text" style="color: #5ACC93;" @click="sure">确定</view>
 					<view class="sure-content2-text" @click="cancel" style="color: #898989;">取消</view>
 				</view>
+			</view>
+			<view class="sure" v-if="showed1">
+
+				<view style="display: flex;flex:1;align-items: center;justify-content: center;">该圈子已被绑定</view>
+				<view style="display: flex;flex:1;">
+					<button class="btn" @click="recall">重新绑定</button>
+				</view>
+
+
 			</view>
 		</view>
 	</view>
@@ -45,6 +54,8 @@
 				inputvalue: '',
 				circles: '',
 				showed: false,
+				showed1: false,
+				showed2: true,
 				Circle: [],
 				circle_id: '',
 				company_id: '0'
@@ -74,6 +85,14 @@
 					},
 					success: function(res) {
 						console.log(res)
+						if (res.data.code == '200') {
+							uni.navigateTo({
+								url: '../../authorityManagement',
+							});
+						} else {
+							that.showed1 = true;
+							that.showed2 = false;
+						}
 					}
 				})
 			},
@@ -105,7 +124,7 @@
 							}
 						}
 					});
-				}, 1000)
+				}, 500)
 			},
 			change: function(index) {
 				var that = this;
@@ -120,6 +139,12 @@
 			cancel: function() {
 				var that = this;
 				that.showed = false;
+			},
+			recall: function() {
+				var that = this;
+				that.showed = false;
+				that.showed1 = false;
+				that.showed2 = true;
 			}
 		}
 	}
@@ -130,7 +155,12 @@
 		display: flex;
 		flex-direction: column;
 		width: 100%;
-		height: calc(100vh - var(--window-top));
+			/* #ifdef H5 */
+		height: calc(100vh - var(--window-bottom) - var(--window-top));
+		/* #endif */
+		/* #ifndef H5 */
+		height: 100vh;
+		/* #endif */
 		background: #F7F8F8;
 		z-index: 100;
 	}
@@ -230,5 +260,18 @@
 		justify-content: center;
 		border-top: 1upx solid #808080;
 		border-right: 1upx solid #808080;
+	}
+
+	.btn {
+		display: flex;
+		font-size: 35upx;
+		align-items: center;
+		justify-content: center;
+		margin: auto;
+		height: 80upx;
+		width: 200upx;
+		border-radius: 25upx;
+		background: #FF6E6E;
+		color: #FFFFFF;
 	}
 </style>

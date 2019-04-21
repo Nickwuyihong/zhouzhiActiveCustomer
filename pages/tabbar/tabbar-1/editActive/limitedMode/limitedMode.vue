@@ -68,14 +68,14 @@
 							<input type="text" :value="item.availableTime" placeholder="请输入优惠券可用时间" style="width: 70%;border-bottom: 1px solid #F2F2F2;" :id="index + 1" v-on:input="setATime"/>
 						</view>
 						<view class="inputs">
-							<view style="width: 30%;">有效日期：</view>
-							<input type="text" :value="item.exTime" placeholder="请输入优惠券有效日期" style="width: 70%;border-bottom: 1px solid #F2F2F2;" :id="index + 1" v-on:input="setETime"/>
+							<view style="width: 30%;">券有效期：</view>
+							<input type="text" :value="item.exTime" placeholder="请输入优惠券有效期" style="width: 70%;border-bottom: 1px solid #F2F2F2;" :id="index + 1" v-on:input="setETime"/>
 						</view>
 						<view class="inputs">
 							<view style="width: 30%;">发券机构：</view>
 							<select v-model="couponList[index].organization">
 								<option value="volvo" style="display: none;">请选择机构</option>
-								<option v-for="(item2,index2) in organizationList" :key="item2.company_id" :value="item2.company_name">{{item2.company_name}}</option>
+								<option v-for="(item2,index2) in organizationList" :id="index2" :key="item2.company_id" :value="item2.company_name">{{item2.company_name}}</option>
 							</select>
 						</view>
 						<view class="inputs" style="align-items: flex-start;">
@@ -139,8 +139,8 @@
 			 v-on:input="setATime" />
 		</view>
 		<view class="inputs">
-			<view style="width: 30%;">有效日期：</view>
-			<input type="text" value="" placeholder="请输入优惠券有效日期" style="width: 70%;border-bottom: 1px solid #F2F2F2;" id="0"
+			<view style="width: 30%;">券有效期：</view>
+			<input type="text" value="" placeholder="请输入优惠券有效期" style="width: 70%;border-bottom: 1px solid #F2F2F2;" id="0"
 			 v-on:input="setETime" />
 		</view>
 		<view class="inputs">
@@ -534,6 +534,10 @@
 									if(res.data.code==200){
 										that.activityId = res.data.value.activity_id
 										console.log(index)
+										var atime = new Date(that.couponList[index].availableTime).getTime()
+										var etime = new Date(that.couponList[index].exTime).getTime()
+										console.log(atime)
+										console.log(etime)
 										uni.request({
 											url: Api.company(),
 											method:	'POST',
@@ -545,10 +549,11 @@
 												companyId: companyId,
 												activityId: that.activityId,
 												name: that.couponList[index].couponName,
-												state: '奖励',
-												vaildDays: '',
-												typeName: 1,
-												num: that.couponList[index].toplimit
+												state: that.couponList[index].rule,
+												vaildDays: that.couponList[index].exTime*86400,
+												num: that.couponList[index].toplimit,
+												money: 1,
+												start: atime,
 											},
 											success:function(res){
 												console.log(res)
@@ -564,7 +569,6 @@
 												}
 											}
 										})
-										
 									}else{
 										uni.showToast({
 											title: '第' + index +'个' + '获取活动id失败',
@@ -576,7 +580,6 @@
 						}
 					}
 				}
-				
 			},
 		}
 	}

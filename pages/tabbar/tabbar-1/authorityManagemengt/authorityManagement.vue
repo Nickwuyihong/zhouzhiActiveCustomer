@@ -47,7 +47,12 @@
 
 <style scoped>
 	.body {
-		height: calc(100vh - var(--window-top));
+			/* #ifdef H5 */
+		height: calc(100vh - var(--window-bottom) - var(--window-top));
+		/* #endif */
+		/* #ifndef H5 */
+		height: 100vh;
+		/* #endif */
 		width: 100%;
 		background: #f7f8f8;
 	}

@@ -1,13 +1,12 @@
 <template>
 	<view class="body">
 		<scroll-view :scroll-top="scrollTop" scroll-y="true" class="scroll-Y">
-			<view class="content" v-for="(coupon,index) in coupons">
+			<view class="content" v-for="(activity,index) in activities">
 				<view class="content-left">
-					<text class="text-content-1" style="color: #4d4d4d;">{{coupon.date}}</text>
-					<text class="text-content-2" style="color: #b5b5b6;">({{coupon.title}})</text>
+					<text class="text-content-1" style="color: #4d4d4d;">{{activity.activity_name}}</text>
 				</view>
 				<view class="content-right">
-					<button v-color="coupon.features" class='btn' @click="scanFeatures(index)">{{coupon.features}}</button>
+					<button class='btn' @click="intocoupons(index)" style="background: #FF6E6E;">进入</button>
 				</view>
 			</view>
 		</scroll-view>
@@ -20,25 +19,12 @@
 	export default {
 		data() {
 			return {
+				scan: 'true',
 				scrollTop: 0,
-				companyid: [],
 				shops: [],
-				coupons: [{
-						date: '2019-2-22期',
-						title: '未发布优惠券',
-						features: '筛选'
-					},
-					{
-						date: '2019-2-22期',
-						title: '已发布优惠券',
-						features: '查看'
-					},
-					{
-						date: '2019-5-22期',
-						title: '已发布优惠券',
-						features: '筛选'
-					}
-				],
+				activity_id: '',
+				activities: [],
+				activitystate: []
 			}
 		},
 		onLoad() {
@@ -55,12 +41,47 @@
 					for (let id in that.shops) {
 						console.log(that.shops[id].company_id)
 						uni.request({
-							url: Api.companyId(that.shops[id].company_id),
+							url: Api.getActivity(),
 							header: {
 								token: App.getToken()
 							},
+							data: {
+								companyId: that.shops[id].company_id
+							},
 							success: function(res) {
 								console.log(res)
+								if (res.data.value.length > 0) {
+									for (let iterm in res.data.value) {
+										that.activities.push(res.data.value[iterm]);
+										// 										uni.request({
+										// 											url: Api.getCoupons(res.data.value[iterm].activity_id),
+										// 											header: {
+										// 												token: App.getToken()
+										// 											},
+										// 											data: {
+										// 												companyId: that.shops[id].company_id,
+										// 												activityId: res.data.value[iterm].activity_id
+										// 											},
+										// 											success: function(res) {
+										// 												var a = 1;
+										// 												console.log(res);
+										// 												for (let iterm in res.data.value.coupons) {
+										// 													if (res.data.value.coupons[iterm].issend == false) {
+										// 														a = 2;
+										// 														break;
+										// 													}
+										// 												}
+										// 												if (a == 1) {
+										// 													that.activitystate.push(that.show1) 
+										// 												} else {
+										// 													that.activitystate.push (that.show2)
+										// 												}
+										// 												console.log(that.activitystate);
+										// 											}
+										// 										})
+									}
+								}
+								console.log(that.activities);
 							}
 						})
 					}
@@ -68,44 +89,27 @@
 			})
 		},
 		methods: {
-			scanFeatures: function(index) {
-				if (this.coupons[index].features == '查看') {
-					this.scan(index);
-				} else {
-					this.select(index);
-					console.log(1)
-				}
-			},
-			scan: function(index) {
+			intocoupons: function(index) {
+				var that = this;
+				that.activity_id = that.activities[index].activity_id;
 				uni.navigateTo({
-					url: './scanCoupons/scanCoupons'
-				})
-			},
-			select: function(index) {
-				uni.navigateTo({
-					url: './selectCoupons/selectCoupons'
-				})
+					url: 'intoCoupons/intoCoupons?activity_id=' + JSON.stringify(that.activity_id) + '&shops=' + JSON.stringify(
+						that.shops)
+				});
 			}
-
-		},
-		directives: {
-			'color': {
-				bind(el, binding, vnode) {
-					if (binding.value == '查看') {
-						el.style.background = '#5acc93';
-					} else {
-						el.style.background = '#ff6e6e';
-					}
-				}
-			}
-		},
+		}
 	}
 </script>
 
 <style scoped>
 	.body {
 		display: block;
-		height: calc(100vh - var(--window-top));
+			/* #ifdef H5 */
+		height: calc(100vh - var(--window-bottom) - var(--window-top));
+		/* #endif */
+		/* #ifndef H5 */
+		height: 100vh;
+		/* #endif */
 		width: 100%;
 		background-color: #f7f8f8;
 	}
@@ -129,8 +133,13 @@
 
 	.text-content-1 {
 		font-size: 35upx;
-		margin-right: 20upx;
+		margin-right: 30upx;
 		margin-left: 20upx;
+	}
+
+	.text-content-2 {
+		font-size: 35upx;
+		color: #b5b5b6;
 	}
 
 	.content-right {
@@ -141,12 +150,13 @@
 
 	.btn {
 		display: flex;
-		margin-right: 20upx;
+		margin-right: 30upx;
 		align-items: center;
+		justify-content: center;
 		font-size: 30upx;
 		color: #FFFFFF;
 		border-radius: 30upx;
-		width: 120upx;
-		height: 60upx;
+		width: 130upx;
+		height: 70upx;
 	}
 </style>

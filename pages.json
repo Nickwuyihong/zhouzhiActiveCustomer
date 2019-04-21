@@ -90,6 +90,12 @@
 			}
 		},
 		{
+			"path": "pages/tabbar/tabbar-1/selectAndpush/intoCoupons/intoCoupons",
+			"style": {
+				"navigationBarTitleText": "查看"
+			}
+		},
+		{
 			"path": "pages/tabbar/tabbar-1/selectAndpush/scanCoupons/scanCoupons",
 			"style": {
 				"navigationBarTitleText": "查看"
@@ -155,11 +161,17 @@
 			}
 		},
 		{
-            "path" : "pages/tabbar/tabbar-1/selectAndpush/selectCoupons/select/scanCustomer/startSelect/scanCoupons/couponsDetails/couponsDetails",
-            "style" : {
+			"path": "pages/tabbar/tabbar-1/selectAndpush/selectCoupons/select/scanCustomer/startSelect/scanCoupons/couponsDetails/couponsDetails",
+			"style": {
 				"navigationBarTitleText": "卷详情"
 			}
-        }
+		},
+		{
+			"path": "pages/tabbar/tabbar-1/selectAndpush/scanwinner/scanwinner",
+			"style": {
+				"navigationBarTitleText": "查看"
+			}
+		}
 	],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",

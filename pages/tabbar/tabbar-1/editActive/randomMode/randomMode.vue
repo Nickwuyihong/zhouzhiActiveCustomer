@@ -679,9 +679,8 @@
 													companyId: companyId,
 													activityId: that.activityId,
 													name: that.couponList[index].couponName,
-													state: '奖励',
-													vaildDays: '',
-													typeName: 0,
+													state: that.couponList[index].rule,
+													vaildDays: that.couponList[index].availableTime*86400,
 													probability: that.couponList[index].probability
 												},
 												success:function(res){

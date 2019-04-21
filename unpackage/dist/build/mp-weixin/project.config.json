@@ -9,7 +9,7 @@
     "minified": true
   },
   "compileType": "miniprogram",
-  "libVersion": "",
+  "libVersion": "2.6.4",
   "appid": "wxb7b69952d96e72c0",
   "projectname": "周知视界",
   "condition": {

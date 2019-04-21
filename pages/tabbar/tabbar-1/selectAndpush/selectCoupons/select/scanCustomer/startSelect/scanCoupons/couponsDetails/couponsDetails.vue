@@ -13,20 +13,16 @@
 				<text class="text-content">{{coupon_name}}</text>
 			</view>
 			<view class="text-wrapper">
-				<text class="text-name">优惠劵码：</text>
+				<text class="text-name">优惠劵用途：</text>
+				<text class="text-content">{{coupon_state}}</text>
+			</view>
+			<view class="text-wrapper">
+				<text class="text-name">优惠劵数量：</text>
 				<text class="text-content">{{coupon_number}}</text>
 			</view>
 			<view class="text-wrapper">
 				<text class="text-name">有效日期：</text>
 				<text class="text-content">{{date}}</text>
-			</view>
-			<view class="text-wrapper">
-				<text class="text-name">可用时间：</text>
-				<text class="text-content">{{time}}</text>
-			</view>
-			<view class="text-wrapper">
-				<text class="text-name">状态：</text>
-				<text class="text-content">{{status}}</text>
 			</view>
 			<view class="text-wrapper">
 				<text class="text-name">活动规则：</text>
@@ -40,15 +36,43 @@
 </template>
 
 <script>
+	import Api from '../../../../../../../../../../api.js'
+	import App from '../../../../../../../../../../App.vue'
 	export default {
+		
 		data() {
 			return {
-				coupon_name: "买一送一劵",
-				coupon_number: '1234589021346799',
+				couponsInfor:{},
+				couponsDetail:{},
+				coupon_name:'',
+				coupon_state: '',
+				coupon_number:'',
 				date: '2019.03.17-2019.03.24',
 				time: '周一至周日 15:00后',
-				status: '未兑换'
 			};
+		},
+		onLoad(data) {
+			var that =this;
+			that.couponsInfor=JSON.parse(data.couponsInfor);
+			console.log(that.couponsInfor)
+			uni.request({
+				url: Api.getCouponsdetail(that.couponsInfor.coupon_type_id),
+				header: {	
+					token: App.getToken()
+				},
+				data: {
+					
+					id: that.couponsInfor.coupon_type_id
+				},
+				success(res) {
+					console.log(res)
+					that.couponsDetail=res.data.value
+					console.log(that.couponsDetail)
+					that.coupon_name=that.couponsDetail.coupon_name
+					that.coupon_state=that.couponsDetail.coupon_state
+					that.coupon_number=that.couponsDetail.coupon_sum
+				}
+			})
 		}
 	}
 </script>
@@ -57,7 +81,12 @@
 	.body {
 		background: #F7F8F8;
 		width: 100%;
-		height: calc(100vh - var(--window-top));
+			/* #ifdef H5 */
+		height: calc(100vh - var(--window-bottom) - var(--window-top));
+		/* #endif */
+		/* #ifndef H5 */
+		height: 100vh;
+		/* #endif */
 	}
 
 	.content-top {
