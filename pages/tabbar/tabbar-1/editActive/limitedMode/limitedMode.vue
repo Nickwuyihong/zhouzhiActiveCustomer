@@ -160,7 +160,7 @@
 			</view>
 		
 		<view v-if="couponList.length>0" style="width: 80%;display: flex;justify-content: space-between;margin: auto;margin-top: 100upx;">
-			<button class="btnSave" size="default">保存</button>
+			<button class="btnSave" size="default" @click="saveActive">保存</button>
 			<button class="btnCreate" size="default" @click="createActive"  :disabled="readyToUpdate">创建活动</button>
 		</view>
 		<xy-dialog 
@@ -207,7 +207,22 @@
 		},
 		created() {
 			var that = this
-			this.coupon.organization = '请输入发券机构'
+			that.coupon.organization = '请输入发券机构'
+			uni.getStorage({
+				key: 'active',
+				success: function (res) {
+					console.log(res.data);
+					that.activityId = res.data.activityId
+					that.ads = res.data.ads
+					that.couponList = res.data.couponList
+					that.activeName = res.data.activeName
+					if(that.activeName.length>0&&that.ads.length>0&&that.couponList.length>0){
+						that.readyToUpdate = false
+					}else{
+						that.readyToUpdate = true
+					}
+				}
+			});
 			uni.request({
 				url: Api.usersCompany(),
 				header:{
@@ -286,7 +301,7 @@
 					if(this.coupon.couponName.length>0&&
 						this.coupon.toplimit.length>0&&
 						this.coupon.couponName!='请输入券名'&&
-						this.coupon.availableTime.length>0&&
+						//this.coupon.availableTime.length>0&&
 						this.coupon.exTime.length>0&&
 						this.coupon.organization!='请输入发券机构'&&
 						this.coupon.organization.length>0&&
@@ -302,7 +317,7 @@
 					if(this.couponList[i].couponName.length>0&&
 						this.couponList[i].couponName!='请输入券名'&&
 						this.couponList[i].toplimit.length>0&&
-						this.couponList[i].availableTime.length>0&&
+						//this.couponList[i].availableTime.length>0&&
 						this.couponList[i].exTime.length>0&&
 						this.couponList[i].organization!='请输入发券机构'&&
 						this.couponList[i].organization.length>0&&
@@ -320,7 +335,7 @@
 					if(this.coupon.couponName.length>0&&
 						this.coupon.couponName!='请输入券名'&&
 						this.coupon.toplimit.length>0&&
-						this.coupon.availableTime.length>0&&
+						//this.coupon.availableTime.length>0&&
 						this.coupon.exTime.length>0&&
 						this.coupon.organization!='请输入发券机构'&&
 						this.coupon.organization.length>0&&
@@ -336,7 +351,7 @@
 					if(this.couponList[i].couponName.length>0&&
 						this.couponList[i].couponName!='请输入券名'&&
 						this.couponList[i].toplimit.length>0&&
-						this.couponList[i].availableTime.length>0&&
+						//this.couponList[i].availableTime.length>0&&
 						this.couponList[i].exTime.length>0&&
 						this.couponList[i].organization!='请输入发券机构'&&
 						this.couponList[i].organization.length>0&&
@@ -353,7 +368,7 @@
 					if(this.coupon.couponName.length>0&&
 						this.coupon.couponName!='请输入券名'&&
 						this.coupon.toplimit.length>0&&
-						this.coupon.availableTime.length>0&&
+						//this.coupon.availableTime.length>0&&
 						this.coupon.exTime.length>0&&
 						this.coupon.organization!='请输入发券机构'&&
 						this.coupon.organization.length>0&&
@@ -368,7 +383,7 @@
 					if(this.couponList[i].couponName.length>0&&
 						this.couponList[i].couponName!='请输入券名'&&
 						this.couponList[i].toplimit.length>0&&
-						this.couponList[i].availableTime.length>0&&
+						//this.couponList[i].availableTime.length>0&&
 						this.couponList[i].exTime.length>0&&
 						this.couponList[i].organization!='请输入发券机构'&&
 						this.couponList[i].organization.length>0&&
@@ -385,7 +400,7 @@
 					if(this.coupon.couponName.length>0&&
 						this.coupon.couponName!='请输入券名'&&
 						this.coupon.toplimit.length>0&&
-						this.coupon.availableTime.length>0&&
+						//this.coupon.availableTime.length>0&&
 						this.coupon.exTime.length>0&&
 						this.coupon.organization!='请输入发券机构'&&
 						this.coupon.organization.length>0&&
@@ -400,7 +415,7 @@
 					if(this.couponList[i].couponName.length>0&&
 						this.couponList[i].couponName!='请输入券名'&&
 						this.couponList[i].toplimit.length>0&&
-						this.couponList[i].availableTime.length>0&&
+						//this.couponList[i].availableTime.length>0&&
 						this.couponList[i].exTime.length>0&&
 						this.couponList[i].organization!='请输入发券机构'&&
 						this.couponList[i].organization.length>0&&
@@ -417,7 +432,7 @@
 					if(this.coupon.couponName.length>0&&
 						this.coupon.couponName!='请输入券名'&&
 						this.coupon.toplimit.length>0&&
-						this.coupon.availableTime.length>0&&
+						//this.coupon.availableTime.length>0&&
 						this.coupon.exTime.length>0&&
 						this.coupon.organization!='请输入发券机构'&&
 						this.coupon.organization.length>0&&
@@ -432,7 +447,7 @@
 					if(this.couponList[i].couponName.length>0&&
 						this.couponList[i].couponName!='请输入券名'&&
 						this.couponList[i].toplimit.length>0&&
-						this.couponList[i].availableTime.length>0&&
+						//this.couponList[i].availableTime.length>0&&
 						this.couponList[i].exTime.length>0&&
 						this.couponList[i].organization!='请输入发券机构'&&
 						this.couponList[i].organization.length>0&&
@@ -499,6 +514,30 @@
 // 				}
 				this.$refs.xyDialog02.alert()
 			},
+			saveActive:function(){
+				var that = this
+				var active = {
+					activeName: that.activeName,
+					activityId: that.activityId,
+					ads: that.ads,
+					couponList: that.couponList
+				}
+				uni.setStorage({
+					key: 'active',
+					data: active,
+					success: function () {
+						console.log('success');
+						uni.showToast({
+							title: '保存成功'
+						})
+						setTimeout(function(){
+							uni.navigateBack({
+								delta: 1
+							})
+						},2000)
+					}
+				})
+			},
 			handleClose () {
 				console.log('点击关闭按钮')
 				uni.showToast({
@@ -535,9 +574,17 @@
 										that.activityId = res.data.value.activity_id
 										console.log(index)
 										var atime = new Date(that.couponList[index].availableTime).getTime()
-										var etime = new Date(that.couponList[index].exTime).getTime()
 										console.log(atime)
-										console.log(etime)
+										if(atime.toString()=="NaN"){
+											atime = 0
+											console.log(atime)
+										}
+// 										console.log(companyId)
+// 										console.log(that.activityId)
+// 										console.log(that.couponList[index].couponName)
+// 										console.log(that.couponList[index].rule)
+// 										console.log(that.couponList[index].exTime)
+// 										console.log(that.couponList[index].toplimit)
 										uni.request({
 											url: Api.company(),
 											method:	'POST',
@@ -550,14 +597,14 @@
 												activityId: that.activityId,
 												name: that.couponList[index].couponName,
 												state: that.couponList[index].rule,
-												vaildDays: that.couponList[index].exTime*86400,
+												vaildDays: that.couponList[index].exTime,
 												num: that.couponList[index].toplimit,
 												money: 1,
 												start: atime,
 											},
 											success:function(res){
 												console.log(res)
-												if(res.data.status == 1){
+												if(res.data.code == 200){
 													uni.showToast({
 														title: '第' + index +'个活动创建成功'
 													})

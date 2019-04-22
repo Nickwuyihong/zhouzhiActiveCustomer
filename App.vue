@@ -3,7 +3,7 @@
 
 	export default {
 		data: {
-			token: 'k',
+			token: 'i',
 			height: 0
 		},
 		onLaunch: function() {
