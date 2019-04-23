@@ -572,12 +572,12 @@
 									console.log(res)
 									if(res.data.code==200){
 										that.activityId = res.data.value.activity_id
-										console.log(index)
+										//console.log(index)
 										var atime = new Date(that.couponList[index].availableTime).getTime()
-										console.log(atime)
+										//console.log(atime)
 										if(atime.toString()=="NaN"){
 											atime = 0
-											console.log(atime)
+											//console.log(atime)
 										}
 // 										console.log(companyId)
 // 										console.log(that.activityId)

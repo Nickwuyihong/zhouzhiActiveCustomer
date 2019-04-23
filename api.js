@@ -21,7 +21,7 @@ export default {
 		return BASE_URL + 'business/screenUser'
 	},
 	searchCircle: function() {
-		return base_url + "searchCircle"
+		return BASE_URL + "searchCircle"
 	},
 	shop: function() {
 		return BASE_URL + 'users/company'
@@ -56,4 +56,7 @@ export default {
 	getContent: function() {
 		return BASE_URL2 + 'readCyinfor'
 	},
+	companyConsume:function(){
+		return BASE_URL + 'company/consume'
+	}
 }

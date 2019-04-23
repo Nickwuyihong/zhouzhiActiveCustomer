@@ -5,7 +5,7 @@
 			<view class="img">
 				<image class="img-image" src="../../../../static/img/qa.png"></image>
 			</view>
-			<text class="text2">买一赠一劵</text>
+			<text class="text2">{{coupon.couponName}}</text>
 			<view class="content-bottom">
 				<button class="btn" @click="sure">确认兑换</button>
 			</view>
@@ -14,14 +14,82 @@
 </template>
 
 <script>
+	import App from '../../../../App.vue'
+	import Api from '../../../../api.js'
 	export default {
 		data() {
-			return {}
+			return {
+				type: '',
+				account: '',
+				couponId: '',
+				coupon: {}
+			}
+		},
+		onLoad(options) {
+			var that = this
+			that.type = options.type
+			var l = options.result.split(":")
+			that.account = l[0]
+			that.couponId = l[1]
+			uni.request({
+				url: Api.companyConsume() + "/" + that.couponId,
+				header: {
+					token: App.getToken()
+				},
+				data: {
+					companyId: 5
+				},
+				success: function(res) {
+					console.log(res)
+					if (res.data.code == 200) {
+						that.coupon = res.data.value
+					} else {
+						uni.showToast({
+							title: '获取券详情失败',
+							icon: 'none'
+						})
+					}
+				}
+			})
 		},
 		methods: {
 			sure: function() {
-				uni.navigateTo({
-					url: './sure',
+				var that = this
+				console.log(that.couponId)
+				console.log(that.account)
+				uni.request({
+					url: Api.companyConsume(),
+					method: 'POST',
+					header: {
+						'content-type': 'application/x-www-form-urlencoded',
+						token: App.getToken()
+					},
+					data: {
+						couponId: that.couponId,
+						account: that.account,
+						companyId: 5
+					},
+					success: function(res) {
+						console.log(res)
+						if (res.data.code == 200) {
+							uni.showToast({
+								title: '兑换成功'
+							})
+							uni.navigateTo({
+								url: './sure',
+							})
+						} else if (res.data.code == 1009) {
+							uni.showToast({
+								title: '您没有这个权限',
+								icon: 'none'
+							})
+						} else {
+							uni.showToast({
+								title: '兑换失败',
+								icon: 'none'
+							})
+						}
+					}
 				})
 			}
 		}
