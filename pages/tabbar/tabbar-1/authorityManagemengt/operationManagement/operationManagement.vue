@@ -3,7 +3,7 @@
 		<scroll-view :scroll-top="scrollTop" scroll-y="true" class="scroll-Y">
 			<view class="content">
 				<view class="content-1">
-					<image class="box-image" src='../../../../../static/img/tabbar/addactive.png' @click="addOperator"></image>
+					<image class="box-image" src='../../../../../static/img/tabbar/addactive.png'></image>
 				</view>
 				<view class="content-2">
 					<text class="text-content">添加运营</text>
@@ -25,6 +25,9 @@
 </template>
 
 <script>
+	import App from '../../../../../App.vue'
+	import Api from '../../../../../api.js'
+	import tkiQrcode from '../../../../components/tki-qrcode/tki-qrcode.vue'
 	export default {
 		data() {
 			return {
@@ -47,11 +50,13 @@
 				this.operation.splice(index, 1)
 			},
 			addOperator: function() {
-				this.operation.push({
-					operate: '运营4'
+				uni.scanCode({
+					success: function(res) {
+						console.log('条码类型：' + res.scanType)
+						console.log('条码内容：' + res.result)
+					}
 				})
 			}
-
 		}
 	}
 </script>

@@ -82,7 +82,7 @@
 				couponsInfor: {},
 				customers: [{
 						number: '',
-						placeholderName: '2019/2/19 00:00-2019/2/26 24:00',
+						placeholderName: '2019/2/19 00:00-2019/2/26 00:00',
 						title: '发布时间',
 						checked: true,
 						ending: ''

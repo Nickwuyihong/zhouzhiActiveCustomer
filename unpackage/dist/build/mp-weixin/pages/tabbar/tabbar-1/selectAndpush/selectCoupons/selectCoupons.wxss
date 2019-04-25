@@ -1,5 +1,5 @@
 
-.dialog.data-v-323e4b98 {
+.dialog.data-v-3b028456 {
 	position: relative;
 	color: #2e2c2d;
 	background: #FFFFFF;
@@ -9,7 +9,7 @@
 	height: 100vh;
 	
 }
-input-wrapper.data-v-323e4b98 {
+input-wrapper.data-v-3b028456 {
 	display: -webkit-box;
 	display: -webkit-flex;
 	display: -ms-flexbox;
@@ -19,21 +19,21 @@ input-wrapper.data-v-323e4b98 {
 	    -ms-flex-align: center;
 	        align-items: center;
 }
-input.data-v-323e4b98 {
+input.data-v-3b028456 {
 	text-align: center;
 	border: 1px solid #c9caca;
 	margin: 0rpx 20rpx;
 	height: 70rpx;
 	width: 100rpx;
 }
-.input1.data-v-323e4b98 {
+.input1.data-v-3b028456 {
 	text-align: center;
 	border: 1px solid #c9caca;
 	margin: 0rpx 20rpx;
 	height: 70rpx;
 	width: 450rpx;
 }
-.content-main.data-v-323e4b98 {
+.content-main.data-v-3b028456 {
 	font-size: 30rpx;
 	display: -webkit-box;
 	display: -webkit-flex;
@@ -50,12 +50,12 @@ input.data-v-323e4b98 {
 	        align-items: center;
 	margin: 0rpx 40rpx 40rpx 40rpx;
 }
-.content.data-v-323e4b98 {
+.content.data-v-3b028456 {
 	display: block;
 	position: relative;
 	z-index: 200;
 }
-.dialog-cover.data-v-323e4b98 {
+.dialog-cover.data-v-3b028456 {
 	display: -webkit-box;
 	display: -webkit-flex;
 	display: -ms-flexbox;
@@ -68,7 +68,7 @@ input.data-v-323e4b98 {
 	z-index: 300;
 	background: rgba(0, 0, 0, 0.8);
 }
-.dialog-content.data-v-323e4b98 {
+.dialog-content.data-v-3b028456 {
 	opacity: 1;
 	display: -webkit-box;
 	display: -webkit-flex;
@@ -87,7 +87,7 @@ input.data-v-323e4b98 {
 	height: 75vh;
 	border: 2px solid #808080;
 }
-.dialog-content-title.data-v-323e4b98 {
+.dialog-content-title.data-v-3b028456 {
 	display: -webkit-box;
 	display: -webkit-flex;
 	display: -ms-flexbox;
@@ -110,7 +110,7 @@ input.data-v-323e4b98 {
 	    -ms-flex-align: center;
 	        align-items: center;
 }
-.dialog-main.data-v-323e4b98 {
+.dialog-main.data-v-3b028456 {
 	display: -webkit-box;
 	display: -webkit-flex;
 	display: -ms-flexbox;
@@ -133,7 +133,7 @@ input.data-v-323e4b98 {
 	    -ms-flex-pack: center;
 	        justify-content: center;
 }
-.dialog-content-1.data-v-323e4b98 {
+.dialog-content-1.data-v-3b028456 {
 	display: -webkit-box;
 	display: -webkit-flex;
 	display: -ms-flexbox;
@@ -151,7 +151,7 @@ input.data-v-323e4b98 {
 	    -ms-flex-pack: center;
 	        justify-content: center;
 }
-.dialog-content-2.data-v-323e4b98 {
+.dialog-content-2.data-v-3b028456 {
 	display: -webkit-box;
 	display: -webkit-flex;
 	display: -ms-flexbox;
@@ -165,13 +165,13 @@ input.data-v-323e4b98 {
 	    -ms-flex-align: center;
 	        align-items: center;
 }
-.text-content.data-v-323e4b98 {
+.text-content.data-v-3b028456 {
 	font-size: 30rpx;
 	display: inline-block;
 	color: #808080;
 	margin: 30rpx 20rpx;
 }
-.btn-1.data-v-323e4b98 {
+.btn-1.data-v-3b028456 {
 	color: #FFFFFF;
 	background: rgb(255, 100, 100);
 	font-size: 35rpx;
@@ -179,7 +179,7 @@ input.data-v-323e4b98 {
 	height: 100rpx;
 	width: 450rpx;
 }
-.btn.data-v-323e4b98 {
+.btn.data-v-3b028456 {
 	display: -webkit-box;
 	display: -webkit-flex;
 	display: -ms-flexbox;

@@ -32,22 +32,22 @@ export default {
 	companyId: function(id) {
 		return BASE_URL + 'business/companyId=' + id
 	},
-		getActivity: function() {
+	getActivity: function() {
 		return BASE_URL + 'company/activity'
 	},
 	getCoupons: function(a) {
 		return BASE_URL + 'company/activity/' + a
 	},
-		//优惠券详情
-	getCouponsdetail:function(id){
-		return BASE_URL + 'business/id='+id
+	//优惠券详情
+	getCouponsdetail: function(id) {
+		return BASE_URL + 'business/id=' + id
 	},
 	//获得文章
 	postCoupons: function() {
 		return BASE_URL + 'business'
 	},
 	//获得中奖用户
-	getUser:function(id){
+	getUser: function(id) {
 		return BASE_URL + 'business/typeId=' + id
 	},
 	getArtical: function() {
@@ -56,7 +56,19 @@ export default {
 	getContent: function() {
 		return BASE_URL2 + 'readCyinfor'
 	},
-	companyConsume:function(){
+	companyConsume: function() {
 		return BASE_URL + 'company/consume'
+	},
+	//登录
+	forelogin: function() {
+		return BASE_URL2 + "forelogin"
+	},
+	//验证token
+	forecheck: function() {
+		return BASE_URL2 + "forecheck";
+	},
+	//上传新用户
+	updateFristMessage: function() {
+		return BASE_URL2 + "updateFristMessage"
 	}
 }

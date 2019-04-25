@@ -1,6 +1,5 @@
 
 .body {
-	margin-top: 200rpx;
 	display: -webkit-box;
 	display: -webkit-flex;
 	display: -ms-flexbox;
@@ -27,9 +26,9 @@
 	display: -webkit-flex;
 	display: -ms-flexbox;
 	display: flex;
-	margin: 10rpx;
+	margin: 60rpx;
 	color: grey;
-	font-size: 30rpx;
+	font-size: 40rpx;
 	-webkit-box-align: center;
 	-webkit-align-items: center;
 	    -ms-flex-align: center;
@@ -74,5 +73,84 @@
 	border-radius: 25rpx;
 	height: 100rpx;
 	width: 450rpx;
+}
+.couponImg {
+	height: 150rpx;
+	width: 90%;
+	border: 3px solid #ffdd00;
+	border-radius: 20rpx;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: -ms-flexbox;
+	display: flex;
+	margin: auto;
+}
+.left {
+	height: 100%;
+	width: 50%;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-orient: vertical;
+	-webkit-box-direction: normal;
+	-webkit-flex-direction: column;
+	    -ms-flex-direction: column;
+	        flex-direction: column;
+	color: #FFBB00;
+}
+.right {
+	height: 100%;
+	width: 50%;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	    -ms-flex-align: center;
+	        align-items: center;
+}
+.right button {
+	background: #FFBB00;
+	color: #FFFFFF;
+	border-radius: 60rpx;
+}
+.title {
+	width: 90%;
+}
+.items {
+	width: 80%;
+	padding-top: 20rpx;
+}
+.detail {
+	width: 100%;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-orient: vertical;
+	-webkit-box-direction: normal;
+	-webkit-flex-direction: column;
+	    -ms-flex-direction: column;
+	        flex-direction: column;
+	padding-top: 50rpx;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	    -ms-flex-align: center;
+	        align-items: center;
+}
+.rules {
+	width: 80%;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-orient: vertical;
+	-webkit-box-direction: normal;
+	-webkit-flex-direction: column;
+	    -ms-flex-direction: column;
+	        flex-direction: column;
+	padding-top: 20rpx;
 }
 

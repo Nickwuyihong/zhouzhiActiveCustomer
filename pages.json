@@ -8,6 +8,12 @@
 			}
 		},
 		{
+			"path": "pages/tabbar/tabbar-1/login",
+			"style": {
+				"navigationBarTitleText": "授权登录"
+			}
+		},
+		{
 			"path": "pages/tabbar/tabbar-2/tabbar-2",
 			"style": {}
 		},
@@ -178,5 +184,32 @@
 		"navigationBarTitleText": "i周知商家版",
 		"navigationBarBackgroundColor": "#F8F8F8",
 		"backgroundColor": "#F8F8F8"
+	},
+	"tabBar": {
+		"color": "#7A7E83",
+		"selectedColor": "#3cc51f",
+		"borderStyle": "black",
+		"backgroundColor": "#ffffff",
+		"list": [{
+			"pagePath": "pages/tabbar/tabbar-1/tabbar-1",
+			"iconPath": "static/img/tabbar/home.png",
+			"selectedIconPath": "static/img/tabbar/home.png",
+			"text": "欢迎页"
+		}, {
+			"pagePath": "pages/tabbar/tabbar-1/editActive/editActive",
+			"iconPath": "static/img/activeCenter.png",
+			"selectedIconPath": "static/img/activeCenter.png",
+			"text": "活动中心"
+		},{
+			"pagePath": "pages/tabbar/tabbar-1/selectAndpush/selectAndpush",
+			"iconPath": "static/img/screening&publishing.png",
+			"selectedIconPath": "static/img/screening&publishing.png",
+			"text": "筛选及发布"
+		},{
+			"pagePath": "pages/tabbar/tabbar-1/authorityManagemengt/authorityManagement",
+			"iconPath": "static/img/tabbar/me.png",
+			"selectedIconPath": "static/img/tabbar/me.png",
+			"text": "我"
+		}]
 	}
 }

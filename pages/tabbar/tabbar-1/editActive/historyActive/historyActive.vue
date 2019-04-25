@@ -1,10 +1,16 @@
 <template>
 	<body>
 		<view class="body">
-			<view v-for="(item,index) in activityList" :key="index" :id="item.activity_id" class="preview">
-				<view class="preview_text">{{item.activity_name}}</view>
+			<view class="preview">
+				<view class="preview_text">樱花季</view>
 				<view class="preview_img">
 
+				</view>
+			</view>
+			<view class="preview">
+				<view class="preview_text">樱花季</view>
+				<view class="preview_img">
+			
 				</view>
 			</view>
 		</view>
@@ -12,37 +18,13 @@
 </template>
 
 <script>
-	import Api from "../../../../../api.js"
-	import App from "../../../../../App.vue"
 	export default {
 		data() {
 			return {
-				activityList: []
+
 			}
 		},
-		onLoad() {
-			var that = this
-			uni.request({
-				url: Api.companyActivity(),
-				header: {
-					token: App.getToken()
-				},
-				data: {
-					companyId: 5
-				},
-				success: function(res) {
-					console.log(res)
-					if (res.data.code == 200) {
-						that.activityList = res.data.value
-					} else {
-						uni.showToast({
-							title: '获取活动列表失败',
-							icon: 'none'
-						})
-					}
-				}
-			})
-		},
+		onLoad() {},
 		methods: {
 			jump: function(e) {
 				console.log(e)
@@ -65,10 +47,10 @@
 </script>
 
 <style>
-	uni-page-wrapper {
+	uni-page-wrapper{
 		background: #F2F2F2;
 	}
-
+	
 	html,
 	body {
 		margin: 0;
@@ -85,7 +67,7 @@
 		/* display: flex;
 		flex-direction: column; */
 		display: block;
-		/* 		height: 80vh; */
+/* 		height: 80vh; */
 		/* overflow: scroll; */
 		width: 100%;
 		/* #ifdef H5 */

@@ -123,17 +123,28 @@
 	display: -webkit-flex;
 	display: -ms-flexbox;
 	display: flex;
+	-webkit-box-orient: horizontal;
+	-webkit-box-direction: normal;
+	-webkit-flex-direction: row;
+	    -ms-flex-direction: row;
+	        flex-direction: row;
+	-webkit-flex-wrap: wrap;
+	    -ms-flex-wrap: wrap;
+	        flex-wrap: wrap;
 	width: 40%;
 	height: 40%;
 	margin-right: 4%;
 	margin-top: 12rpx;
-	margin-bottom: 4%;
+	margin-bottom: 12rpx;
 }
 .night-img {
 	display: -webkit-box;
 	display: -webkit-flex;
 	display: -ms-flexbox;
 	display: flex;
+	-webkit-flex-wrap: wrap;
+	    -ms-flex-wrap: wrap;
+	        flex-wrap: wrap;
 	width: 30%;
 	height: 30%;
 	margin-right: 2%;

@@ -11,7 +11,7 @@
 			</view>
 			<view class="content" v-for="(operator,index) in operation">
 				<view class="content-left">
-					<image class="box-image" src='../../../../../../static/img/tabbar/me.png'></image>
+					<image class="box-image" :src='operator.image'></image>
 					<view class="text-content"> {{operator.operate}}</view>
 				</view>
 				<view class="content-right">
@@ -23,30 +23,144 @@
 </template>
 
 <script>
+	import App from '../../../../../../App.vue'
+	import Api from '../../../../../../api.js'
+	import tkiQrcode from '../../../../../components/tki-qrcode/tki-qrcode.vue'
 	export default {
 		data() {
 			return {
 				scrollTop: 0,
-				operation: [{
-						operate: '运营1'
-					},
-					{
-						operate: '运营2'
-					},
-					{
-						operate: '运营3'
-					},
-				],
+				account_id: '',
+				userid: '',
+
+				userinfor: {},
+				operation: []
 			}
+		},
+		onLoad() {
+			var that = this
+			uni.request({
+				url: Api.addoperator(),
+				header: {
+					token: App.getToken()
+				},
+				data: {
+					companyId: App.getCompany_id()
+				},
+				success: function(res) {
+					console.log(res)
+					if(res.data.code==200){
+						for (let iterm in res.data.value) {
+							if (res.data.value[iterm].level == 4) {
+								that.userid=res.data.value[iterm].userid
+								uni.request({
+									url: Api.seeUser(),
+									header: {
+										token: App.getToken(),
+									},
+									data: {
+										otherId: that.userid
+									},
+									success(res) {
+										console.log(res)
+										that.userinfor = {
+												image: res.data.user.author_image,
+												operate: res.data.user.author_name,
+												userid: res.data.user.author_id
+											},
+											that.operation.push(that.userinfor)
+										console.log(that.operation)
+									}
+								})
+							}
+						}
+					}
+					else if (res.data.code == 1009){
+						uni.showToast({
+							title: '您没有这个权限',
+							icon: 'none'
+						})
+				}
+				}
+			})
 		},
 		methods: {
 			deleteOperator: function(index) {
-				console.log(1)
-				this.operation.splice(index, 1)
+				var that = this
+				console.log(that.operation[index].userid)
+				uni.request({
+					url: Api.addoperator(),
+					method: 'DELETE',
+
+					header: {
+						"Content-Type": "application/x-www-form-urlencoded",
+						token: App.getToken()
+					},
+					data: {
+						companyId: App.getCompany_id(),
+						userid: that.operation[index].userid
+					},
+					success(res) {
+						console.log(res)
+						that.operation.splice(index, 1)
+					}
+				})
+
 			},
 			addOperator: function() {
-				this.operation.push({
-					operate: '运营4'
+				var that = this
+				uni.scanCode({
+					success: function(res) {
+						that.account_id = res.result;
+						console.log(that.account_id)
+						uni.request({
+							url: Api.addoperator(),
+							method: 'POST',
+							header: {
+								token: App.getToken(),
+								"Content-Type": "application/x-www-form-urlencoded"
+							},
+							data: {
+								companyId: App.getCompany_id(),
+								account: that.account_id,
+								level: true
+							},
+							success: function(res) {
+								console.log(res)
+								console.log(res.data.value.userid)
+								that.userid = res.data.value.userid
+								console.log(that.userid)
+								if(res.data.code==200){
+									uni.request({
+										url: Api.seeUser(),
+										header: {
+											token: App.getToken(),
+										},
+										data: {
+											otherId: that.userid
+										},
+										success(res) {
+									
+											console.log(res)
+											that.userinfor = {
+													image: res.data.user.author_image,
+													operate: res.data.user.author_name
+												},
+												that.operation.push(that.userinfor)
+											console.log(that.operation)
+										}
+									}) 
+								}
+								else if(res.data.code==1006){
+									uni.showToast({
+												title: '此员工已经存在',
+												icon: 'none'
+											})
+									}
+								}
+									
+						})
+					}
 				})
 			}
 

@@ -40,7 +40,7 @@
 		<view class="content-bottom">
 			<view class="content-bottom-1">
 				<view style="display: flex;align-items: center; margin:0upx 20upx;">
-					<image class="img" src="../../../../../../static/image/名单-01.png"></image>此内容为该用户活动期间第1次发布。
+					<image class="img" src="../../../../../../static/image/名单-01.png"></image>此内容为该用户活动期间第{{num}}次发布。
 				</view>
 			</view>
 			<view class="content-bottom-2">
@@ -70,6 +70,7 @@
 				author_List: [],
 				checked: false,
 				number: 0,
+				num: 1,
 				showedone: false,
 				showedtwo: false,
 				showedthree: false,
@@ -120,13 +121,15 @@
 					// that.userid.push(that.author_Infor)
 					that.userid.push({
 						author_id: that.swiperList[that.currentTap].author.author_id,
-						author_image: that.swiperList[that.currentTap].author.author_image
+						author_image: that.swiperList[that.currentTap].author.author_image,
+						cy_id: that.swiperList[that.currentTap].cyId
 					})
 					console.log(that.userid)
 					that.number = that.userid.length
 				} else {
 					for (let iterm in that.userid) {
-						if (that.userid[iterm].author_id == that.swiperList[that.currentTap].author.author_id) {
+						if (that.userid[iterm].author_id == that.swiperList[that.currentTap].author.author_id && that.userid[iterm].cy_id ==
+							that.swiperList[that.currentTap].cyId) {
 							that.userid.splice(iterm, 1)
 							break;
 						}
@@ -154,12 +157,17 @@
 			},
 			swiperChange: function(e) {
 				var that = this;
+				that.num = 1;
 				that.currentTap = e.detail.current;
 				that.getCount();
 				for (let iterm in that.userid) {
-					if (that.userid[iterm].author_id == that.swiperList[that.currentTap].author.author_id) {
+					if (that.userid[iterm].author_id == that.swiperList[that.currentTap].author.author_id && that.userid[iterm].cy_id ==
+						that.swiperList[that.currentTap].cyId) {
 						that.checked = true;
 						break;
+					} else if (that.userid[iterm].author_id == that.swiperList[that.currentTap].author.author_id && that.userid[iterm]
+						.cy_id != that.swiperList[that.currentTap].cyId) {
+						that.num = that.num + 1;
 					}
 				}
 			},
@@ -261,15 +269,18 @@
 
 	.four-img {
 		display: flex;
+		flex-direction: row;
+		flex-wrap: wrap;
 		width: 40%;
 		height: 40%;
 		margin-right: 4%;
 		margin-top: 12upx;
-		margin-bottom: 4%;
+		margin-bottom: 12upx;
 	}
 
 	.night-img {
 		display: flex;
+		flex-wrap: wrap;
 		width: 30%;
 		height: 30%;
 		margin-right: 2%;

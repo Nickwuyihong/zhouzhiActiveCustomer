@@ -1,8 +1,8 @@
 <template>
 	<view class="body">
 		<view class="content">
-			<view style="font-size: 25upx;color: #808080;margin: 20upx 30upx;">本期优惠券:</view>
 			<view class="content-main">
+				<view style="font-size: 25upx;color: #808080;margin: 20upx 30upx;">本期优惠券:</view>
 				<view class="picture">
 					<view class="picture-left">
 						<view style="font-size: 30upx;margin-left: 30upx;margin-top: 10upx;">{{couponsInfor.companyName}}</view>
@@ -13,12 +13,11 @@
 					</view>
 				</view>
 			</view>
-			<view style="font-size: 25upx;color: #808080;margin:30upx 0upx 20upx 30upx;">本期名单:</view>
-			<view class="content-center">
-				<scroll-view class="picture-1" scroll-y="true">
+			<view class="content-center" >
+				<view style="font-size: 25upx;color: #808080;margin:20upx 30upx;">本期名单:</view>
+				<scroll-view class="picture-1" scroll-y="true" :scroll-top="0">
 					<view class="picture-avtatar">
-						<image v-for="iterm in customers" class="avatar" :src="iterm.author_image">
-						</image>
+						<image v-for="iterm in customers" class="avatar" :src="iterm.author_image"></image>
 					</view>
 				</scroll-view>
 			</view>
@@ -49,11 +48,6 @@
 			};
 		},
 		methods: {
-			recall:function(){
-				uni.redirectTo({
-					url:'../../../../../intoCoupons/intoCoupons'
-				})
-			},
 			jump: function() {
 				var that = this
 				for (let iterm in that.customers) {
@@ -71,15 +65,19 @@
 						},
 						success(res) {
 							console.log(res)
+							
 						}
 					})
 					console.log(that.customers[iterm].author_id)
 					console.log(that.couponsInfor.coupon_type_id)
 				}
-				this.showed = true;
+				that.showed = true;
 			},
 			recall: function() {
-				this.showed = false;
+				uni.navigateTo	({
+					url: '../../../../../selectAndpush',
+				});
+				this.showed = false;	
 			},
 			scan: function() {
 				uni.navigateTo({
@@ -118,6 +116,7 @@
 
 	.content-main {
 		display: flex;
+		flex-direction: column;
 		width: 100%;
 		height: 20%;
 	}
@@ -126,7 +125,7 @@
 		display: flex;
 		flex-direction: row;
 		background: #FFFFFF;
-		height: 100%;
+		height: 90%;
 		width: 80%;
 		margin: auto;
 		border-radius: 25upx;
@@ -145,18 +144,17 @@
 		display: flex;
 		flex: 1;
 	}
-
 	.content-center {
 		width: 100%;
 		display: flex;
+		flex-direction: column;
 		height: 80%;
-
 	}
 
 	.picture-1 {
 		background: #BBBBBB;
 		width: 80%;
-		height: 100%;
+		height: 90%;
 		margin: auto;
 		padding-left: 3.3%;
 		padding-top: 3.3%;

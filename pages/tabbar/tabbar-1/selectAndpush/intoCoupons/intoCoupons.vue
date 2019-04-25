@@ -40,7 +40,6 @@
 	export default {
 		data() {
 			return {
-				activity_id: '',
 				shops: [],
 				issended: [],
 				nosended: [],
@@ -52,18 +51,15 @@
 			var that = this
 			console.log(data);
 			this.activity_id = data.activity_id;
-			this.shops = JSON.parse(data.shops);
 			console.log(this.activity_id);
-			console.log(this.shops);
-			for (let iterm in this.shops) {
 				uni.request({
 					url: Api.getCoupons(this.activity_id),
 					header: {
 						token: App.getToken()
 					},
 					data: {
-						activityId: this.activity_id,
-						companyId: this.shops[iterm].company_id
+						activityId: that.activity_id,
+						companyId:App.getCompany_id()
 					},
 					success: function(res) {
 						console.log(res);
@@ -80,7 +76,6 @@
 						console.log(that.issended);
 					}
 				})
-			}
 		},
 		methods: {
 			jump: function(index) {

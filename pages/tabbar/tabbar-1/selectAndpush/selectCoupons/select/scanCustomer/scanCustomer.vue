@@ -2,8 +2,7 @@
 	<view class="body">
 		<scroll-view class="content" :scroll-top="scrollTop" scroll-y="true">
 			<view class="content-main">
-				<image class="avatar" v-for="iterm in avatars" :src="iterm.author_image">
-				</image>
+				<image class="avatar" v-for="iterm in avatars" :src="iterm.author_image"></image>
 			</view>
 		</scroll-view>
 		<view class="content-bottom">
@@ -57,7 +56,6 @@
 	}
 
 	.content-bottom {
-		position: fixed;
 		display: flex;
 		flex-direction: column;
 		width: 100%;
@@ -66,7 +64,6 @@
 
 	.content-main {
 		display: flex;
-		position: fixed;
 		height: auto;
 		flex-wrap: wrap;
 		width: 100%;

@@ -29,64 +29,24 @@
 		},
 		onLoad() {
 			var that = this;
-			uni.request({
-				url: Api.shop(),
-				header: {
-					token: App.getToken()
-				},
-				success: function(res) {
-					console.log(res)
-					that.shops = res.data.value;
-					console.log(that.shops);
-					for (let id in that.shops) {
-						console.log(that.shops[id].company_id)
 						uni.request({
 							url: Api.getActivity(),
 							header: {
 								token: App.getToken()
 							},
 							data: {
-								companyId: that.shops[id].company_id
+								companyId: App.getCompany_id()
 							},
 							success: function(res) {
 								console.log(res)
 								if (res.data.value.length > 0) {
 									for (let iterm in res.data.value) {
-										that.activities.push(res.data.value[iterm]);
-										// 										uni.request({
-										// 											url: Api.getCoupons(res.data.value[iterm].activity_id),
-										// 											header: {
-										// 												token: App.getToken()
-										// 											},
-										// 											data: {
-										// 												companyId: that.shops[id].company_id,
-										// 												activityId: res.data.value[iterm].activity_id
-										// 											},
-										// 											success: function(res) {
-										// 												var a = 1;
-										// 												console.log(res);
-										// 												for (let iterm in res.data.value.coupons) {
-										// 													if (res.data.value.coupons[iterm].issend == false) {
-										// 														a = 2;
-										// 														break;
-										// 													}
-										// 												}
-										// 												if (a == 1) {
-										// 													that.activitystate.push(that.show1) 
-										// 												} else {
-										// 													that.activitystate.push (that.show2)
-										// 												}
-										// 												console.log(that.activitystate);
-										// 											}
-										// 										})
+										that.activities=res.data.value;	
 									}
 								}
 								console.log(that.activities);
 							}
-						})
-					}
-				}
-			})
+						})	
 		},
 		methods: {
 			intocoupons: function(index) {

@@ -48,7 +48,12 @@
 
 <style>
 	.body {
-		height: 90vh;
+		/* #ifdef H5 */
+		height: calc(100vh - var(--window-bottom) - var(--window-top));
+		/* #endif */
+		/* #ifndef H5 */
+		height: 100vh;
+		/* #endif */
 		width: 100%;
 	}
 
