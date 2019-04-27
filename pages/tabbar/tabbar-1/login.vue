@@ -98,7 +98,7 @@
 					url: Api.forelogin(),
 					data: {
 						JSCODE: that.JSCODE,
-						Version: 1,
+						Version: 2,
 						encryptedData: e.detail.encryptedData,
 						iv: e.detail.iv
 					},

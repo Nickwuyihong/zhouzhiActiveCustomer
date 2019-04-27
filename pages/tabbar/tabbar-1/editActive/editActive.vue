@@ -18,6 +18,8 @@
 </template>
 
 <script>
+	import App from '../../../../App.vue'
+	import Api from '../../../../api.js'
 	export default {
 		data() {
 			return {
@@ -28,17 +30,23 @@
 		methods: {
 			jump: function(e) {
 				console.log(e)
-				if (e.currentTarget.id == 0) {
-					uni.navigateTo({
-						url: 'limitedMode/limitedMode'
-					})
-				} else if (e.currentTarget.id == 1) {
-					uni.navigateTo({
-						url: 'randomMode/randomMode'
-					})
+				if (App.getToken()) {
+					if (e.currentTarget.id == 0) {
+						uni.navigateTo({
+							url: 'limitedMode/limitedMode'
+						})
+					} else if (e.currentTarget.id == 1) {
+						uni.navigateTo({
+							url: 'randomMode/randomMode'
+						})
+					} else {
+						uni.navigateTo({
+							url: 'historyActive/historyActive'
+						})
+					}
 				} else {
 					uni.navigateTo({
-						url: 'historyActive/historyActive'
+						url: '../login'
 					})
 				}
 			}

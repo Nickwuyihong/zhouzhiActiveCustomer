@@ -1,7 +1,7 @@
 <template>
 	<view class="body">
 		<scroll-view :scroll-top="scrollTop" scroll-y="true" class="scroll-Y">
-			<view class="content" v-for="(activity,index) in activities">
+			<view class="content" v-for="(activity,index) in activities" :key="index">
 				<view class="content-left">
 					<text class="text-content-1" style="color: #4d4d4d;">{{activity.activity_name}}</text>
 				</view>
@@ -29,24 +29,36 @@
 		},
 		onLoad() {
 			var that = this;
-						uni.request({
-							url: Api.getActivity(),
-							header: {
-								token: App.getToken()
-							},
-							data: {
-								companyId: App.getCompany_id()
-							},
-							success: function(res) {
-								console.log(res)
-								if (res.data.value.length > 0) {
-									for (let iterm in res.data.value) {
-										that.activities=res.data.value;	
-									}
-								}
-								console.log(that.activities);
+			if (App.getToken()) {
+				uni.request({
+					url: Api.getActivity(),
+					header: {
+						token: App.getToken()
+					},
+					data: {
+						companyId: App.getCompany_id()
+					},
+					success: function(res) {
+						console.log(res)
+						if (res.data.value.length > 0) {
+							for (let iterm in res.data.value) {
+								that.activities = res.data.value;
 							}
-						})	
+						}
+						console.log(that.activities);
+					}
+				})
+			} else {
+				uni.showToast({
+					title: '未登录',
+					icon: 'none'
+				})
+				setTimeout(function() {
+					uni.navigateTo({
+						url: '../login'
+					})
+				}, 1000)
+			}
 		},
 		methods: {
 			intocoupons: function(index) {
@@ -64,7 +76,7 @@
 <style scoped>
 	.body {
 		display: block;
-			/* #ifdef H5 */
+		/* #ifdef H5 */
 		height: calc(100vh - var(--window-bottom) - var(--window-top));
 		/* #endif */
 		/* #ifndef H5 */

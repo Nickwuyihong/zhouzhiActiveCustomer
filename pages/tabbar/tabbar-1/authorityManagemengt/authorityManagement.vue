@@ -30,24 +30,36 @@
 		},
 		created() {
 			var that = this;
-			uni.request({
-				url: Api.shop(),
-				header: {
-					token: App.getToken()
-				},
-				success: function(res) {
-					console.log(res)
-					that.shops = res.data.value;
-					console.log(that.shops);
-				}
-			})
+			if (App.getToken()) {
+				uni.request({
+					url: Api.shop(),
+					header: {
+						token: App.getToken()
+					},
+					success: function(res) {
+						console.log(res)
+						that.shops = res.data.value;
+						console.log(that.shops);
+					}
+				})
+			} else {
+				uni.showToast({
+					title: '未登录',
+					icon: 'none'
+				})
+				setTimeout(function() {
+					uni.navigateTo({
+						url: '../login'
+					})
+				}, 1000)
+			}
 		}
 	}
 </script>
 
 <style scoped>
 	.body {
-			/* #ifdef H5 */
+		/* #ifdef H5 */
 		height: calc(100vh - var(--window-bottom) - var(--window-top));
 		/* #endif */
 		/* #ifndef H5 */

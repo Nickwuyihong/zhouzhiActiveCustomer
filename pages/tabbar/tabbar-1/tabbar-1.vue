@@ -23,7 +23,7 @@
 	import App from '../../../App.vue'
 	import Api from '../../../api.js'
 	import tkiQrcode from '../../components/tki-qrcode/tki-qrcode.vue'
- 
+
 	var app = getApp()
 	export default {
 		components: {
@@ -62,7 +62,7 @@
 			};
 		},
 		onLoad() {
-			App.saveToken("i")
+			//App.saveToken("i")
 			console.log(App.getToken())
 
 			uni.request({
@@ -124,19 +124,22 @@
 				}
 			},
 			scanning: function() {
-				uni.navigateTo({
-					url: 'login',
-				})
-				// 允许从相机和相册扫码
-				// uni.scanCode({
-				// 	success: function(res) {
-				// 		console.log('条码类型：' + res.scanType)
-				// 		console.log('条码内容：' + res.result)
-				// 		uni.navigateTo({
-				// 			url: 'scanning/success?type=' + res.scanType + "&result=" + res.result,
-				// 		})
-				// 	}
-				// })
+				if (App.getToken()) {
+					// 允许从相机和相册扫码
+					uni.scanCode({
+						success: function(res) {
+							console.log('条码类型：' + res.scanType)
+							console.log('条码内容：' + res.result)
+							uni.navigateTo({
+								url: 'scanning/success?type=' + res.scanType + "&result=" + res.result,
+							})
+						}
+					})
+				} else {
+					uni.navigateTo({
+						url: 'login',
+					})
+				}
 			}
 		}
 	};
