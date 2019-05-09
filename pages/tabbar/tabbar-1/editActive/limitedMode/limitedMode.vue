@@ -73,10 +73,13 @@
 						</view>
 						<view class="inputs">
 							<view style="width: 30%;">发券机构：</view>
-							<select v-model="couponList[index].organization">
+							<!-- <select v-model="couponList[index].organization">
 								<option value="volvo" style="display: none;">请选择机构</option>
 								<option v-for="(item2,index2) in organizationList" :id="index2" :key="item2.company_id" :value="item2.company_name">{{item2.company_name}}</option>
-							</select>
+							</select> -->
+							<picker mode="selector" @change="bindPickerChange" :id="index + 1" :value="couponList[index].company_index" :range="organizationList" range-key="company_name">
+								<view class="uni-input">{{organizationList[couponList[index].company_index].company_name}}</view>
+							</picker>
 						</view>
 						<view class="inputs" style="align-items: flex-start;">
 							<view style="width: 30%;">使用规则：</view>
@@ -145,10 +148,17 @@
 		</view>
 		<view class="inputs">
 			<view style="width: 30%;">发券机构：</view>
-			<select v-model="coupon.organization">
+			<view class="">
+
+			</view>
+			<!-- <select v-model="coupon.organization">
 				<option value="volvo" style="display: none;">请选择机构</option>
 				<option v-for="item in organizationList" :key="item.company_id" :value="item.company_name">{{item.company_name}}</option>
-			</select>
+			</select> -->
+			<picker mode="selector" @change="bindPickerChange" :value="coupon.company_index" :range="organizationList" id="0"
+			 range-key="company_name">
+				<view class="uni-input">{{organizationList[coupon.company_index].company_name}}</view>
+			</picker>
 		</view>
 		<view class="inputs" style="align-items: flex-start;">
 			<view style="width: 30%;">使用规则：</view>
@@ -193,6 +203,7 @@
 					disable: true,
 					modifyDiscount: false,
 					toplimit: '',
+					company_index: 0
 				},
 				organizationList: [],
 				couponList: [],
@@ -242,6 +253,20 @@
 			})
 		},
 		methods: {
+			bindPickerChange: function(e) {
+				var that = this
+				console.log(e)
+				console.log('picker发送选择改变，携带值为', e.target.value)
+				var ind = e.target.value
+				if(e.currentTarget.id == 0){
+					that.coupon.company_index = ind
+					that.coupon.organization = that.organizationList[ind].company_name
+				}else{
+					var i = e.currentTarget.id - 1
+					that.couponList[i].company_index = ind
+					that.couponList[i].organization = that.organizationList[ind].company_name
+				}
+			},
 			jump: function(e) {
 				console.log(e)
 				if (e.currentTarget.id == 0) {
@@ -483,7 +508,8 @@
 						rule: '',
 						disable: true,
 						modifyDiscount: false,
-						toplimit: ''
+						toplimit: '',
+						company_index: 0
 					}
 				}else{
 					uni.showToast({

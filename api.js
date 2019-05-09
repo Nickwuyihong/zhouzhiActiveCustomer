@@ -21,7 +21,7 @@ export default {
 		return BASE_URL + 'business/screenUser'
 	},
 	searchCircle: function() {
-		return BASE_URL + "searchCircle"
+		return BASE_URL2 + "searchCircle"
 	},
 	shop: function() {
 		return BASE_URL + 'users/company'
@@ -70,5 +70,15 @@ export default {
 	//上传新用户
 	updateFristMessage: function() {
 		return BASE_URL2 + "updateFristMessage"
+	},
+	addoperator: function() {
+		return BASE_URL + 'company/staff'
+	},
+	//查看用户信息
+	seeUser: function() {
+		return BASE_URL2 + 'seeUser'
+	},
+	companyConsume:function(){
+		return BASE_URL + 'company/consume'
 	}
 }

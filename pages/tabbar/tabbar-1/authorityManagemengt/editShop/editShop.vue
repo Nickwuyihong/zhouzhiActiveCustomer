@@ -37,6 +37,8 @@
 	</view>
 </template>
 <script>
+	import App from '../../../../../App.vue'
+	import Api from '../../../../../api.js'
 	export default {
 		data() {
 			return {
@@ -63,11 +65,10 @@
 				}
 			}
 		},
-		onLoad(data) {
-			console.log(data)
-			this.shop = JSON.parse(data.shop)
+		onLoad() {
+			this.shop = App.getShop()
 			console.log(this.shop)
-			if (this.shop.circle_name != null) {
+			if (this.shop.circle_name != ''&&this.shop.circle_name != null) {
 				this.circle_name = this.shop.circle_name
 				this.showed2 = true
 				this.showed1 = false

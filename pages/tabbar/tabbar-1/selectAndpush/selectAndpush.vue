@@ -27,7 +27,7 @@
 				activitystate: []
 			}
 		},
-		onLoad() {
+		onShow() {
 			var that = this;
 			if (App.getToken()) {
 				uni.request({
@@ -36,15 +36,30 @@
 						token: App.getToken()
 					},
 					data: {
-						companyId: App.getCompany_id()
+						companyId:App.getShop().company_id
 					},
 					success: function(res) {
 						console.log(res)
-						if (res.data.value.length > 0) {
-							for (let iterm in res.data.value) {
-								that.activities = res.data.value;
-							}
+						if (res.data.code == 16000) {
+							uni.showToast({
+								title: '您没有权限',
+								duration: 2000,
+								icon:'none'
+							})
+						} else {
+							if (res.data.value.length > 0) {
+								for (let iterm in res.data.value) {
+									that.activities = res.data.value;
+								}
+							}else{
+								uni.showToast({
+									title: '您暂时没有活动',
+									duration: 2000,
+									icon:'none'
+								})
+								}
 						}
+
 						console.log(that.activities);
 					}
 				})

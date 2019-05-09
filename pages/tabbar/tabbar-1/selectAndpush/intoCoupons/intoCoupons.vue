@@ -59,7 +59,7 @@
 					},
 					data: {
 						activityId: that.activity_id,
-						companyId:App.getCompany_id()
+						companyId:App.getShop().company_id
 					},
 					success: function(res) {
 						console.log(res);

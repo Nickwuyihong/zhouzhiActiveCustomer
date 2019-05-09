@@ -1,0 +1,2 @@
+<import src="./randomCoupon.vue.wxml" />
+    <template is="2a297a1c" data="{{ ...$root['0'], $root }}"/>

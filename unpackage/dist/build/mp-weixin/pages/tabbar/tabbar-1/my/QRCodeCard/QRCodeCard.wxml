@@ -1,0 +1,2 @@
+<import src="./QRCodeCard.vue.wxml" />
+    <template is="4795894a" data="{{ ...$root['0'], $root }}"/>

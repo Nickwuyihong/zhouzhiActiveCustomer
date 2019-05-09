@@ -269,8 +269,6 @@
 
 	.four-img {
 		display: flex;
-		flex-direction: row;
-		flex-wrap: wrap;
 		width: 40%;
 		height: 40%;
 		margin-right: 4%;
@@ -280,7 +278,6 @@
 
 	.night-img {
 		display: flex;
-		flex-wrap: wrap;
 		width: 30%;
 		height: 30%;
 		margin-right: 2%;
@@ -305,6 +302,8 @@
 	}
 
 	.two {
+		flex-direction: row;
+		flex-wrap: wrap;
 		width: 100%;
 		height: 100%;
 		display: flex;
@@ -312,6 +311,8 @@
 	}
 
 	.three {
+		flex-direction: row;
+		flex-wrap: wrap;
 		display: flex;
 		padding-left: 36upx;
 		width: 100%;

@@ -74,8 +74,8 @@
 				that.showed = true;
 			},
 			recall: function() {
-				uni.navigateTo	({
-					url: '../../../../../selectAndpush',
+				uni.reLaunch({
+					url:'../../../../../../selectAndpush/selectAndpush'
 				});
 				this.showed = false;	
 			},

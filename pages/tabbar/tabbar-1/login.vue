@@ -20,6 +20,7 @@
 				nickName: '听风者',
 				gender: 1,
 				avatarUrl: '',
+				userId:'',
 				circleId: '',
 				cyId: '',
 				isNew: 1, //如果是0，则不是新用户，1则是新用户
@@ -64,7 +65,7 @@
 					// console.log('验证token返回的信息：' + that.data.status)
 					if (that.status == 1) {
 						//console.log('验证token成功')
-						//App.saveUserId(data.userId)
+						// App.saveUserId(data.userId)
 						that.toNext()
 					} else {
 						// console.log('验证token失败')
@@ -107,6 +108,8 @@
 						if (res.data.status == 1) {
 							console.log(res)
 							App.saveToken(res.data.token)
+							App.saveUserId(res.data.userId)
+							console.log(res.data.userId)
 							if (res.data.isNew == 1) {
 								that.upload_user()
 							}
@@ -177,7 +180,7 @@
 						// console.log('验证token返回的信息：' + that.data.status)
 						if (that.status == 1) {
 							// console.log('验证token成功')
-							//App.saveUserId(data.userId)
+							App.saveUserId(data.userId)
 							that.toNext()
 						} else {
 							// console.log('验证token失败')

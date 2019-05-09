@@ -89,9 +89,15 @@
 							uni.navigateTo({
 								url: '../../authorityManagement',
 							});
-						} else {
+						} else if(res.data.code=='1006'){
 							that.showed1 = true;
 							that.showed2 = false;
+						} else{
+							uni.showToast({
+								title: '您没有权限',
+								duration: 2000,
+								icon:'none'
+							})
 						}
 					}
 				})
@@ -116,6 +122,7 @@
 							circleName: that.inputvalue
 						},
 						success: function(res) {
+							console.log(res)
 							if (that.inputvalue != '') {
 								that.Circle = res.data.circlelist;
 								console.log(that.Circle);

@@ -21,14 +21,16 @@
 		},
 		methods: {
 			jump: function(index) {
+				console.log(1)
 				this.shop = this.shops[index]
-				uni.navigateTo({
-					url: './editShop/editShop?shop=' + JSON.stringify(this.shop)
-				})
+				console.log(this.shop)
+				App.setShop(this.shop)
+				uni.navigateBack({
+					delta: ''
+				});
 			}
-
 		},
-		created() {
+		onLoad() {
 			var that = this;
 			if (App.getToken()) {
 				uni.request({
@@ -37,9 +39,18 @@
 						token: App.getToken()
 					},
 					success: function(res) {
-						console.log(res)
-						that.shops = res.data.value;
-						console.log(that.shops);
+					   if(res.data.code==200){
+						   console.log(res)
+						   that.shops = res.data.value;
+						   console.log(that.shops);
+					   }
+						else if(res.data.code==1005){
+							uni.showToast({
+								title: '您不属于任何商家',
+								duration: 2000,
+								icon:'none'
+							})
+						}
 					}
 				})
 			} else {

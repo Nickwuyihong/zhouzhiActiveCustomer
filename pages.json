@@ -177,6 +177,21 @@
 			"style": {
 				"navigationBarTitleText": "查看"
 			}
+		}, {
+			"path": "pages/tabbar/tabbar-1/selectShop/selectShop",
+			"style": {
+				"navigationBarTitleText": "选择门店"
+			}
+		}, {
+			"path": "pages/tabbar/tabbar-1/my/my",
+			"style": {
+				"navigationBarTitleText": "我的"
+			}
+		},{
+			"path": "pages/tabbar/tabbar-1/my/QRCodeCard/QRCodeCard",
+			"style": {
+				"navigationBarTitleText": "二维码名片"
+			}
 		}
 	],
 	"globalStyle": {
@@ -200,13 +215,13 @@
 			"iconPath": "static/img/activeCenter.png",
 			"selectedIconPath": "static/img/activeCenter.png",
 			"text": "活动中心"
-		},{
+		}, {
 			"pagePath": "pages/tabbar/tabbar-1/selectAndpush/selectAndpush",
 			"iconPath": "static/img/screening&publishing.png",
 			"selectedIconPath": "static/img/screening&publishing.png",
 			"text": "筛选及发布"
-		},{
-			"pagePath": "pages/tabbar/tabbar-1/authorityManagemengt/authorityManagement",
+		}, {
+			"pagePath": "pages/tabbar/tabbar-1/my/my",
 			"iconPath": "static/img/tabbar/me.png",
 			"selectedIconPath": "static/img/tabbar/me.png",
 			"text": "我"

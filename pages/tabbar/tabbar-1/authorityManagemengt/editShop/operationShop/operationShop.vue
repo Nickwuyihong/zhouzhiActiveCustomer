@@ -32,7 +32,6 @@
 				scrollTop: 0,
 				account_id: '',
 				userid: '',
-
 				userinfor: {},
 				operation: []
 			}
@@ -45,7 +44,7 @@
 					token: App.getToken()
 				},
 				data: {
-					companyId: App.getCompany_id()
+					companyId: App.getShop().company_id
 				},
 				success: function(res) {
 					console.log(res)
@@ -75,7 +74,7 @@
 							}
 						}
 					}
-					else if (res.data.code == 1009){
+					else{
 						uni.showToast({
 							title: '您没有这个权限',
 							icon: 'none'
@@ -97,7 +96,7 @@
 						token: App.getToken()
 					},
 					data: {
-						companyId: App.getCompany_id(),
+						companyId: App.getShop().company_id,
 						userid: that.operation[index].userid
 					},
 					success(res) {
@@ -121,7 +120,7 @@
 								"Content-Type": "application/x-www-form-urlencoded"
 							},
 							data: {
-								companyId: App.getCompany_id(),
+								companyId: App.getShop().company_id,
 								account: that.account_id,
 								level: true
 							},
@@ -156,6 +155,12 @@
 												title: '此员工已经存在',
 												icon: 'none'
 											})
+									}
+									else{
+										uni.showToast({
+													title: '您没有权限',
+													icon: 'none'
+												})
 									}
 								}
 									
