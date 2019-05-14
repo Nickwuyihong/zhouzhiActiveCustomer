@@ -1,2 +1,0 @@
-<import src="./startSelect.vue.wxml" />
-    <template is="d09433f6" data="{{ ...$root['0'], $root }}"/>

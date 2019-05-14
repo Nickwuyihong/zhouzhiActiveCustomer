@@ -2,22 +2,18 @@
 	<view class="body">
 		<view class="content-top">
 			<view class="content-top-main" style="display: flex;height: 100upx;">
-			<view class="content-1">
-				<image class="box-image" :src='avatarUrl'></image>
-			</view>
-			<view class="content-2">
-				<view class="content-2-top">
-				<text class="text-content" style="color: #000000;font-weight: bold;">{{name}}</text>
-				<view>
-					<image></image>
-					<image></image>
+				<view class="content-1">
+					<image class="box-image" :src='avatarUrl'></image>
 				</view>
+				<view class="content-2">
+					<view class="content-2-top">
+						<text class="text-content" style="color: #000000;font-weight: bold;">{{name}}</text>
+					</view>
+					<view class="content-2-bottom">
+						<text class="text-content" style="margin-right: 20upx;">{{identity}}</text>
+						<text class="text-content">门店：{{shopName}}</text>
+					</view>
 				</view>
-				<view class="content-2-bottom">
-				<text class="text-content" style="margin-right: 20upx;">{{identity}}</text>
-				<text  class="text-content">门店：{{shopName}}</text>
-				</view>
-			</view>
 			</view>
 		</view>
 		<view class="content" @click="jump('/pages/tabbar/tabbar-1/authorityManagemengt/authorityManagement')">选择门店</view>
@@ -32,14 +28,14 @@
 	export default {
 		data() {
 			return {
-				identity:"游客",
-				avatarUrl:'',
-				name:'',
-				shopName:'无'
+				identity: "游客",
+				avatarUrl: '',
+				name: '',
+				shopName: '无'
 			};
 		},
-		methods:{
-			jump(url){
+		methods: {
+			jump(url) {
 				if (!url) return;
 				uni.navigateTo({
 					url
@@ -63,9 +59,9 @@
 			var that = this;
 			if (App.getToken()) {
 				console.log(App.getcompany())
-				if(App.getcompany()){
-					this.shopName=App.getcompany().company_name;
-					this.identity='店员'
+				if (App.getcompany()) {
+					this.shopName = App.getcompany().company_name;
+					this.identity = '店员'
 				}
 				console.log(App.getcompany().company_name);
 				uni.request({
@@ -106,7 +102,7 @@
 </script>
 
 <style>
-.body {
+	.body {
 		display: block;
 		/* #ifdef H5 */
 		height: calc(100vh - var(--window-bottom) - var(--window-top));
@@ -117,7 +113,8 @@
 		width: 100%;
 		background-color: #f7f8f8;
 	}
-	.content{
+
+	.content {
 		display: flex;
 		padding-left: 40upx;
 		background: #FFFFFF;
@@ -128,32 +125,37 @@
 		width: 100%;
 		margin-bottom: 20upx;
 	}
+
 	.content-1 {
 		display: flex;
 		flex: 1;
 		align-items: center;
 		justify-content: flex-start;
 	}
-	
+
 	.content-2 {
 		display: flex;
 		flex-direction: column;
 	}
-	.content-2-top{
+
+	.content-2-top {
 		display: flex;
 		flex: 1;
 	}
-	.content-2-bottom{
+
+	.content-2-bottom {
 		display: flex;
 		flex: 1;
 	}
-		.box-image {
+
+	.box-image {
 		height: 100upx;
 		width: 100upx;
 		margin-right: 20upx;
 		border-radius: 15upx;
 		/* border-radius: 1upx; */
 	}
+
 	.text-content {
 		line-height: 60upx;
 		text-align: center;
@@ -161,7 +163,8 @@
 		font-size: 35upx;
 		color: grey;
 	}
-	.content-top{
+
+	.content-top {
 		display: flex;
 		padding-left: 40upx;
 		background: #FFFFFF;

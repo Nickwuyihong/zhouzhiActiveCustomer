@@ -1,0 +1,1 @@
+<template name="77ab023f"><picker class="_picker 77ab023f time-template rui-class" mode="multiSelector" range="{{times}}" value="{{timesIndex}}" disabled="{{curDisabled}}" bindchange="handleProxy" bindcancel="handleProxy" bindcolumnchange="handleProxy" data-eventid="{{'77ab023f-0'}}" data-comkey="{{$k}}">{{curValue}}</picker></template>
