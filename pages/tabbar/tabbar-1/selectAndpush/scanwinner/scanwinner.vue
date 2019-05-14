@@ -18,8 +18,7 @@
 			<view class="content-center">
 				<scroll-view class="picture-1" scroll-y="true">
 					<view class="picture-avtatar">
-						<image v-for="iterm in customers" class="avatar" :src="iterm.headimg">
-						</image>
+						<image v-for="iterm in customers" class="avatar" :src="iterm.headimg"></image>
 					</view>
 				</scroll-view>
 			</view>
@@ -86,20 +85,20 @@
 		width: 100%;
 		background: #F7F8F8;
 	}
-
+    /* 优惠券+查看详情 */
 	.content {
 		height: 90%;
 		width: 100%;
 		display: flex;
 		flex-direction: column;
 	}
-
+   /* 查看详情框 */
 	.content-main {
 		display: flex;
 		width: 100%;
 		height: 20%;
 	}
-
+   /* 查看详情框内容 */
 	.picture {
 		display: flex;
 		flex-direction: row;
@@ -110,7 +109,7 @@
 		border-radius: 25upx;
 		border: 4upx solid #ffdd00;
 	}
-
+   /* 查看详情框左侧 */
 	.picture-left {
 		display: flex;
 		justify-content: center;
@@ -118,36 +117,34 @@
 		flex-direction: column;
 		color: #f8b62d;
 	}
-
+    /* 查看详情框右侧 */
 	.picture-right {
 		display: flex;
 		flex: 1;
 	}
-
+    /* 下面显示名单框 */
 	.content-center {
-		width: 100%;
 		display: flex;
-		height: 80%;
-
+		width: 100%;
+		height: 70%;
 	}
-
+  /* 名单容器scrollview */
 	.picture-1 {
 		background: #BBBBBB;
 		width: 80%;
-		height: 100%;
+		height: 97%;
 		margin: auto;
 		padding-left: 3.3%;
 		padding-top: 3.3%;
 	}
-
+    /* 名单容器scrollview 内容 */
 	.picture-avtatar {
 		width: 100%;
-		height: 100%;
 		display: flex;
 		flex-direction: row;
 		flex-wrap: wrap;
 	}
-
+	/* 名单头像 */
 	.avatar {
 		display: flex;
 		width: 20%;
@@ -156,25 +153,7 @@
 		margin-bottom: 20upx;
 		background: #808080;
 	}
-
-	.content-bottom {
-		position: fixed;
-		display: flex;
-		flex-direction: column;
-		width: 100%;
-		height: 20%;
-		bottom: 0;
-	}
-
-	.btn {
-		display: block;
-		margin: auto;
-		color: #FFFFFF;
-		background: #5acc93;
-		border-radius: 25upx;
-		width: 300upx;
-	}
-
+	/* 查看详情按钮 */
 	.btn-1 {
 		display: flex;
 		height: 70upx;

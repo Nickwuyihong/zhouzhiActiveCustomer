@@ -1,5 +1,5 @@
 
-.page.data-v-40e15168 {
+.page.data-v-f103d82c {
 	display: -webkit-box;
 	display: -webkit-flex;
 	display: -ms-flexbox;
@@ -17,7 +17,7 @@
 	background: #F7F8F8;
 	z-index: 100;
 }
-.content.data-v-40e15168 {
+.content.data-v-f103d82c {
 	display: -webkit-box;
 	display: -webkit-flex;
 	display: -ms-flexbox;
@@ -33,7 +33,7 @@
 	background-color: #FFFFFF;
 	padding: 20rpx 30rpx;
 }
-.text-wrapper.data-v-40e15168 {
+.text-wrapper.data-v-f103d82c {
 	display: -webkit-box;
 	display: -webkit-flex;
 	display: -ms-flexbox;
@@ -51,7 +51,7 @@
 	padding-left: 40rpx;
 	padding-right: 30rpx;
 }
-.text-wrapper2.data-v-40e15168 {
+.text-wrapper2.data-v-f103d82c {
 	display: -webkit-box;
 	display: -webkit-flex;
 	display: -ms-flexbox;
@@ -64,7 +64,7 @@
 	color: #000000;
 	height: 70rpx;
 }
-.text.data-v-40e15168 {
+.text.data-v-f103d82c {
 	display: -webkit-box;
 	display: -webkit-flex;
 	display: -ms-flexbox;
@@ -78,7 +78,7 @@
 	    -ms-flex-align: center;
 	        align-items: center;
 }
-.image.data-v-40e15168 {
+.image.data-v-f103d82c {
 	display: -webkit-box;
 	display: -webkit-flex;
 	display: -ms-flexbox;
@@ -96,14 +96,14 @@
 	    -ms-flex-align: center;
 	        align-items: center;
 }
-.picture.data-v-40e15168 {
+.picture.data-v-f103d82c {
 	height: 35rpx;
 	width: 35rpx;
 }
-.grey.data-v-40e15168 {
+.grey.data-v-f103d82c {
 	background: #efefef;
 }
-.dialog-cover.data-v-40e15168 {
+.dialog-cover.data-v-f103d82c {
 	display: -webkit-box;
 	display: -webkit-flex;
 	display: -ms-flexbox;
@@ -116,7 +116,7 @@
 	z-index: 300;
 	background: rgba(f, f, f, 0.8);
 }
-.sure.data-v-40e15168 {
+.sure.data-v-f103d82c {
 	display: -webkit-box;
 	display: -webkit-flex;
 	display: -ms-flexbox;
@@ -132,7 +132,7 @@
 	border: 1rpx solid #808080;
 	margin: auto;
 }
-.sure-content1.data-v-40e15168 {
+.sure-content1.data-v-f103d82c {
 	display: -webkit-box;
 	display: -webkit-flex;
 	display: -ms-flexbox;
@@ -155,7 +155,7 @@
 	    -ms-flex-pack: center;
 	        justify-content: center;
 }
-.sure-content2.data-v-40e15168 {
+.sure-content2.data-v-f103d82c {
 	display: -webkit-box;
 	display: -webkit-flex;
 	display: -ms-flexbox;
@@ -170,7 +170,7 @@
 	    -ms-flex: 1;
 	        flex: 1;
 }
-.sure-content2-text.data-v-40e15168 {
+.sure-content2-text.data-v-f103d82c {
 	display: -webkit-box;
 	display: -webkit-flex;
 	display: -ms-flexbox;
@@ -191,7 +191,7 @@
 	border-top: 1rpx solid #808080;
 	border-right: 1rpx solid #808080;
 }
-.btn.data-v-40e15168 {
+.btn.data-v-f103d82c {
 	display: -webkit-box;
 	display: -webkit-flex;
 	display: -ms-flexbox;

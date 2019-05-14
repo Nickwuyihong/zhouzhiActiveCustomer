@@ -6,12 +6,6 @@
 			height: 0,
 			nickname: '',
 			avatarUrl: '',
-			shop: {
-				company_id: '',
-				company_name: '',
-				circle_id: '',
-				circle_name: ''
-			}
 		},
 		onLoad: function(res) {
 
@@ -62,6 +56,25 @@
 				console.log(e)
 			}
 		},
+		savecompany: function(company) {
+			try {
+				uni.setStorageSync('company', company)
+				console.log(company)
+				console.log('存储company完成')
+			} catch (e) {
+				console.log(e)
+			}
+		},
+		getcompany: function() {
+			try {
+				var company = uni.getStorageSync('company')
+				console.log('获取company完成')
+				console.log(company)
+				return company
+			} catch (e) {
+				console.log(e)
+			}
+		},
 		//验证token是否正确
 		checkToken: function(succ) {
 			var token = uni.getStorageSync('token')
@@ -77,12 +90,6 @@
 				}
 			})
 		},
-		getShop: function() {
-			return this.data.shop
-		},
-		setShop: function(shop) {
-			this.data.shop = shop
-		}
 	};
 </script>
 

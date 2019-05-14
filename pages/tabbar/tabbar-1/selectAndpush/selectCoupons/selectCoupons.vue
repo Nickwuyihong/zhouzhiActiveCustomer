@@ -3,13 +3,19 @@
 		<view class="content">
 			<text class="text-content">请填写筛选条件:</text>
 			<checkbox-group>
-				<view class="content-main">
-					<checkbox v-bind:checked="customers[0].checked" v-on:click="switchchecked(0)"></checkbox>
-					{{customers[0].title}}
-					<view class="input-wrapper">
-						<input class='input1' v-model="customers[0].number" v-bind:placeholder="customers[0].placeholderName">
+				<view class="content-main-1">
+					<view class="time-wrapper">
+						<checkbox v-bind:checked="customers[0].checked" v-on:click="switchchecked(0)"></checkbox>
+						{{customers[0].title}}
 					</view>
-					{{customers[0].ending}}
+					<view class="time-wrapper" style="margin-top: 20upx;">
+						<text>开始时间：</text>
+						<time-template fields="second" start="2010-01-01 00:00:00" end="2030-12-30 23:59:59" :value="valueStart" @change="bindChangeStart"></time-template>
+					</view>
+					<view class="time-wrapper" style="margin-top:20upx;">
+						<text>结束时间：</text>
+						<time-template fields="second" start="2010-01-01 00:00:00" end="2030-12-30 23:59:59" :value="valueEnd" @change="bindChangeEnd"></time-template>
+					</view>
 				</view>
 				<view class="content-main">
 					<checkbox v-bind:checked="customers[1].checked" v-on:click="switchchecked(1)"></checkbox>
@@ -65,41 +71,45 @@
 	</view>
 </template>
 <script>
+	import timeTemplate from "../../../../components/time-template/time-template"
 	import App from '../../../../../App.vue'
 	import Api from '../../../../../api.js'
 	export default {
+		components: {
+			timeTemplate
+		},
 		data() {
 			return {
+				valueStart: '2018-01-01 00:00:00',
+				valueEnd: '2020-01-01 00:00:00',
 				showed: false,
 				checkedBottom: true,
-				time: [],
 				number: 0,
 				repeat: 0,
-				companyId: '',
+				companyId: '1',
 				startTime: '',
 				endTime: '',
 				cyid: [],
 				couponsInfor: {},
 				customers: [{
-						number: '',
-						placeholderName: '2019/2/19 00:00-2019/2/26 00:00',
-						title: '发布时间',
+						number: '1',
+						title: '发布时间：',
 						checked: true,
 						ending: ''
 					},
 					{
 						number: '',
-						placeholderName: '20',
+						placeholderName: '0',
 						title: '点赞数达到',
-						checked: true,
+						checked: false,
 						ending: '个'
 					},
 					{
 						number: '',
-						placeholderName: '20',
+						placeholderName: '0',
 						title: '点赞数前',
 						checked: false,
-						ending: '个'
+						ending: '名'
 					},
 				]
 			}
@@ -108,13 +118,14 @@
 			var that = this
 			that.couponsInfor = JSON.parse(data.couponsInfor)
 			console.log(that.couponsInfor)
-			that.companyId=that.couponsInfor.companyId
+			that.companyId = that.couponsInfor.companyId
 		},
 		methods: {
-			inputType: function(index) {
-				if (index == 0) {
-					return 'input1';
-				}
+			bindChangeStart(value) {
+				this.valueStart = value;
+			},
+			bindChangeEnd(value) {
+				this.valueEnd = value;
 			},
 			switchchecked: function(index) {
 				this.customers[index].checked = !this.customers[index].checked,
@@ -133,11 +144,11 @@
 						console.log(this.customers[customer].number);
 					}
 				}
-				this.showed = true;
-				this.time = this.customers[0].number.split('-');
-				this.startTime = Math.round(new Date(this.time[0]) / 1000);
-				this.endTime = Math.round(new Date(this.time[1]) / 1000);
-				console.log(App.getToken())
+				console.log(this.valueStart);
+				console.log(this.valueEnd);
+
+				this.startTime = Math.round(new Date(this.valueStart.replace(/\-/g, "\/")) / 1000);
+				this.endTime = Math.round(new Date(this.valueEnd.replace(/\-/g, "\/")) / 1000);
 				console.log(this.startTime)
 				console.log(this.endTime)
 				console.log(this.customers[1].number)
@@ -161,12 +172,22 @@
 					},
 					success: function(res) {
 						console.log(res);
-						for (let iterm in res.data.value.result) {
-							that.cyid.push(res.data.value.result[iterm].cyid)
+						if (res.data.code == 200) {
+							that.showed = true;
+							that.cyid.length=0;
+							for (let iterm in res.data.value.result) {
+								that.cyid.push(res.data.value.result[iterm].cyid)
+							}
+							that.number = res.data.value.number;
+							that.repeat = res.data.value.repeat;
+							console.log(that.cyid);
+						} else if (res.data.code == 16000) {
+							uni.showToast({
+								title: '发布时间为必填内容',
+								duration: 2000,
+								icon: 'none'
+							})
 						}
-						that.number = res.data.value.number;
-						that.repeat = res.data.value.repeat;
-						console.log(that.cyid);
 					}
 				})
 			},
@@ -175,6 +196,7 @@
 			},
 			submit: function() {
 				var that = this
+
 				uni.navigateTo({
 					url: './select/select?cyid=' + JSON.stringify(that.cyid) + '&couponsInfor=' + JSON.stringify(that.couponsInfor)
 				})
@@ -209,20 +231,27 @@
 		width: 100upx;
 	}
 
-	.input1 {
-		text-align: center;
-		border: 1px solid #c9caca;
-		margin: 0upx 20upx;
-		height: 70upx;
-		width: 450upx;
-	}
-
 	.content-main {
 		font-size: 30upx;
 		display: flex;
 		flex-direction: row;
 		align-items: center;
 		margin: 0upx 40upx 40upx 40upx;
+	}
+
+	.content-main-1 {
+		display: flex;
+		flex-direction: column;
+		font-size: 30upx;
+		width: 100%;
+		height: 250upx;
+		margin: 0upx 40upx 40upx 40upx;
+	}
+
+	.time-wrapper {
+		display: flex;
+		flex: 1;
+		align-items: center;
 	}
 
 	.content {
@@ -306,7 +335,7 @@
 		justify-content: center;
 		color: #FFFFFF;
 		background: #ff6e6e;
-		margin-top: 200upx;
+		margin-top: 100upx;
 		border-radius: 25upx;
 		height: 100upx;
 		width: 320upx;

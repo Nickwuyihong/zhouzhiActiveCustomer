@@ -80,5 +80,6 @@ export default {
 	},
 	companyConsume:function(){
 		return BASE_URL + 'company/consume'
-	}
+	},
+	//获取周知号
 }

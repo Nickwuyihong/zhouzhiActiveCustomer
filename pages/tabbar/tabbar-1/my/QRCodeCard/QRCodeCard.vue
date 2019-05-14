@@ -68,7 +68,18 @@
 					} else {
 						that.icon = res.data.user.author_image
 						that.name = res.data.user.author_name
-						that.author_id = res.data.user.author_id.toString()
+						console.log(8)
+						uni.request({
+							url: Api.usersAccount(),
+							header: {
+								token: App.getToken(),
+							},
+							success(res) {
+								console.log(res)
+								that.author_id = res.data.value
+							}
+						})
+						
 					}
 				}
 			})

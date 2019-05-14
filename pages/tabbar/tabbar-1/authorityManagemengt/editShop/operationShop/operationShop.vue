@@ -44,7 +44,7 @@
 					token: App.getToken()
 				},
 				data: {
-					companyId: App.getShop().company_id
+					companyId: App.getcompany().company_id
 				},
 				success: function(res) {
 					console.log(res)

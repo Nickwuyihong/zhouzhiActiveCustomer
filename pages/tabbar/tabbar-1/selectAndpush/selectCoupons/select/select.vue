@@ -19,17 +19,17 @@
 						<view class="picture">
 							<view class="first" v-if="showedone">
 								<view class='one-img' v-for="(a,p1) in swiperList[currentTap].data.img_list">
-									<image :src="a" style="display: flex; height: 100%;width: 100%;"></image>
+									<image :src="a" style="display: flex; height: 100%;width: 100%;" @click="view(p1)"></image>
 								</view>
 							</view>
 							<view class="two" v-if="showedtwo">
-								<view class='four-img' v-for="(b,p2) in swiperList[currentTap].data.img_list">
+								<view class='four-img' v-for="(b,p2) in swiperList[currentTap].data.img_list" @click="view(p2)">
 									<image :src="b" style="display: flex; height: 100%;width: 100%;"></image>
 								</view>
 							</view>
 							<view class="three" v-if="showedthree">
 								<view class='night-img' v-for="(c,p3) in swiperList[currentTap].data.img_list">
-									<image :src="c" style="display: flex; height: 100%;width: 100%;"></image>
+									<image :src="c" style="display: flex; height: 100%;width: 100%;" @click="view(p3)"></image>
 								</view>
 							</view>
 						</view>
@@ -45,7 +45,7 @@
 			</view>
 			<view class="content-bottom-2">
 				<view class="text-left">
-					<view style="display:flex;align-items: center;margin-left: 20upx;">
+					<view style="display:flex;align-items: center;margin-left: 40upx;">
 						<button style="color: #FFFFFF;background: rgb(255,100,100);border-radius: 25upx;" @click="jump">提交名单</button>
 					</view>
 				</view>
@@ -76,7 +76,7 @@
 				showedthree: false,
 				currentTap: 0,
 				scrollTop: 0,
-				circleId: '128',
+				circleId: App.getcompany().circle_id,
 				count: 0,
 				swiperList: [],
 				userid: [],
@@ -102,8 +102,12 @@
 					},
 					success: function(res) {
 						console.log(res)
-						that.swiperList.push(res.data.news[0])
-						that.getCount()
+						console.log(1)
+						if(res.data.news.length>0){
+							that.swiperList.push(res.data.news[0])
+							that.getCount()
+							}
+						console.log(2)
 						console.log(that.swiperList)
 					}
 				})
@@ -111,6 +115,15 @@
 
 		},
 		methods: {
+			view:function(index){
+				var that=this;
+				console.log(index);
+				console.log(that.swiperList[that.currentTap].data.img_list[index]);
+				uni.previewImage({
+					urls:that.swiperList[that.currentTap].data.img_list,
+					current:that.swiperList[that.currentTap].data.img_list[index]
+				})
+			},
 			check: function() {
 				var that = this;
 				that.checked = !that.checked;
@@ -258,33 +271,33 @@
 
 	.one-img {
 		margin-top: 24upx;
-		width: 70%;
-		height: 100%;
+		width:450upx;
+		height:450upx;
 	}
-
+	
 	.picture {
 		width: 100%;
 		height: 60%;
 	}
-
+	
 	.four-img {
 		display: flex;
 		width: 40%;
-		height: 40%;
+		height: 270upx;
 		margin-right: 4%;
 		margin-top: 12upx;
 		margin-bottom: 12upx;
 	}
-
+	
 	.night-img {
 		display: flex;
-		width: 30%;
-		height: 30%;
+		width: 29%;
+		height: 200upx;
 		margin-right: 2%;
 		margin-top: 12upx;
 		margin-bottom: 3%;
 	}
-
+	
 	.my-text {
 		text-align: start;
 		margin-left: 36upx;
@@ -293,29 +306,26 @@
 		color: #333;
 		line-height: 46upx;
 	}
-
+	
 	.first {
 		display: flex;
 		padding-left: 36upx;
 		width: 100%;
-		height: 60%;
 	}
-
+	
 	.two {
-		flex-direction: row;
-		flex-wrap: wrap;
 		width: 100%;
-		height: 100%;
 		display: flex;
 		padding-left: 36upx;
+		flex-direction: row;
+		flex-wrap: wrap;
 	}
-
+	
 	.three {
-		flex-direction: row;
-		flex-wrap: wrap;
 		display: flex;
 		padding-left: 36upx;
 		width: 100%;
-		height: 100%;
+		flex-direction: row;
+		flex-wrap: wrap;
 	}
 </style>

@@ -1,5 +1,5 @@
 
-.body.data-v-bebae54a {
+.body.data-v-60240add {
 	
 	
 	height: 100vh;
@@ -28,12 +28,12 @@
 	background-image: url("http://www.oijkl.com:8090/basic/background.jpg");
 	background-size: cover;
 }
-.body ._button.data-v-bebae54a {
+.body button.data-v-60240add {
 	width: 80%;
 	margin-top: 80rpx;
 	height: 110rpx;
 }
-.content.data-v-bebae54a {
+.content.data-v-60240add {
 	text-align: center;
 	height: 88%;
 	width: 100%;
@@ -48,13 +48,13 @@
 	    -ms-flex-direction: column;
 	        flex-direction: column;
 }
-.box-image.data-v-bebae54a {
+.box-image.data-v-60240add {
 	width: 600rpx;
 	height: 600rpx;
 	margin: auto;
 	margin-bottom: 0;
 }
-.bottom.data-v-bebae54a {
+.bottom.data-v-60240add {
 	height: 12%;
 	width: 100%;
 	display: -webkit-box;
@@ -66,14 +66,14 @@
 	    -ms-flex-align: center;
 	        align-items: center;
 }
-.box-image1.data-v-bebae54a {
+.box-image1.data-v-60240add {
 	height: 100rpx;
 	width: 100rpx;
 	border-radius: 100%;
 	margin: auto;
 	margin-bottom: 0;
 }
-.items.data-v-bebae54a {
+.items.data-v-60240add {
 	display: -webkit-box;
 	display: -webkit-flex;
 	display: -ms-flexbox;

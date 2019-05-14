@@ -24,7 +24,7 @@
 /* 垂直间距 */
 /* 透明度 */
 /* 文章场景相关 */
-[class*='dialog-hairline'].data-v-ee22b83c::after {
+[class*='dialog-hairline'].data-v-d7d58ec0::after {
   content: ' ';
   position: absolute;
   pointer-events: none;
@@ -39,7 +39,7 @@
       transform: scale(0.5);
   border: 0 solid #ebedf0;
 }
-.dialog.data-v-ee22b83c {
+.dialog.data-v-d7d58ec0 {
   width: 100%;
   height: 100%;
   position: fixed;
@@ -51,10 +51,10 @@
   visibility: hidden;
   -webkit-transition: 0.15s;
 }
-.dialog.dialog-visibility.data-v-ee22b83c {
+.dialog.dialog-visibility.data-v-d7d58ec0 {
     visibility: visible;
 }
-.dialog .dialog-model.data-v-ee22b83c {
+.dialog .dialog-model.data-v-d7d58ec0 {
     width: 100%;
     height: 100%;
     background: rgba(0, 0, 0, 0.5);
@@ -65,7 +65,7 @@
     bottom: 0;
     z-index: 20;
 }
-.dialog .dialog-wrap.data-v-ee22b83c {
+.dialog .dialog-wrap.data-v-d7d58ec0 {
     width: 85%;
     position: absolute;
     left: 50%;
@@ -79,13 +79,13 @@
     backface-visibility: hidden;
     z-index: 50;
 }
-.dialog .dialog-wrap .dialog-title.data-v-ee22b83c {
+.dialog .dialog-wrap .dialog-title.data-v-d7d58ec0 {
       font-weight: 500;
       padding-top: 50rpx;
       text-align: center;
       color: #303133;
 }
-.dialog .dialog-wrap .dialog-content .dialog-content_message.data-v-ee22b83c {
+.dialog .dialog-wrap .dialog-content .dialog-content_message.data-v-d7d58ec0 {
       padding: 30rpx;
       font-size: 30rpx;
       line-height: 1.5;
@@ -93,10 +93,10 @@
       -webkit-overflow-scrolling: touch;
       color: #606266;
 }
-.dialog .dialog-wrap .dialog-hairline--top.data-v-ee22b83c::after {
+.dialog .dialog-wrap .dialog-hairline--top.data-v-d7d58ec0::after {
       border-top-width: 1px;
 }
-.dialog .dialog-wrap .dialog-footer.data-v-ee22b83c {
+.dialog .dialog-wrap .dialog-footer.data-v-d7d58ec0 {
       overflow: hidden;
       position: relative;
       display: -webkit-box;
@@ -117,20 +117,27 @@
           -ms-flex-align: center;
               align-items: center;
 }
-.dialog .dialog-wrap .dialog-footer .footer-btn.data-v-ee22b83c {
+.dialog .dialog-wrap .dialog-footer .footer-btn.data-v-d7d58ec0 {
         height: 100rpx;
         font-size: 32rpx;
         text-align: center;
         line-height: 100rpx;
 }
-.dialog .dialog-wrap .dialog-footer .footer-success.data-v-ee22b83c {
+.dialog .dialog-wrap .dialog-footer .footer-success.data-v-d7d58ec0 {
         width: 100%;
         color: #1989fa;
 }
-.dialog .dialog-wrap .dialog-footer .footer-cancel.data-v-ee22b83c {
+.dialog .dialog-wrap .dialog-footer .footer-cancel.data-v-d7d58ec0 {
         width: 100%;
         color: #303133;
 }
+
+
+
+
+
+
+
 
 
 

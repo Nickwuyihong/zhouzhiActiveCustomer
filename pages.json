@@ -154,12 +154,7 @@
 				"navigationBarTitleText": "查看名单"
 			}
 		},
-		{
-			"path": "pages/tabbar/tabbar-1/selectAndpush/selectCoupons/select/scanCustomer/startSelect/startSelect",
-			"style": {
-				"navigationBarTitleText": "选择卷"
-			}
-		},
+		
 		{
 			"path": "pages/tabbar/tabbar-1/selectAndpush/selectCoupons/select/scanCustomer/startSelect/scanCoupons/scanCoupons",
 			"style": {
@@ -182,12 +177,15 @@
 			"style": {
 				"navigationBarTitleText": "选择门店"
 			}
-		}, {
+		},
+		{
 			"path": "pages/tabbar/tabbar-1/my/my",
 			"style": {
-				"navigationBarTitleText": "我的"
+				"navigationBarTitleText": "个人中心",
+				"navigationBarBackgroundColor": "#FFFFFF"
 			}
-		},{
+		},
+		{
 			"path": "pages/tabbar/tabbar-1/my/QRCodeCard/QRCodeCard",
 			"style": {
 				"navigationBarTitleText": "二维码名片"
@@ -206,25 +204,26 @@
 		"borderStyle": "black",
 		"backgroundColor": "#ffffff",
 		"list": [{
-			"pagePath": "pages/tabbar/tabbar-1/tabbar-1",
-			"iconPath": "static/img/tabbar/home.png",
-			"selectedIconPath": "static/img/tabbar/home.png",
-			"text": "欢迎页"
-		}, {
-			"pagePath": "pages/tabbar/tabbar-1/editActive/editActive",
-			"iconPath": "static/img/activeCenter.png",
-			"selectedIconPath": "static/img/activeCenter.png",
-			"text": "活动中心"
-		}, {
-			"pagePath": "pages/tabbar/tabbar-1/selectAndpush/selectAndpush",
-			"iconPath": "static/img/screening&publishing.png",
-			"selectedIconPath": "static/img/screening&publishing.png",
-			"text": "筛选及发布"
-		}, {
-			"pagePath": "pages/tabbar/tabbar-1/my/my",
-			"iconPath": "static/img/tabbar/me.png",
-			"selectedIconPath": "static/img/tabbar/me.png",
-			"text": "我"
-		}]
+				"pagePath": "pages/tabbar/tabbar-1/tabbar-1",
+				"iconPath": "static/img/tabbar/home.png",
+				"selectedIconPath": "static/img/tabbar/home.png",
+				"text": "欢迎页"
+			}, {
+				"pagePath": "pages/tabbar/tabbar-1/editActive/editActive",
+				"iconPath": "static/img/activeCenter.png",
+				"selectedIconPath": "static/img/activeCenter.png",
+				"text": "活动中心"
+			}, {
+				"pagePath": "pages/tabbar/tabbar-1/selectAndpush/selectAndpush",
+				"iconPath": "static/img/screening&publishing.png",
+				"selectedIconPath": "static/img/screening&publishing.png",
+				"text": "筛选及发布"
+			}, {
+				"pagePath": "pages/tabbar/tabbar-1/my/my",
+				"iconPath": "static/img/tabbar/me.png",
+				"selectedIconPath": "static/img/tabbar/me.png",
+				"text": "我"
+			}
+		]
 	}
 }

@@ -3,13 +3,13 @@
 		<view class="content">
 			<image src="../../../static/img/scan.png" class="box-image" @click="scanning"></image>
 			<text style="margin: auto;font-size: 50upx;font-weight: bold;">扫一扫</text>
-		</view>
-		
-		<!-- <view class="qrimg">
+
+			<!-- <view class="qrimg">
 				<tki-qrcode ref="qrcode" :val="val" :size="size" :unit="unit" :background="background" :foreground="foreground"
 				 :pdground="pdground" :icon="icon" :iconSize="iconsize" :lv="lv" :onval="onval" :loadMake="loadMake" @result="qrR" />
 			</view> -->
-			
+
+		</view>
 		<!-- <view class="bottom">
 			<view v-for="(item,index) in items" :key="item.index" class="items">
 				<image :src='item.src' class="box-image1" :id="item.index" v-on:click="jump(index)"></image>
@@ -62,7 +62,7 @@
 			};
 		},
 		onLoad() {
-			//App.saveToken("wangweitoken")
+			//App.saveToken("i")
 			console.log(App.getToken())
 
 			uni.request({

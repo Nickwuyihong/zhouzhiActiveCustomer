@@ -111,7 +111,7 @@
 	    -ms-flex-align: center;
 	        align-items: center;
 }
-.right ._button {
+.right button {
 	background: #FFBB00;
 	color: #FFFFFF;
 	border-radius: 60rpx;

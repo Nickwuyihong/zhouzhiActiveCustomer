@@ -24,7 +24,7 @@
 				console.log(1)
 				this.shop = this.shops[index]
 				console.log(this.shop)
-				App.setShop(this.shop)
+				App.savecompany(this.shop)
 				uni.navigateBack({
 					delta: ''
 				});

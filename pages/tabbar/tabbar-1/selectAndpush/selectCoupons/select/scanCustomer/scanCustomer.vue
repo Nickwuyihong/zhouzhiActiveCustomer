@@ -1,12 +1,14 @@
 <template>
 	<view class="body">
-		<scroll-view class="content" :scroll-top="scrollTop" scroll-y="true">
-			<view class="content-main">
-				<image class="avatar" v-for="iterm in avatars" :src="iterm.author_image"></image>
-			</view>
-		</scroll-view>
+		<view class="content">
+			<scroll-view class="content-main" scroll-y="true">
+				<view class="picture-avtatar">
+					<image class="avatar" v-for="iterm in avatars" :src="iterm.author_image"></image>
+				</view>
+			</scroll-view>
+		</view>
 		<view class="content-bottom">
-			<button style="margin: auto;color: #FFFFFF;background: rgb(255,100,100);border-radius: 25upx" @click="jump">确定名单</button>
+			<button class="btn" @click="jump">确定名单</button>
 		</view>
 	</view>
 </template>
@@ -40,7 +42,7 @@
 
 <style scoped>
 	.body {
-			/* #ifdef H5 */
+		/* #ifdef H5 */
 		height: calc(100vh - var(--window-bottom) - var(--window-top));
 		/* #endif */
 		/* #ifndef H5 */
@@ -51,23 +53,41 @@
 	}
 
 	.content {
+		display: flex;
 		height: 80%;
 		width: 100%;
+		padding-left: 4%;
 	}
 
+	/* 按钮部分 */
 	.content-bottom {
 		display: flex;
-		flex-direction: column;
 		width: 100%;
 		height: 20%;
 	}
 
+	/*  */
 	.content-main {
-		display: flex;
-		height: auto;
-		flex-wrap: wrap;
 		width: 100%;
-		padding: 4%;
+		height: 100%;
+		display: flex;
+	}
+
+	.picture-avtatar {
+		width: 100%;
+		display: flex;
+		flex-direction: row;
+		flex-wrap: wrap;
+	}
+
+	.btn {
+		margin: auto;
+		color: #FFFFFF;
+		background: rgb(255, 100, 100);
+		border-radius: 25upx;
+		width: 300upx;
+		height: 100upx;
+		line-height: 100upx;
 	}
 
 	.avatar {

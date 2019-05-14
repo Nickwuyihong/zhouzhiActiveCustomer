@@ -66,7 +66,7 @@
 			}
 		},
 		onLoad() {
-			this.shop = App.getShop()
+			this.shop = App.getcompany()
 			console.log(this.shop)
 			if (this.shop.circle_name != ''&&this.shop.circle_name != null) {
 				this.circle_name = this.shop.circle_name

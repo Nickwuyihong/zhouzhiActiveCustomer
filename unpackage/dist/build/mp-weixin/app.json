@@ -31,10 +31,7 @@
     "pages/tabbar/tabbar-1/selectAndpush/selectCoupons/select/scanCustomer/startSelect/startSelect",
     "pages/tabbar/tabbar-1/selectAndpush/selectCoupons/select/scanCustomer/startSelect/scanCoupons/scanCoupons",
     "pages/tabbar/tabbar-1/selectAndpush/selectCoupons/select/scanCustomer/startSelect/scanCoupons/couponsDetails/couponsDetails",
-    "pages/tabbar/tabbar-1/selectAndpush/scanwinner/scanwinner",
-    "pages/tabbar/tabbar-1/selectShop/selectShop",
-    "pages/tabbar/tabbar-1/my/my",
-    "pages/tabbar/tabbar-1/my/QRCodeCard/QRCodeCard"
+    "pages/tabbar/tabbar-1/selectAndpush/scanwinner/scanwinner"
   ],
   "subPackages": [],
   "window": {
@@ -69,12 +66,11 @@
         "text": "筛选及发布"
       },
       {
-        "pagePath": "pages/tabbar/tabbar-1/my/my",
+        "pagePath": "pages/tabbar/tabbar-1/authorityManagemengt/authorityManagement",
         "iconPath": "static/img/tabbar/me.png",
         "selectedIconPath": "static/img/tabbar/me.png",
         "text": "我"
       }
     ]
-  },
-  "sitemapLocation": "sitemap.json"
+  }
 }

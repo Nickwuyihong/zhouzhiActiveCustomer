@@ -60,18 +60,21 @@
 						},
 						data: {
 							userId: that.customers[iterm].author_id,
-							companyId: '5',
+							companyId: App.getcompany().company_id,
 							typeId: that.couponsInfor.coupon_type_id
 						},
 						success(res) {
-							console.log(res)
 							
+							console.log(res)
+							if(res.data.code==200){
+								that.showed = true;
+							}
 						}
 					})
 					console.log(that.customers[iterm].author_id)
 					console.log(that.couponsInfor.coupon_type_id)
 				}
-				that.showed = true;
+				
 			},
 			recall: function() {
 				uni.reLaunch({
@@ -91,6 +94,7 @@
 			this.couponsInfor = JSON.parse(data.couponsInfor);
 			console.log(this.couponsInfor);
 			console.log(this.customers);
+			console.log(App.getcompany().company_id)
 		}
 	}
 </script>
@@ -162,7 +166,6 @@
 
 	.picture-avtatar {
 		width: 100%;
-		height: 100%;
 		display: flex;
 		flex-direction: row;
 		flex-wrap: wrap;

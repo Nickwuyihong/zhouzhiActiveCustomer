@@ -1,3 +1,2 @@
 <import src="/pages/components/xy-dialog/xy-dialog.vue.wxml" />
-<import src="/pages/components/tki-qrcode/tki-qrcode.vue.wxml" />
 

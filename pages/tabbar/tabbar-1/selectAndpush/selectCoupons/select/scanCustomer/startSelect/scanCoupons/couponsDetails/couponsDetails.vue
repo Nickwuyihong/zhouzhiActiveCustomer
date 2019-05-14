@@ -21,8 +21,8 @@
 				<text class="text-content">{{coupon_number}}</text>
 			</view>
 			<view class="text-wrapper">
-				<text class="text-name">有效日期：</text>
-				<text class="text-content">{{date}}</text>
+				<text class="text-name">发卷机构：</text>
+				<text class="text-content">{{company_name}}</text>
 			</view>
 			<view class="text-wrapper">
 				<text class="text-name">活动规则：</text>
@@ -47,8 +47,7 @@
 				coupon_name:'',
 				coupon_state: '',
 				coupon_number:'',
-				date: '2019.03.17-2019.03.24',
-				time: '周一至周日 15:00后',
+				company_name:App.getcompany().company_name
 			};
 		},
 		onLoad(data) {
