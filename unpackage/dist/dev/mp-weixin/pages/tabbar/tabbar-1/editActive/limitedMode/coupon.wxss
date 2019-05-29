@@ -53,10 +53,7 @@ page.data-v-eba1e96a, page.data-v-eba1e96a {
       -ms-flex-pack: center;
           justify-content: center;
   width: 100%;
-
-
   height: auto;
-
   background: #F2F2F2;
 }
 .img_list.data-v-eba1e96a {

@@ -53,10 +53,7 @@ page.data-v-c32c69e2, page.data-v-c32c69e2 {
       -ms-flex-pack: center;
           justify-content: center;
   width: 100%;
-
-
   height: auto;
-
   background: #F2F2F2;
 }
 .img_list.data-v-c32c69e2 {

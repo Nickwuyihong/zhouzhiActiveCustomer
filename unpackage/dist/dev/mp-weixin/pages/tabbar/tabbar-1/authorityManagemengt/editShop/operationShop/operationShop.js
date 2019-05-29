@@ -106,7 +106,7 @@ var _tkiQrcode = _interopRequireDefault(__webpack_require__(/*! ../../../../../c
           token: _App.default.getToken() },
 
         data: {
-          companyId: _App.default.getShop().company_id,
+          companyId: _App.default.getcompany().company_id,
           userid: that.operation[index].userid },
 
         success: function success(res) {
@@ -130,7 +130,7 @@ var _tkiQrcode = _interopRequireDefault(__webpack_require__(/*! ../../../../../c
               "Content-Type": "application/x-www-form-urlencoded" },
 
             data: {
-              companyId: _App.default.getShop().company_id,
+              companyId: _App.default.getcompany().company_id,
               account: that.account_id,
               level: true },
 

@@ -3,7 +3,7 @@
 		<view class="content-top">
 			<view class="content-top-main" style="display: flex;height: 100upx;">
 				<view class="content-1">
-					<image class="box-image" :src='avatarUrl'></image>
+					<image class="box-image" :src='avatarUrl' :onerror='errorImage'></image>
 				</view>
 				<view class="content-2">
 					<view class="content-2-top">
@@ -11,13 +11,17 @@
 					</view>
 					<view class="content-2-bottom">
 						<text class="text-content" style="margin-right: 20upx;">{{identity}}</text>
-						<text class="text-content">门店：{{shopName}}</text>
+						<text class="text-content" v-if="showed1">门店：{{shopName}}</text>
+						<picker mode="selector" @change="bindPickerChange" :range="shops" id="0" range-key="company_name" v-if="showed2">
+							<text class="text-content">门店：{{shopName}}</text>
+						</picker>
 					</view>
 				</view>
 			</view>
 		</view>
-		<view class="content" @click="jump('/pages/tabbar/tabbar-1/authorityManagemengt/authorityManagement')">选择门店</view>
+		<!-- <view class="content" @click="jump('/pages/tabbar/tabbar-1/authorityManagemengt/authorityManagement')">选择门店</view> -->
 		<view class="content" @click="jump('/pages/tabbar/tabbar-1/authorityManagemengt/editShop/editShop')">权限管理</view>
+		<view class="content" @click="jump('./wallet/wallet')">钱包</view>
 		<view class="content" @click="toQRCode()">二维码名片</view>
 	</view>
 </template>
@@ -28,13 +32,26 @@
 	export default {
 		data() {
 			return {
-				identity: "游客",
+				url:'',
+				errorImage: 'this.src=' + this.url,
+				showed1: false,
+				showed2: false,
+				identity: "",
 				avatarUrl: '',
 				name: '',
-				shopName: '无'
+				shopName: '',
+				shops: []
 			};
 		},
 		methods: {
+			bindPickerChange: function(e) {
+				var that = this
+				console.log(e)
+				console.log('picker发送选择改变，携带值为', e.target.value)
+				var ind = e.target.value
+				that.shopName = that.shops[e.target.value].company_name
+				App.savecompany(that.shops[e.target.value])
+			},
 			jump(url) {
 				if (!url) return;
 				uni.navigateTo({
@@ -60,8 +77,55 @@
 			if (App.getToken()) {
 				console.log(App.getcompany())
 				if (App.getcompany()) {
+					that.showed1 = false
+					that.showed2 = true
 					this.shopName = App.getcompany().company_name;
 					this.identity = '店员'
+					uni.request({
+						url: Api.shop(),
+						header: {
+							token: App.getToken()
+						},
+						success: function(res) {
+							if (res.data.code == 200) {
+								that.shops = res.data.value
+							} else {
+								uni.showToast({
+									title: '获取门店失败',
+									duration: 2000,
+									icon: 'none'
+								})
+							}
+						},
+					})
+				} else {
+					uni.request({
+						url: Api.shop(),
+						header: {
+							token: App.getToken()
+						},
+						success: function(res) {
+							if (res.data.code == 200) {
+								that.showed1 = false
+								that.showed2 = true
+								that.identity = '店员'
+								that.shopName = '请选择门店'
+								console.log(res)
+								that.shops = res.data.value;
+								console.log(that.shops);
+							} else if (res.data.code == 1005) {
+								that.shopName = '无'
+								that.identity = '游客'
+								that.showed1 = true
+								that.showed2 = false
+								// uni.showToast({
+								// 	title: '您不属于任何商家',
+								// 	duration: 2000,
+								// 	icon:'none'
+								// })
+							}
+						}
+					})
 				}
 				console.log(App.getcompany().company_name);
 				uni.request({
@@ -81,7 +145,9 @@
 							})
 							uni.clearStorage()
 						} else {
-							that.avatarUrl = res.data.user.author_image
+							that.url = App.geturlerror(res.data.user.author_image)
+							console.log(that.url)
+							that.avatarUrl = App.geturl(res.data.user.author_image)
 							that.name = res.data.user.author_name
 						}
 					}

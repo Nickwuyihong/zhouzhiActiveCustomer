@@ -33,7 +33,11 @@
     "pages/tabbar/tabbar-1/selectAndpush/scanwinner/scanwinner",
     "pages/tabbar/tabbar-1/selectShop/selectShop",
     "pages/tabbar/tabbar-1/my/my",
-    "pages/tabbar/tabbar-1/my/QRCodeCard/QRCodeCard"
+    "pages/tabbar/tabbar-1/my/QRCodeCard/QRCodeCard",
+    "pages/tabbar/tabbar-1/my/payment/payment",
+    "pages/tabbar/tabbar-1/my/commodity-detail/commodity-detail",
+    "pages/tabbar/tabbar-1/my/payment-success/payment-success",
+    "pages/tabbar/tabbar-1/my/wallet/wallet"
   ],
   "subPackages": [],
   "window": {
@@ -65,7 +69,7 @@
         "pagePath": "pages/tabbar/tabbar-1/selectAndpush/selectAndpush",
         "iconPath": "static/img/screening&publishing.png",
         "selectedIconPath": "static/img/screening&publishing.png",
-        "text": "筛选及发布"
+        "text": "劵核发"
       },
       {
         "pagePath": "pages/tabbar/tabbar-1/my/my",

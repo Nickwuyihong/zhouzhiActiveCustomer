@@ -42,13 +42,26 @@ var _api = _interopRequireDefault(__webpack_require__(/*! ../../../../api.js */ 
 {
   data: function data() {
     return {
-      identity: "游客",
+      url: '',
+      errorImage: 'this.src=' + this.url,
+      showed1: false,
+      showed2: false,
+      identity: "",
       avatarUrl: '',
       name: '',
-      shopName: '无' };
+      shopName: '',
+      shops: [] };
 
   },
   methods: {
+    bindPickerChange: function bindPickerChange(e) {
+      var that = this;
+      console.log(e);
+      console.log('picker发送选择改变，携带值为', e.target.value);
+      var ind = e.target.value;
+      that.shopName = that.shops[e.target.value].company_name;
+      _App.default.savecompany(that.shops[e.target.value]);
+    },
     jump: function jump(url) {
       if (!url) return;
       uni.navigateTo({
@@ -74,8 +87,55 @@ var _api = _interopRequireDefault(__webpack_require__(/*! ../../../../api.js */ 
     if (_App.default.getToken()) {
       console.log(_App.default.getcompany());
       if (_App.default.getcompany()) {
+        that.showed1 = false;
+        that.showed2 = true;
         this.shopName = _App.default.getcompany().company_name;
         this.identity = '店员';
+        uni.request({
+          url: _api.default.shop(),
+          header: {
+            token: _App.default.getToken() },
+
+          success: function success(res) {
+            if (res.data.code == 200) {
+              that.shops = res.data.value;
+            } else {
+              uni.showToast({
+                title: '获取门店失败',
+                duration: 2000,
+                icon: 'none' });
+
+            }
+          } });
+
+      } else {
+        uni.request({
+          url: _api.default.shop(),
+          header: {
+            token: _App.default.getToken() },
+
+          success: function success(res) {
+            if (res.data.code == 200) {
+              that.showed1 = false;
+              that.showed2 = true;
+              that.identity = '店员';
+              that.shopName = '请选择门店';
+              console.log(res);
+              that.shops = res.data.value;
+              console.log(that.shops);
+            } else if (res.data.code == 1005) {
+              that.shopName = '无';
+              that.identity = '游客';
+              that.showed1 = true;
+              that.showed2 = false;
+              // uni.showToast({
+              // 	title: '您不属于任何商家',
+              // 	duration: 2000,
+              // 	icon:'none'
+              // })
+            }
+          } });
+
       }
       console.log(_App.default.getcompany().company_name);
       uni.request({
@@ -95,7 +155,9 @@ var _api = _interopRequireDefault(__webpack_require__(/*! ../../../../api.js */ 
 
             uni.clearStorage();
           } else {
-            that.avatarUrl = res.data.user.author_image;
+            that.url = _App.default.geturlerror(res.data.user.author_image);
+            console.log(that.url);
+            that.avatarUrl = _App.default.geturl(res.data.user.author_image);
             that.name = res.data.user.author_name;
           }
         } });
@@ -154,7 +216,7 @@ var render = function() {
           _c("view", { staticClass: "content-1" }, [
             _c("image", {
               staticClass: "box-image",
-              attrs: { src: _vm.avatarUrl }
+              attrs: { src: _vm.avatarUrl, onerror: _vm.errorImage }
             })
           ]),
           _c("view", { staticClass: "content-2" }, [
@@ -166,41 +228,52 @@ var render = function() {
                   staticStyle: { color: "#000000", "font-weight": "bold" }
                 },
                 [_vm._v(_vm._s(_vm.name))]
-              ),
-              _vm._m(0)
+              )
             ]),
-            _c("view", { staticClass: "content-2-bottom" }, [
-              _c(
-                "text",
-                {
-                  staticClass: "text-content",
-                  staticStyle: { "margin-right": "20rpx" }
-                },
-                [_vm._v(_vm._s(_vm.identity))]
-              ),
-              _c("text", { staticClass: "text-content" }, [
-                _vm._v("门店：" + _vm._s(_vm.shopName))
-              ])
-            ])
+            _c(
+              "view",
+              { staticClass: "content-2-bottom" },
+              [
+                _c(
+                  "text",
+                  {
+                    staticClass: "text-content",
+                    staticStyle: { "margin-right": "20rpx" }
+                  },
+                  [_vm._v(_vm._s(_vm.identity))]
+                ),
+                _vm.showed1
+                  ? _c("text", { staticClass: "text-content" }, [
+                      _vm._v("门店：" + _vm._s(_vm.shopName))
+                    ])
+                  : _vm._e(),
+                _vm.showed2
+                  ? _c(
+                      "picker",
+                      {
+                        attrs: {
+                          mode: "selector",
+                          range: _vm.shops,
+                          id: "0",
+                          "range-key": "company_name",
+                          eventid: "658ceb70-0"
+                        },
+                        on: { change: _vm.bindPickerChange }
+                      },
+                      [
+                        _c("text", { staticClass: "text-content" }, [
+                          _vm._v("门店：" + _vm._s(_vm.shopName))
+                        ])
+                      ]
+                    )
+                  : _vm._e()
+              ],
+              1
+            )
           ])
         ]
       )
     ]),
-    _c(
-      "view",
-      {
-        staticClass: "content",
-        attrs: { eventid: "658ceb70-0" },
-        on: {
-          click: function($event) {
-            _vm.jump(
-              "/pages/tabbar/tabbar-1/authorityManagemengt/authorityManagement"
-            )
-          }
-        }
-      },
-      [_vm._v("选择门店")]
-    ),
     _c(
       "view",
       {
@@ -223,6 +296,19 @@ var render = function() {
         attrs: { eventid: "658ceb70-2" },
         on: {
           click: function($event) {
+            _vm.jump("./wallet/wallet")
+          }
+        }
+      },
+      [_vm._v("钱包")]
+    ),
+    _c(
+      "view",
+      {
+        staticClass: "content",
+        attrs: { eventid: "658ceb70-3" },
+        on: {
+          click: function($event) {
             _vm.toQRCode()
           }
         }
@@ -231,14 +317,7 @@ var render = function() {
     )
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("view", [_c("image"), _c("image")])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 

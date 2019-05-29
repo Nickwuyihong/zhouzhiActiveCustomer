@@ -1,7 +1,7 @@
 <template>
 	<view class="body">
 		<scroll-view :scroll-top="0" scroll-y="true" class="content-top">
-			<view style="display: flex;justify-content: flex-end;margin:20upx 10% 20upx 0;color: #898989;font-size: 32upx;">未派发</view>
+			<view style="display: flex;justify-content: flex-end;margin:20upx 10% 20upx 0;color: #898989;font-size: 32upx;">未派发：{{lengthNo}}</view>
 			<view class="content-main" v-for="(coupon,index) in nosended">
 				<view class="picture">
 					<view class="picture-left">
@@ -13,7 +13,7 @@
 					</view>
 				</view>
 			</view>
-			<view style="display: flex;justify-content: flex-end;margin:20upx 10% 20upx 0;color: #898989;font-size: 32upx;">已派发</view>
+			<view style="display: flex;justify-content: flex-end;margin:20upx 10% 20upx 0;color: #898989;font-size: 32upx;">已派发：{{lengthHas}}</view>
 			<view>
 				<view class="content-main" v-for="(coupon1,index1) in issended">
 					<view class="picture" style="border: 4upx solid #f8b62d;">
@@ -42,6 +42,8 @@
 			return {
 				shops: [],
 				issended: [],
+				lengthHas:'',
+				lengthNo:'',
 				nosended: [],
 				couponsInfor: {},
 				hadcouponsInfor:{}
@@ -72,6 +74,8 @@
 								}
 							}
 						}
+						that.lengthHas=that.issended.length;
+						that.lengthNo=that.nosended.length;
 						console.log(that.nosended);
 						console.log(that.issended);
 					}

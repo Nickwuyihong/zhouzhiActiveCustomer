@@ -65,7 +65,10 @@
 						</view>
 						<view class="inputs">
 							<view style="width: 30%;">可用时间：</view>
-							<input type="text" :value="item.availableTime" placeholder="请输入优惠券可用时间" style="width: 70%;border-bottom: 1px solid #F2F2F2;" :id="index + 1" v-on:input="setATime"/>
+							<!-- <input type="text" :value="item.availableTime" placeholder="请输入优惠券可用时间" style="width: 70%;border-bottom: 1px solid #F2F2F2;" :id="index + 1" v-on:input="setATime"/> -->
+							<picker mode="date" :id="index + 1" :value="item.availableTime" :start="startDate" :end="endDate" @change="bindDateChange">
+								<view class="uni-input">{{item.availableTime}}</view>
+							</picker>
 						</view>
 						<view class="inputs">
 							<view style="width: 30%;">券有效期：</view>
@@ -138,8 +141,11 @@
 		</view>
 		<view class="inputs">
 			<view style="width: 30%;">可用时间：</view>
-			<input type="text" value="" placeholder="请输入优惠券可用时间" style="width: 70%;border-bottom: 1px solid #F2F2F2;" id="0"
-			 v-on:input="setATime" />
+			<!-- <input type="text" value="" placeholder="请输入优惠券可用时间" style="width: 70%;border-bottom: 1px solid #F2F2F2;" id="0"
+			 v-on:input="setATime" /> -->
+			<picker mode="date" :value="coupon.availableTime" :start="startDate" :end="endDate" @change="bindDateChange" id="0">
+				<view class="uni-input">{{coupon.availableTime}}</view>
+			</picker>
 		</view>
 		<view class="inputs">
 			<view style="width: 30%;">券有效期：</view>
@@ -190,13 +196,16 @@
 	import App from "../../../../../App.vue"
 	export default {
 		data() {
+			const currentDate = this.getDate({
+				format: true
+			})
 			return {
 				activeName: '',
 				ads:[],
 				readyToUpdate: true,
 				coupon:{
 					couponName: '请输入券名',
-					availableTime: '',
+					availableTime: currentDate,
 					exTime: '',
 					organization: '请选择机构',
 					rule: '',
@@ -252,7 +261,40 @@
 				}
 			})
 		},
+		computed: {
+			startDate() {
+				return this.getDate('start')
+			},
+			endDate() {
+				return this.getDate('end')
+			}
+		},
 		methods: {
+			bindDateChange: function(e) {
+				var that = this
+				console.log(e)
+				var time = e.target.value
+				if(e.currentTarget.id == 0){
+					that.coupon.availableTime = time
+				}else{
+					var i = e.currentTarget.id - 1
+					that.couponList[i].availableTime = time
+				}
+			},
+			getDate(type) {
+				const date = new Date();
+				let year = date.getFullYear();
+				let month = date.getMonth() + 1;
+				let day = date.getDate();
+				if (type === 'start') {
+					year = year - 60;
+				} else if (type === 'end') {
+					year = year + 2;
+				}
+				month = month > 9 ? month : '0' + month;;
+				day = day > 9 ? day : '0' + day;
+				return `${year}-${month}-${day}`;
+			},
 			bindPickerChange: function(e) {
 				var that = this
 				console.log(e)
@@ -500,9 +542,12 @@
 				if(this.coupon.disable==false){
 					this.coupon.modifyDiscount = false
 					this.couponList.push(this.coupon)
+					var newDate = this.getDate({
+						format: true
+					})
 					this.coupon = {
 						couponName: '请输入券名',
-						availableTime: '',
+						availableTime: newDate,
 						exTime: '',
 						organization: '请输入发券机构',
 						rule: '',

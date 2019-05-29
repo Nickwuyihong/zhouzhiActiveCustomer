@@ -76,7 +76,7 @@ export default {
 	},
 	//查看用户信息
 	seeUser: function() {
-		return BASE_URL2 + 'seeUser'
+		return BASE_URL2 + 'myInformation'
 	},
 	companyConsume:function(){
 		return BASE_URL + 'company/consume'

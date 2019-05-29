@@ -52,6 +52,8 @@ var _App = _interopRequireDefault(__webpack_require__(/*! ../../../../../App.vue
     return {
       shops: [],
       issended: [],
+      lengthHas: '',
+      lengthNo: '',
       nosended: [],
       couponsInfor: {},
       hadcouponsInfor: {} };
@@ -82,6 +84,8 @@ var _App = _interopRequireDefault(__webpack_require__(/*! ../../../../../App.vue
             }
           }
         }
+        that.lengthHas = that.issended.length;
+        that.lengthNo = that.nosended.length;
         console.log(that.nosended);
         console.log(that.issended);
       } });
@@ -156,7 +160,7 @@ var render = function() {
                 "font-size": "32rpx"
               }
             },
-            [_vm._v("未派发")]
+            [_vm._v("未派发：" + _vm._s(_vm.lengthNo))]
           ),
           _vm._l(_vm.nosended, function(coupon, index) {
             return _c("view", { staticClass: "content-main" }, [
@@ -219,7 +223,7 @@ var render = function() {
                 "font-size": "32rpx"
               }
             },
-            [_vm._v("已派发")]
+            [_vm._v("已派发：" + _vm._s(_vm.lengthHas))]
           ),
           _c(
             "view",

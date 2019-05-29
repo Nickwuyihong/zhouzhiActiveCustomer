@@ -86,7 +86,7 @@
 		{
 			"path": "pages/tabbar/tabbar-1/selectAndpush/selectAndpush",
 			"style": {
-				"navigationBarTitleText": "查看"
+				"navigationBarTitleText": "劵核发"
 			}
 		},
 		{
@@ -191,7 +191,29 @@
 				"navigationBarTitleText": "二维码名片"
 			}
 		}
-	],
+	    ,{
+            "path" : "pages/tabbar/tabbar-1/my/payment/payment",
+            "style" : {
+				"navigationBarTitleText": "支付"
+			}
+        }
+        ,{
+            "path" : "pages/tabbar/tabbar-1/my/commodity-detail/commodity-detail",
+            "style" : {
+				"navigationBarTitleText": "套餐详情"
+			}
+        }
+        ,{
+            "path" : "pages/tabbar/tabbar-1/my/payment-success/payment-success",
+            "style" : {
+				"navigationBarTitleText": "支付成功"
+			}
+        }
+        ,{
+            "path" : "pages/tabbar/tabbar-1/my/wallet/wallet",
+            "style" : {"navigationBarTitleText": "支付"}
+        }
+    ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "i周知商家版",
@@ -217,7 +239,7 @@
 				"pagePath": "pages/tabbar/tabbar-1/selectAndpush/selectAndpush",
 				"iconPath": "static/img/screening&publishing.png",
 				"selectedIconPath": "static/img/screening&publishing.png",
-				"text": "筛选及发布"
+				"text": "劵核发"
 			}, {
 				"pagePath": "pages/tabbar/tabbar-1/my/my",
 				"iconPath": "static/img/tabbar/me.png",

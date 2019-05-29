@@ -96,7 +96,7 @@
 						token: App.getToken()
 					},
 					data: {
-						companyId: App.getShop().company_id,
+						companyId: App.getcompany().company_id,
 						userid: that.operation[index].userid
 					},
 					success(res) {
@@ -120,7 +120,7 @@
 								"Content-Type": "application/x-www-form-urlencoded"
 							},
 							data: {
-								companyId: App.getShop().company_id,
+								companyId: App.getcompany().company_id,
 								account: that.account_id,
 								level: false
 							},
