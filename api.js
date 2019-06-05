@@ -82,4 +82,8 @@ export default {
 		return BASE_URL + 'company/consume'
 	},
 	//获取周知号
+	//添加广告
+	addAds:function(){
+		return BASE_URL + 'addAds'
+	}
 }

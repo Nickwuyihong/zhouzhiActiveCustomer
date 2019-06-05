@@ -76,13 +76,7 @@
 						</view>
 						<view class="inputs">
 							<view style="width: 30%;">发券机构：</view>
-							<!-- <select v-model="couponList[index].organization">
-								<option value="volvo" style="display: none;">请选择机构</option>
-								<option v-for="(item2,index2) in organizationList" :id="index2" :key="item2.company_id" :value="item2.company_name">{{item2.company_name}}</option>
-							</select> -->
-							<picker mode="selector" @change="bindPickerChange" :id="index + 1" :value="couponList[index].company_index" :range="organizationList" range-key="company_name">
-								<view class="uni-input">{{organizationList[couponList[index].company_index].company_name}}</view>
-							</picker>
+							<view class="uni-input">{{item.organization}}</view>
 						</view>
 						<view class="inputs" style="align-items: flex-start;">
 							<view style="width: 30%;">使用规则：</view>
@@ -141,8 +135,6 @@
 		</view>
 		<view class="inputs">
 			<view style="width: 30%;">可用时间：</view>
-			<!-- <input type="text" value="" placeholder="请输入优惠券可用时间" style="width: 70%;border-bottom: 1px solid #F2F2F2;" id="0"
-			 v-on:input="setATime" /> -->
 			<picker mode="date" :value="coupon.availableTime" :start="startDate" :end="endDate" @change="bindDateChange" id="0">
 				<view class="uni-input">{{coupon.availableTime}}</view>
 			</picker>
@@ -157,21 +149,13 @@
 			<view class="">
 
 			</view>
-			<!-- <select v-model="coupon.organization">
-				<option value="volvo" style="display: none;">请选择机构</option>
-				<option v-for="item in organizationList" :key="item.company_id" :value="item.company_name">{{item.company_name}}</option>
-			</select> -->
-			<picker mode="selector" @change="bindPickerChange" :value="coupon.company_index" :range="organizationList" id="0"
-			 range-key="company_name">
-				<view class="uni-input">{{organizationList[coupon.company_index].company_name}}</view>
-			</picker>
+			<view class="uni-input">{{coupon.organization}}</view>
 		</view>
 		<view class="inputs" style="align-items: flex-start;">
 			<view style="width: 30%;">使用规则：</view>
 			<textarea type="text" value="" auto-height="true" placeholder="请输入使用规则" style="width: 70%;border-bottom: 1px solid #F2F2F2;"
 			 id="0" v-on:input="setRule" v-model="coupon.rule" />
 			</view>
-				
 				<button class="btn" @click="addCoupon">确定</button>
 			</view>
 		
@@ -214,7 +198,6 @@
 					toplimit: '',
 					company_index: 0
 				},
-				organizationList: [],
 				couponList: [],
 				activityId: 0
 			}
@@ -227,7 +210,7 @@
 		},
 		created() {
 			var that = this
-			that.coupon.organization = '请输入发券机构'
+			that.coupon.organization = App.getcompany().company_name
 			uni.getStorage({
 				key: 'active',
 				success: function (res) {
@@ -240,23 +223,6 @@
 						that.readyToUpdate = false
 					}else{
 						that.readyToUpdate = true
-					}
-				}
-			});
-			uni.request({
-				url: Api.usersCompany(),
-				header:{
-					token: App.getToken()
-				},
-				success:function(res) {
-					console.log(res)
-					if(res.data.code==200){
-						that.organizationList = res.data.value
-					}else{
-						uni.showToast({
-							title: '获取发券机构列表失败',
-							icon: 'none'
-						})
 					}
 				}
 			})
@@ -294,20 +260,6 @@
 				month = month > 9 ? month : '0' + month;;
 				day = day > 9 ? day : '0' + day;
 				return `${year}-${month}-${day}`;
-			},
-			bindPickerChange: function(e) {
-				var that = this
-				console.log(e)
-				console.log('picker发送选择改变，携带值为', e.target.value)
-				var ind = e.target.value
-				if(e.currentTarget.id == 0){
-					that.coupon.company_index = ind
-					that.coupon.organization = that.organizationList[ind].company_name
-				}else{
-					var i = e.currentTarget.id - 1
-					that.couponList[i].company_index = ind
-					that.couponList[i].organization = that.organizationList[ind].company_name
-				}
 			},
 			jump: function(e) {
 				console.log(e)
@@ -347,7 +299,7 @@
 			setTitle:function(e){
 				this.activeName = e.detail.value
 				console.log(this.activeName)
-				if(this.activeName.length>0&&this.ads.length>0&&this.couponList.length>0){
+				if(this.activeName.length>0&&this.couponList.length>0){
 					this.readyToUpdate = false
 				}else{
 					this.readyToUpdate = true
@@ -368,10 +320,7 @@
 					if(this.coupon.couponName.length>0&&
 						this.coupon.toplimit.length>0&&
 						this.coupon.couponName!='请输入券名'&&
-						//this.coupon.availableTime.length>0&&
 						this.coupon.exTime.length>0&&
-						this.coupon.organization!='请输入发券机构'&&
-						this.coupon.organization.length>0&&
 						this.coupon.rule.length>0){
 						this.coupon.disable = false
 					}else{
@@ -384,10 +333,7 @@
 					if(this.couponList[i].couponName.length>0&&
 						this.couponList[i].couponName!='请输入券名'&&
 						this.couponList[i].toplimit.length>0&&
-						//this.couponList[i].availableTime.length>0&&
 						this.couponList[i].exTime.length>0&&
-						this.couponList[i].organization!='请输入发券机构'&&
-						this.couponList[i].organization.length>0&&
 						this.couponList[i].rule.length>0){
 						this.couponList[i].disable = false
 					}else{
@@ -402,10 +348,7 @@
 					if(this.coupon.couponName.length>0&&
 						this.coupon.couponName!='请输入券名'&&
 						this.coupon.toplimit.length>0&&
-						//this.coupon.availableTime.length>0&&
 						this.coupon.exTime.length>0&&
-						this.coupon.organization!='请输入发券机构'&&
-						this.coupon.organization.length>0&&
 						this.coupon.rule.length>0){
 						this.coupon.disable = false
 					}else{
@@ -418,10 +361,7 @@
 					if(this.couponList[i].couponName.length>0&&
 						this.couponList[i].couponName!='请输入券名'&&
 						this.couponList[i].toplimit.length>0&&
-						//this.couponList[i].availableTime.length>0&&
 						this.couponList[i].exTime.length>0&&
-						this.couponList[i].organization!='请输入发券机构'&&
-						this.couponList[i].organization.length>0&&
 						this.couponList[i].rule.length>0){
 						this.couponList[i].disable = false
 					}else{
@@ -435,10 +375,7 @@
 					if(this.coupon.couponName.length>0&&
 						this.coupon.couponName!='请输入券名'&&
 						this.coupon.toplimit.length>0&&
-						//this.coupon.availableTime.length>0&&
 						this.coupon.exTime.length>0&&
-						this.coupon.organization!='请输入发券机构'&&
-						this.coupon.organization.length>0&&
 						this.coupon.rule.length>0){
 						this.coupon.disable = false
 					}else{
@@ -450,10 +387,7 @@
 					if(this.couponList[i].couponName.length>0&&
 						this.couponList[i].couponName!='请输入券名'&&
 						this.couponList[i].toplimit.length>0&&
-						//this.couponList[i].availableTime.length>0&&
 						this.couponList[i].exTime.length>0&&
-						this.couponList[i].organization!='请输入发券机构'&&
-						this.couponList[i].organization.length>0&&
 						this.couponList[i].rule.length>0){
 						this.couponList[i].disable = false
 					}else{
@@ -467,10 +401,7 @@
 					if(this.coupon.couponName.length>0&&
 						this.coupon.couponName!='请输入券名'&&
 						this.coupon.toplimit.length>0&&
-						//this.coupon.availableTime.length>0&&
 						this.coupon.exTime.length>0&&
-						this.coupon.organization!='请输入发券机构'&&
-						this.coupon.organization.length>0&&
 						this.coupon.rule.length>0){
 						this.coupon.disable = false
 					}else{
@@ -482,10 +413,7 @@
 					if(this.couponList[i].couponName.length>0&&
 						this.couponList[i].couponName!='请输入券名'&&
 						this.couponList[i].toplimit.length>0&&
-						//this.couponList[i].availableTime.length>0&&
 						this.couponList[i].exTime.length>0&&
-						this.couponList[i].organization!='请输入发券机构'&&
-						this.couponList[i].organization.length>0&&
 						this.couponList[i].rule.length>0){
 						this.couponList[i].disable = false
 					}else{
@@ -499,10 +427,7 @@
 					if(this.coupon.couponName.length>0&&
 						this.coupon.couponName!='请输入券名'&&
 						this.coupon.toplimit.length>0&&
-						//this.coupon.availableTime.length>0&&
 						this.coupon.exTime.length>0&&
-						this.coupon.organization!='请输入发券机构'&&
-						this.coupon.organization.length>0&&
 						this.coupon.rule.length>0){
 						this.coupon.disable = false
 					}else{
@@ -514,10 +439,7 @@
 					if(this.couponList[i].couponName.length>0&&
 						this.couponList[i].couponName!='请输入券名'&&
 						this.couponList[i].toplimit.length>0&&
-						//this.couponList[i].availableTime.length>0&&
 						this.couponList[i].exTime.length>0&&
-						this.couponList[i].organization!='请输入发券机构'&&
-						this.couponList[i].organization.length>0&&
 						this.couponList[i].rule.length>0){
 						this.couponList[i].disable = false
 					}else{
@@ -549,12 +471,11 @@
 						couponName: '请输入券名',
 						availableTime: newDate,
 						exTime: '',
-						organization: '请输入发券机构',
+						organization: App.getcompany().company_name,
 						rule: '',
 						disable: true,
 						modifyDiscount: false,
-						toplimit: '',
-						company_index: 0
+						toplimit: ''
 					}
 				}else{
 					uni.showToast({
@@ -562,7 +483,7 @@
 						icon: 'none'
 					})
 				}
-				if(this.activeName.length>0&&this.ads.length>0&&this.couponList.length>0){
+				if(this.activeName.length>0&&this.couponList.length>0){
 					this.readyToUpdate = false
 				}else{
 					this.readyToUpdate = true
@@ -575,14 +496,6 @@
 				this.couponList[e].modifyDiscount = false
 			},
 			createActive:function(){
-// 				if(this.activeName.length>0&&this.ads.length>0&&this.couponList.length>0){
-// 					this.$refs.xyDialog02.alert()
-// 				}else{
-// 					uni.showToast({
-// 						title: '活动尚未完成编辑，未能创建!',
-// 						icon: 'none'
-// 					})
-// 				}
 				this.$refs.xyDialog02.alert()
 			},
 			saveActive:function(){
@@ -620,84 +533,85 @@
 			handleConfirm () {
 				var that = this
 				console.log('点击确定按钮')
-				for(var x=0;x<that.couponList.length;x++){
-					console.log(x)
-					var companyId = 0
-					for(var i=0;i<that.organizationList.length;i++){
-						if(that.organizationList[i].company_name==that.couponList[x].organization){
-							console.log(x)
-							companyId = that.organizationList[i].company_id
-							const index = x
-							uni.request({
-								url: Api.companyActivity(),
-								method: 'POST',
-								header:{
-									'content-type': 'application/x-www-form-urlencoded',
-									token: App.getToken()
-								},
-								data:{
-									name: that.activeName,
-									companyId: companyId
-								},
-								success:function(res){
-									console.log(res)
-									if(res.data.code==200){
-										that.activityId = res.data.value.activity_id
-										console.log(index)
-										var atime = new Date(that.couponList[index].availableTime).getTime()
-										console.log(atime)
-										if(atime.toString()=="NaN"){
-											atime = 0
-											console.log(atime)
-										}
-// 										console.log(companyId)
-// 										console.log(that.activityId)
-// 										console.log(that.couponList[index].couponName)
-// 										console.log(that.couponList[index].rule)
-// 										console.log(that.couponList[index].exTime)
-// 										console.log(that.couponList[index].toplimit)
-										uni.request({
-											url: Api.company(),
-											method:	'POST',
-											header:{
-												'content-type': 'application/x-www-form-urlencoded',
-												token: App.getToken()
-											},
-											data:{
-												companyId: companyId,
-												activityId: that.activityId,
-												name: that.couponList[index].couponName,
-												state: that.couponList[index].rule,
-												vaildDays: that.couponList[index].exTime,
-												num: that.couponList[index].toplimit,
-												money: 1,
-												start: atime,
-											},
-											success:function(res){
-												console.log(res)
-												if(res.data.code == 200){
-													uni.showToast({
-														title: '第' + index +'个活动创建成功'
-													})
-												}else{
-													uni.showToast({
-														title: '第' + index +'个' + '您没有权限进行创建!',
-														icon: 'none'
-													})
-												}
-											}
-										})
-									}else{
-										uni.showToast({
-											title: '第' + index +'个' + '获取活动id失败',
-											icon: 'none'
-										})
-									}
+				uni.request({
+					url: Api.companyActivity(),
+					method: 'POST',
+					header:{
+						'content-type': 'application/x-www-form-urlencoded',
+						token: App.getToken()
+					},
+					data:{
+						name: that.activeName,
+						companyId: App.getcompany().company_id
+					},
+					success:function(res){
+						console.log(res)
+						if(res.data.code==200){
+							that.activityId = res.data.value.activity_id
+							//创建卡券
+							for(var x=0;x<that.couponList.length;x++){
+								var atime = new Date(that.couponList[x].availableTime).getTime()
+								if(atime.toString()=="NaN"){
+									atime = 0
+									console.log(atime)
 								}
+								uni.request({
+									url: Api.company(),
+									method:	'POST',
+									header:{
+										'content-type': 'application/x-www-form-urlencoded',
+										token: App.getToken()
+									},
+									data:{
+										companyId: App.getcompany().company_id,
+										activityId: that.activityId,
+										name: that.couponList[x].couponName,
+										state: that.couponList[x].rule,
+										vaildDays: that.couponList[x].exTime,
+										num: that.couponList[x].toplimit,
+										money: 1,
+										start: atime,
+									},
+									success:function(res){
+										console.log(res)
+										if(res.data.code == 200){
+											uni.showToast({
+												title: '第' + x +'张券创建成功'
+											})
+										}else{
+											uni.showToast({
+												title: '第' + x +'个' + '您没有权限进行创建!',
+												icon: 'none'
+											})
+										}
+									}
+								})
+							}
+							
+							//创建广告
+							// for(var i=0;i<that.ads.length;i++){
+							// 	uni.request({
+							// 		url: Api.addAds(),
+							// 		method: 'POST',
+							// 		header:{
+							// 			token: App.getToken(),
+							// 			'content-type': 'application/x-www-form-urlencoded',
+							// 		},
+							// 		data:{
+							// 			url: that.ads[i].link,
+							// 			
+							// 		}
+							// 	})
+							// }
+							
+						}else{
+							uni.showToast({
+								title: '获取活动id失败',
+								icon: 'none'
 							})
 						}
 					}
-				}
+				})
 			},
 		}
 	}
