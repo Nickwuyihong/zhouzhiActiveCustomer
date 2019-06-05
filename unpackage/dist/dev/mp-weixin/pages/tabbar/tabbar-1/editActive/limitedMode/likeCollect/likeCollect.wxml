@@ -1,0 +1,2 @@
+<import src="./likeCollect.vue.wxml" />
+    <template is="740cfb25" data="{{ ...$root['0'], $root }}"/>

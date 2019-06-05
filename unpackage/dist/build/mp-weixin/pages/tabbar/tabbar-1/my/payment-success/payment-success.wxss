@@ -29,14 +29,23 @@
 	-webkit-flex-direction: column;
 	    -ms-flex-direction: column;
 	        flex-direction: column;
-	height: 85%;
-	width: 90%;
+	margin-top: 2%;
+	height: 98%;
+	width: 100%;
+	background: #FFFFFF;
 }
 .content-top{
-	display: block;
-	color: #333333;
-	font-size: 40rpx;
-	margin-bottom: 150rpx;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: -ms-flexbox;
+	display: flex;
+	height: 70rpx;
+	width: 100%;
+	margin-left: 30rpx;
+	color: #595757;
+	font-size: 30rpx;
+	font-weight: 550;
+	line-height: 70rpx;
 }
 .content-bottom{
 	display: block;

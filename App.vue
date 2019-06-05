@@ -2,10 +2,13 @@
 	import Api from 'api'
 	
 	export default {
-		data: {
-			height: 0,
-			nickname: '',
-			avatarUrl: '',
+		data() {
+			return{
+				height: 0,
+				nickname: '',
+				avatarUrl: '',
+				activityId:''
+			}
 		},
 		onLoad: function(res) {
 
@@ -20,30 +23,39 @@
 		onHide: function() {
 			console.log('App Hide');
 		},
+		//url错误
 		geturlerror:function(path){
 			var newpath='http://oijkl.com/'+path.substring(path.indexOf('/',9)+1,path.length)
 			return newpath
 		},
-		geturl: function(path) {
-			const OSS=require('./pages/components/OSS.js')
-			var client = new OSS({
-				region: 'oss-cn-shenzhen', //换成你自己的
-				accessKeyId: 'LTAIrYEkBW0VumzL',
-				accessKeySecret: 'HIFMVls12Iq7WhUWtFs1Ec4PuyCLU0',
-				bucket: 'zhouzhi-test1',
-			});
-			var options = {
-				expires: 3600
-			};
-			var newpath=path.substring(path.indexOf('/',9)+1,path.length)
-			var url = client.signatureUrl(newpath, options);
-			return url
-			console.log(url)
+		// geturl: function(path) {
+		// 	const OSS=require('./pages/components/OSS.js')
+		// 	var client = new OSS({
+		// 		region: 'oss-cn-shenzhen', //换成你自己的
+		// 		accessKeyId: 'LTAIrYEkBW0VumzL',
+		// 		accessKeySecret: 'HIFMVls12Iq7WhUWtFs1Ec4PuyCLU0',
+		// 		bucket: 'zhouzhi-test1',
+		// 	});
+		// 	var options = {
+		// 		expires: 3600
+		// 	};
+		// 	var newpath=path.substring(path.indexOf('/',9)+1,path.length)
+		// 	var url = client.signatureUrl(newpath, options);
+		// 	return url
+		// 	console.log(url)
+		// },
+		//存活动id
+		setactivityId:function(activityId){
+			this.activityId=activityId
+		},
+		getactivityId:function(){
+			return this.activityId
 		},
 		getToken: function() {
 			try {
 				var value = uni.getStorageSync('token')
 				// var value='e32bc9af704bbb7fe190f0ada2607b19'
+				// var value=''
 				console.log('获取token完成')
 				return value
 			} catch (e) {

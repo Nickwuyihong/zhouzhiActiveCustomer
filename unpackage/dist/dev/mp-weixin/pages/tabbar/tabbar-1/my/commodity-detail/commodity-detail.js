@@ -27,25 +27,34 @@
 
 
 
+
 {
   data: function data() {
     return {
       index: 0,
       commodityType: [{
         src: "../../../../../static/logo.png",
-        price: '1288' },
+        price: '1288',
+        type: '单月套餐',
+        index: '2' },
 
       {
         src: "../../../../../static/logo.png",
-        price: '3864' },
+        price: '3864',
+        type: '季度套餐',
+        index: '3' },
 
       {
         src: "../../../../../static/logo.png",
-        price: '6528' },
+        price: '6528',
+        type: '半年套餐',
+        index: '4' },
 
       {
         src: "../../../../../static/logo.png",
-        price: '11856' }] };
+        price: '11856',
+        type: '年度套餐',
+        index: '5' }] };
 
 
 
@@ -59,7 +68,7 @@
 
     pay: function pay() {
       uni.redirectTo({
-        url: '../payment-success/payment-success' });
+        url: '../payment-success/payment-success?commodityType=' + JSON.stringify(this.commodityType[this.index]) });
 
     } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ "./node_modules/@dcloudio/uni-mp-weixin/dist/index.js")["default"]))
@@ -109,8 +118,19 @@ var render = function() {
       _c("view", { staticClass: "content-bottom" }, [
         _c("view", { staticClass: "content-bottom-main" }, [
           _c("view", { staticClass: "content-bottom-main-left" }, [
-            _c("text", [
-              _vm._v("合计：" + _vm._s(_vm.commodityType[_vm.index].price))
+            _c(
+              "text",
+              {
+                staticStyle: {
+                  display: "block",
+                  "margin-bottom": "10rpx",
+                  "font-weight": "bold"
+                }
+              },
+              [_vm._v("￥" + _vm._s(_vm.commodityType[_vm.index].price))]
+            ),
+            _c("text", { staticStyle: { "font-size": "35rpx" } }, [
+              _vm._v(_vm._s(_vm.commodityType[_vm.index].type))
             ])
           ]),
           _c(
@@ -124,7 +144,7 @@ var render = function() {
                   attrs: { eventid: "5917cc0b-0" },
                   on: { click: _vm.pay }
                 },
-                [_vm._v("支付")]
+                [_vm._v("我想购买")]
               )
             ],
             1

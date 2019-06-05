@@ -11,8 +11,9 @@ export default {
 	usersCompany: function() {
 		return BASE_URL + 'users/company/'
 	},
+	//获取商家
 	company: function() {
-		return BASE_URL + 'company/'
+		return BASE_URL + 'company/createCoupon'
 	},
 	companyActivity: function() {
 		return BASE_URL + 'company/activity/'
@@ -33,7 +34,7 @@ export default {
 		return BASE_URL + 'business/companyId=' + id
 	},
 	getActivity: function() {
-		return BASE_URL + 'company/activity'
+		return BASE_URL + 'company/getActivity'
 	},
 	getCoupons: function(a) {
 		return BASE_URL + 'company/activity/' + a
@@ -44,7 +45,7 @@ export default {
 	},
 	//获得文章
 	postCoupons: function() {
-		return BASE_URL + 'business'
+		return BASE_URL + 'business/userCoupon4'
 	},
 	//获得中奖用户
 	getUser: function(id) {
@@ -78,12 +79,39 @@ export default {
 	seeUser: function() {
 		return BASE_URL2 + 'myInformation'
 	},
+	seeotheruser:function(){
+		return BASE_URL2 + 'seeUser'
+	},
+	//获取周知号
 	companyConsume:function(){
 		return BASE_URL + 'company/consume'
 	},
-	//获取周知号
-	//添加广告
-	addAds:function(){
-		return BASE_URL + 'addAds'
+	//激活码
+	codeActivate:function(){
+		return BASE_URL2 + 'UseCodeNum'
+	},
+	//获取当前活动下的卡券
+	getactivityCoupons:function(url){
+		return BASE_URL+'company/activity/'+url
+	},
+	//集赞活动接口
+	likeCollect:function(){
+		return BASE_URL+'company/activity2'
+	},
+	//新发布活动接口
+	newPublish:function(){
+		return BASE_URL+'company/activity1'
+	},
+	//打卡活动接口
+	puch:function(){
+		return BASE_URL+'company/activity3'
+	},
+	//打卡券接口
+	puchCoupon:function(){
+		return BASE_URL+'company/createCoupon1'
+	},
+	//关闭活动接口
+	closeActivity:function(){
+		return BASE_URL+'company/closeActivity'
 	}
 }

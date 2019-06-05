@@ -52,7 +52,8 @@ var _App = _interopRequireDefault(__webpack_require__(/*! ../../../../../../../.
 
   data: function data() {
     return {
-      couponsInfor: {},
+      // couponsInfor:{},
+      coupon_type_id: '',
       couponsDetail: {},
       coupon_name: '',
       coupon_state: '',
@@ -62,16 +63,18 @@ var _App = _interopRequireDefault(__webpack_require__(/*! ../../../../../../../.
   },
   onLoad: function onLoad(data) {
     var that = this;
-    that.couponsInfor = JSON.parse(data.couponsInfor);
-    console.log(that.couponsInfor);
+    // that.couponsInfor=JSON.parse(data.couponsInfor);
+    console.log(data);
+    that.coupon_type_id = data.coupon_type_id;
+    console.log(that.coupon_type_id);
     uni.request({
-      url: _api.default.getCouponsdetail(that.couponsInfor.coupon_type_id),
+      url: _api.default.getCouponsdetail(that.coupon_type_id),
       header: {
         token: _App.default.getToken() },
 
       data: {
 
-        id: that.couponsInfor.coupon_type_id },
+        id: that.coupon_type_id },
 
       success: function success(res) {
         console.log(res);
@@ -148,7 +151,7 @@ var render = function() {
             ])
           ]),
           _c("view", { staticClass: "text-wrapper" }, [
-            _c("text", { staticClass: "text-name" }, [_vm._v("发卷机构：")]),
+            _c("text", { staticClass: "text-name" }, [_vm._v("发劵机构：")]),
             _c("text", { staticClass: "text-content" }, [
               _vm._v(_vm._s(_vm.company_name))
             ])
@@ -163,10 +166,10 @@ var render = function() {
               staticStyle: { "margin-left": "115rpx" }
             },
             [
-              _c("view", [_vm._v("1.本卷有效期见卷面所示；")]),
+              _c("view", [_vm._v("1.本劵有效期见劵面所示；")]),
               _c("view", [
                 _vm._v(
-                  "2.本卷为" + _vm._s(_vm.coupon_name) + "，仅适用于本店饮品。"
+                  "2.本劵为" + _vm._s(_vm.coupon_name) + "，仅适用于本店饮品。"
                 )
               ])
             ]

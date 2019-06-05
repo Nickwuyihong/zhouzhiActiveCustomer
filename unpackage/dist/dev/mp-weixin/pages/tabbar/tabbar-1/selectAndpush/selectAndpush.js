@@ -24,11 +24,14 @@
 
 
 
+
+
 var _App = _interopRequireDefault(__webpack_require__(/*! ../../../../App.vue */ "C:\\Users\\14157\\Desktop\\myproject\\App.vue"));
 var _api = _interopRequireDefault(__webpack_require__(/*! ../../../../api.js */ "C:\\Users\\14157\\Desktop\\myproject\\api.js"));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}var _default =
 {
   data: function data() {
     return {
+      number: 0,
       scan: 'true',
       scrollTop: 0,
       shops: [],
@@ -39,6 +42,7 @@ var _api = _interopRequireDefault(__webpack_require__(/*! ../../../../api.js */ 
   },
   onShow: function onShow() {
     var that = this;
+    that.activities.length = 0;
     if (_App.default.getToken()) {
       uni.request({
         url: _api.default.getActivity(),
@@ -59,17 +63,22 @@ var _api = _interopRequireDefault(__webpack_require__(/*! ../../../../api.js */ 
           } else {
             if (res.data.value.length > 0) {
               for (var iterm in res.data.value) {
-                that.activities = res.data.value;
+                if (res.data.value[iterm].activity_type == 0 && res.data.value[iterm].is_delete == 0)
+                that.activities.push(res.data.value[iterm]);
               }
-            } else {
+            }
+            if (that.activities.length == 0) {
               uni.showToast({
                 title: '您暂时没有活动',
                 duration: 2000,
                 icon: 'none' });
 
+            } else
+            {
+              that.number = that.activities.length;
             }
-          }
 
+          }
           console.log(that.activities);
         } });
 
@@ -80,8 +89,9 @@ var _api = _interopRequireDefault(__webpack_require__(/*! ../../../../api.js */ 
         icon: 'none' });
 
       setTimeout(function () {
-        uni.navigateTo({
-          url: '../login' });
+
+        uni.switchTab({
+          url: '../my/my' });
 
       }, 1000);
     }
@@ -93,6 +103,13 @@ var _api = _interopRequireDefault(__webpack_require__(/*! ../../../../api.js */ 
       uni.navigateTo({
         url: 'intoCoupons/intoCoupons?activity_id=' + JSON.stringify(that.activity_id) + '&shops=' + JSON.stringify(
         that.shops) });
+
+    },
+    selectCoupons: function selectCoupons(index) {
+      var that = this;
+      _App.default.setactivityId(that.activities[index].activity_id);
+      uni.navigateTo({
+        url: './selectCoupons/selectCoupons' });
 
     } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ "./node_modules/@dcloudio/uni-mp-weixin/dist/index.js")["default"]))
@@ -145,6 +162,19 @@ var render = function() {
                   staticStyle: { color: "#4d4d4d" }
                 },
                 [_vm._v(_vm._s(activity.activity_name))]
+              ),
+              _c(
+                "text",
+                {
+                  staticStyle: { "font-size": "35rpx", color: "#f8b62d" },
+                  attrs: { eventid: "0c3138dc-0-" + index },
+                  on: {
+                    click: function($event) {
+                      _vm.intocoupons(index)
+                    }
+                  }
+                },
+                [_vm._v("（活动详情）")]
               )
             ]),
             _c(
@@ -156,14 +186,14 @@ var render = function() {
                   {
                     staticClass: "btn",
                     staticStyle: { background: "#FF6E6E" },
-                    attrs: { eventid: "0c3138dc-0-" + index },
+                    attrs: { eventid: "0c3138dc-1-" + index },
                     on: {
                       click: function($event) {
-                        _vm.intocoupons(index)
+                        _vm.selectCoupons(index)
                       }
                     }
                   },
-                  [_vm._v("进入")]
+                  [_vm._v("筛选")]
                 )
               ],
               1

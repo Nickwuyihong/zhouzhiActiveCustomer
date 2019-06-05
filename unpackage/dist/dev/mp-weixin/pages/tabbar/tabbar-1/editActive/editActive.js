@@ -28,32 +28,109 @@
 
 
 
+
+
+
+
 var _App = _interopRequireDefault(__webpack_require__(/*! ../../../../App.vue */ "C:\\Users\\14157\\Desktop\\myproject\\App.vue"));
 var _api = _interopRequireDefault(__webpack_require__(/*! ../../../../api.js */ "C:\\Users\\14157\\Desktop\\myproject\\api.js"));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}var _default =
 {
   data: function data() {
-    return {};
+    return {
+      activityFirst: [{
+        name: '排名奖励',
+        src: 'limitedMode/limitedMode',
+        picture: '../../../../static/img/ranking-01.png' },
+
+      {
+        name: '新发布奖励',
+        src: './limitedMode/newPublish/newPublish',
+        picture: '../../../../static/img/newPublish-01.png' //新发布
+      },
+      {
+        name: '打卡奖励',
+        src: './limitedMode/puch/puch',
+        picture: '../../../../static/img/punch-01.png' //打卡
+      },
+      {
+        name: '集赞奖励',
+        src: './limitedMode/likeCollect/likeCollect',
+        picture: '../../../../static/img/collection-01.png' //集赞
+      }],
+
+      activitySecond: [{
+        name: '广告编辑',
+        src: './adEdite/adEdite',
+        picture: '../../../../static/img/ad-01.png' //广告编辑
+      },
+      {
+        name: '推文编辑',
+        src: './tweetsEdite/tweetsEdite',
+        picture: '../../../../static/img/tweets-01.png' //推文
+      },
+      {
+        name: '历史活动',
+        src: './historyActive/historyActive',
+        picture: '../../../../static/img/history-01.png' //历史
+      }] };
+
 
 
   },
   onLoad: function onLoad() {},
   methods: {
-    jump: function jump(e) {
-      console.log(e);
+    jump: function jump(index) {
+
       if (_App.default.getToken()) {
-        if (e.currentTarget.id == 0) {
+        if (index == 0) {
           uni.navigateTo({
-            url: 'limitedMode/limitedMode' });
-
-        } else if (e.currentTarget.id == 1) {
+            url: this.activityFirst[index].src
+            // url:'test/test'
+          });
+        } else if (index == 1) {
           uni.navigateTo({
-            url: 'randomMode/randomMode' });
+            url: this.activityFirst[index].src });
 
-        } else {
+        } else if (index == 2) {
+          uni.navigateTo({
+            url: this.activityFirst[index].src });
+
+        } else
+        {
+          uni.navigateTo({
+            url: this.activityFirst[index].src });
+
+        }
+
+      } else {
+        uni.navigateTo({
+          url: '../login' });
+
+      }
+    },
+    jump1: function jump1(index) {
+
+      if (_App.default.getToken()) {
+        if (index == 0) {
+          uni.navigateTo({
+            url: this.activitySecond[index].src
+            // url:'test/test'
+          });
+        } else if (index == 1) {
+          uni.navigateTo({
+            url: this.activitySecond[index].src });
+
+        } else if (index == 2) {
+          uni.navigateTo({
+            url: this.activitySecond[index].src });
+
+        } else
+        {
           uni.navigateTo({
             url: 'historyActive/historyActive' });
 
         }
+
       } else {
         uni.navigateTo({
           url: '../login' });
@@ -91,90 +168,60 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("view", { staticClass: "body" }, [
-    _c("view", { staticClass: "three" }, [
+    _c("view", { staticClass: "content" }, [
+      _c("view", { staticClass: "content-top" }, [_vm._v("设定活动奖励")]),
       _c(
         "view",
-        {
-          staticClass: "items",
-          staticStyle: {
-            "border-bottom": "3px #F2F2F2 solid",
-            "border-right": "3px #F2F2F2 solid"
-          },
-          attrs: { id: "0", eventid: "2f44ebf0-0" },
-          on: { click: _vm.jump }
-        },
-        [
-          _c("image", {
-            staticClass: "box-image1",
-            attrs: { src: "../../../../static/img/rankReward.png" }
-          }),
-          _c(
-            "text",
+        { staticClass: "content-bottom" },
+        _vm._l(_vm.activityFirst, function(iterm, index) {
+          return _c(
+            "view",
             {
-              staticStyle: {
-                margin: "auto",
-                "font-size": "37rpx",
-                color: "grey",
-                "margin-top": "0"
+              staticClass: "content-main",
+              attrs: { eventid: "2f44ebf0-0-" + index },
+              on: {
+                click: function($event) {
+                  _vm.jump(index)
+                }
               }
             },
-            [_vm._v("排名奖励")]
+            [
+              _c("image", {
+                staticClass: "image",
+                attrs: { src: iterm.picture }
+              }),
+              _c("text", [_vm._v(_vm._s(iterm.name))])
+            ]
           )
-        ]
-      ),
+        })
+      )
+    ]),
+    _c("view", { staticClass: "content" }, [
+      _c("view", { staticClass: "content-top" }, [_vm._v("编辑活动")]),
       _c(
         "view",
-        {
-          staticClass: "items",
-          staticStyle: { "border-bottom": "3px #F2F2F2 solid" },
-          attrs: { id: "1", eventid: "2f44ebf0-1" },
-          on: { click: _vm.jump }
-        },
-        [
-          _c("image", {
-            staticClass: "box-image1",
-            attrs: { src: "../../../../static/img/randomReward.png" }
-          }),
-          _c(
-            "text",
+        { staticClass: "content-bottom" },
+        _vm._l(_vm.activitySecond, function(iterm, index) {
+          return _c(
+            "view",
             {
-              staticStyle: {
-                margin: "auto",
-                "font-size": "37rpx",
-                color: "grey",
-                "margin-top": "0"
+              staticClass: "content-main",
+              attrs: { eventid: "2f44ebf0-1-" + index },
+              on: {
+                click: function($event) {
+                  _vm.jump1(index)
+                }
               }
             },
-            [_vm._v("随机模式")]
+            [
+              _c("image", {
+                staticClass: "image",
+                attrs: { src: iterm.picture }
+              }),
+              _c("text", [_vm._v(_vm._s(iterm.name))])
+            ]
           )
-        ]
-      ),
-      _c(
-        "view",
-        {
-          staticClass: "items",
-          staticStyle: { "border-right": "3px #F2F2F2 solid" },
-          attrs: { id: "2", eventid: "2f44ebf0-2" },
-          on: { click: _vm.jump }
-        },
-        [
-          _c("image", {
-            staticClass: "box-image1",
-            attrs: { src: "../../../../static/img/historyActive.png" }
-          }),
-          _c(
-            "text",
-            {
-              staticStyle: {
-                margin: "auto",
-                "font-size": "37rpx",
-                color: "grey",
-                "margin-top": "0"
-              }
-            },
-            [_vm._v("历史活动")]
-          )
-        ]
+        })
       )
     ])
   ])

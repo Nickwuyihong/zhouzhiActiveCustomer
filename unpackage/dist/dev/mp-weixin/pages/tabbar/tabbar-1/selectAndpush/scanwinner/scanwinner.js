@@ -53,7 +53,7 @@ var _App = _interopRequireDefault(__webpack_require__(/*! ../../../../../App.vue
   methods: {
     scan: function scan() {
       uni.navigateTo({
-        url: "../selectCoupons/select/scanCustomer/startSelect/scanCoupons/couponsDetails/couponsDetails?couponsInfor=" + JSON.stringify(this.hadcouponsInfor) });
+        url: "../selectCoupons/select/scanCustomer/startSelect/scanCoupons/couponsDetails/couponsDetails?coupon_type_id=" + this.coupon_type });
 
     } },
 

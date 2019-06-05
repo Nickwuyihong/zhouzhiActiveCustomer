@@ -62,8 +62,9 @@ var _tkiQrcode = _interopRequireDefault(__webpack_require__(/*! ../../../../../c
           for (var iterm in res.data.value) {
             if (res.data.value[iterm].level == 4) {
               that.userid = res.data.value[iterm].userid;
+              console.log(that.userid);
               uni.request({
-                url: _api.default.seeUser(),
+                url: _api.default.seeotheruser(),
                 header: {
                   token: _App.default.getToken() },
 
@@ -83,8 +84,7 @@ var _tkiQrcode = _interopRequireDefault(__webpack_require__(/*! ../../../../../c
 
             }
           }
-        } else
-        {
+        } else {
           uni.showToast({
             title: '您没有这个权限',
             icon: 'none' });
@@ -94,6 +94,9 @@ var _tkiQrcode = _interopRequireDefault(__webpack_require__(/*! ../../../../../c
 
   },
   methods: {
+    errorImage: function errorImage(index) {
+      this.operation[index].image = _App.default.geturlerror(this.operation[index].image);
+    },
     deleteOperator: function deleteOperator(index) {
       var that = this;
       console.log(that.operation[index].userid);
@@ -159,14 +162,12 @@ var _tkiQrcode = _interopRequireDefault(__webpack_require__(/*! ../../../../../c
                     console.log(that.operation);
                   } });
 
-              } else
-              if (res.data.code == 1006) {
+              } else if (res.data.code == 1006) {
                 uni.showToast({
                   title: '此员工已经存在',
                   icon: 'none' });
 
-              } else
-              {
+              } else {
                 uni.showToast({
                   title: '您没有权限',
                   icon: 'none' });
@@ -224,7 +225,7 @@ var render = function() {
               _c("image", {
                 staticClass: "box-image",
                 attrs: {
-                  src: "../../../../../../static/image/添加奖励-01.png",
+                  src: "../../../../../../static/image/addoperator-01.png",
                   eventid: "c80c285e-0"
                 },
                 on: { click: _vm.addOperator }
@@ -239,7 +240,7 @@ var render = function() {
               _c("view", { staticClass: "content-left" }, [
                 _c("image", {
                   staticClass: "box-image",
-                  attrs: { src: operator.image }
+                  attrs: { src: operator.image, onerror: _vm.errorImage(index) }
                 }),
                 _c("view", { staticClass: "text-content" }, [
                   _vm._v(_vm._s(operator.operate))

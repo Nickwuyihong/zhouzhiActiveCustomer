@@ -8,7 +8,7 @@
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default =
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
 
 
 
@@ -25,30 +25,112 @@
 
 
 
-
-
-
+var _App = _interopRequireDefault(__webpack_require__(/*! ../../../../../App.vue */ "C:\\Users\\14157\\Desktop\\myproject\\App.vue"));
+var _api = _interopRequireDefault(__webpack_require__(/*! ../../../../../api.js */ "C:\\Users\\14157\\Desktop\\myproject\\api.js"));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}var _default =
 {
   data: function data() {
-    return {};
+    return {
+      ranking: [], //排名
+      newPublish: [], //新发布
+      puch: [], //打卡
+      likeCollect: [], //集赞
+      activityFirst: [{
+        name: '排名奖励活动',
+        src: 'limitedMode/limitedMode',
+        picture: '../../../../../static/img/ranking-01.png' },
+
+      {
+        name: '新发布奖励活动',
+        src: './limitedMode/newPublish/newPublish',
+        picture: '../../../../../static/img/newPublish-01.png' //新发布
+      },
+      {
+        name: '打卡奖励活动',
+        src: './limitedMode/puch/puch',
+        picture: '../../../../../static/img/punch-01.png' //打卡
+      },
+      {
+        name: '集赞奖励活动',
+        src: './limitedMode/likeCollect/likeCollect',
+        picture: '../../../../../static/img/collection-01.png' //集赞
+      }] };
 
 
   },
   onLoad: function onLoad() {},
+  onShow: function onShow() {
+    var that = this;
+    that.ranking.length = 0;
+    that.newPublish.length = 0;
+    that.puch.length = 0;
+    that.likeCollect.length = 0;
+    uni.request({
+      url: _api.default.getActivity(),
+      header: {
+        token: _App.default.getToken() },
+
+      data: {
+        companyId: _App.default.getcompany().company_id },
+
+      success: function success(res) {
+        console.log(res);
+        if (res.data.code == 16000) {
+          uni.showToast({
+            title: '您没有权限',
+            duration: 2000,
+            icon: 'none' });
+
+        } else {
+          if (res.data.value.length > 0) {
+            for (var iterm in res.data.value) {
+              if (res.data.value[iterm].activity_type == 0) {
+                that.ranking.push(res.data.value[iterm]);
+              } else
+              if (res.data.value[iterm].activity_type == 1) {
+                that.newPublish.push(res.data.value[iterm]);
+              } else
+              if (res.data.value[iterm].activity_type == 2) {
+                that.puch.push(res.data.value[iterm]);
+              } else
+              {
+                that.likeCollect.push(res.data.value[iterm]);
+              }
+            }
+          } else {
+            uni.showToast({
+              title: '您暂时没有活动',
+              duration: 2000,
+              icon: 'none' });
+
+          }
+        }
+        console.log(that.ranking);
+        console.log(that.newPublish);
+        console.log(that.puch);
+        console.log(that.likeCollect);
+      } });
+
+  },
   methods: {
-    jump: function jump(e) {
-      console.log(e);
-      if (e.currentTarget.id == 0) {
+    jump: function jump(index) {
+      if (index == 0) {
         uni.navigateTo({
-          url: '' });
+          url: './activities/activities?activity=' + JSON.stringify(this.ranking) });
 
-      } else if (e.currentTarget.id == 1) {
+      } else
+      if (index == 1) {
         uni.navigateTo({
-          url: '' });
+          url: './activities/activities?activity=' + JSON.stringify(this.newPublish) });
 
-      } else {
+      } else
+      if (index == 2) {
         uni.navigateTo({
-          url: '' });
+          url: './activities/activities?activity=' + JSON.stringify(this.puch) });
+
+      } else
+      {
+        uni.navigateTo({
+          url: './activities/activities?activity=' + JSON.stringify(this.likeCollect) });
 
       }
     } } };exports.default = _default;
@@ -83,16 +165,44 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("body", { attrs: { mpcomid: "14b44436-0" } }, [
-    _c("view", { staticClass: "body" }, [
-      _c("view", { staticClass: "preview" }, [
-        _c("view", { staticClass: "preview_text" }, [_vm._v("樱花季")]),
-        _c("view", { staticClass: "preview_img" })
-      ]),
-      _c("view", { staticClass: "preview" }, [
-        _c("view", { staticClass: "preview_text" }, [_vm._v("樱花季")]),
-        _c("view", { staticClass: "preview_img" })
-      ])
-    ])
+    _c(
+      "view",
+      { staticClass: "body" },
+      _vm._l(_vm.activityFirst, function(iterm, index) {
+        return _c("view", { staticClass: "content" }, [
+          _c("view", { staticClass: "content-left" }, [
+            _c("image", {
+              staticClass: "image",
+              attrs: { src: iterm.picture }
+            }),
+            _c("text", [_vm._v(_vm._s(iterm.name))])
+          ]),
+          _c(
+            "view",
+            {
+              staticClass: "content-right",
+              attrs: { eventid: "14b44436-0-" + index },
+              on: {
+                click: function($event) {
+                  _vm.jump(index)
+                }
+              }
+            },
+            [
+              _c("image", {
+                staticStyle: {
+                  display: "block",
+                  height: "30rpx",
+                  width: "35rpx",
+                  "margin-right": "30rpx"
+                },
+                attrs: { src: "../../../../../static/image/1-01.png" }
+              })
+            ]
+          )
+        ])
+      })
+    )
   ])
 }
 var staticRenderFns = []

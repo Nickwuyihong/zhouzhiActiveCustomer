@@ -1,2 +1,2 @@
 <import src="./selectShop.vue.wxml" />
-    <template is="d274b880" data="{{ ...$root['0'], $root }}"/>
+    <template is="039e8aa0" data="{{ ...$root['0'], $root }}"/>

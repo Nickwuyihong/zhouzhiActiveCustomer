@@ -28,23 +28,24 @@
   data: function data() {
     return {
       scrollTop: 0,
-      avatars: [],
-      couponsInfor: {} };
-
+      avatars: []
+      // couponsInfor: {}
+    };
   },
   onLoad: function onLoad(res) {
     var that = this;
     console.log(res.userid);
     that.avatars = JSON.parse(res.userid);
-    that.couponsInfor = JSON.parse(res.couponsInfor);
-    console.log(that.couponsInfor);
+    // that.couponsInfor = JSON.parse(res.couponsInfor)
+    // console.log(that.couponsInfor)
   },
   methods: {
     jump: function jump() {
       uni.navigateTo({
-        url: './startSelect/scanCoupons/scanCoupons?avatars=' + JSON.stringify(this.avatars) + '&couponsInfor=' + JSON.stringify(
-        this.couponsInfor) });
-
+        url: './startSelect/scanCoupons/scanCoupons?avatars=' + JSON.stringify(this.avatars)
+        // + '&couponsInfor=' + JSON.stringify(
+        // 	this.couponsInfor)
+      });
     } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ "./node_modules/@dcloudio/uni-mp-weixin/dist/index.js")["default"]))
 

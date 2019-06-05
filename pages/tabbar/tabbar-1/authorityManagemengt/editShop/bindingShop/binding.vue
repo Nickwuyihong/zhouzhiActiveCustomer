@@ -6,7 +6,7 @@
 					<input placeholder="搜索交流圈" placeholder-style="color:#999999;font-size:35upx" @input='getinput' v-model="inputvalue" />
 				</view>
 				<view class="image">
-					<image class='picture' src="../../../../../../static/image/放大镜-01.png"></image>
+					<image class='picture' src="../../../../../../static/image/magnifier-01.png"></image>
 				</view>
 			</view>
 		</view>

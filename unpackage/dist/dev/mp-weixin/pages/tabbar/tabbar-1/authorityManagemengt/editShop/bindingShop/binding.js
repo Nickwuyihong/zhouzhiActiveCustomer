@@ -352,7 +352,7 @@ var staticRenderFns = [
     return _c("view", { staticClass: "image" }, [
       _c("image", {
         staticClass: "picture",
-        attrs: { src: "../../../../../../static/image/放大镜-01.png" }
+        attrs: { src: "../../../../../../static/image/magnifier-01.png" }
       })
     ])
   }

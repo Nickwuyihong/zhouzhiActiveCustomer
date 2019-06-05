@@ -26,53 +26,28 @@
 
 
 
-
-
-
-
 var _App = _interopRequireDefault(__webpack_require__(/*! ../../../App.vue */ "C:\\Users\\14157\\Desktop\\myproject\\App.vue"));
 var _api = _interopRequireDefault(__webpack_require__(/*! ../../../api.js */ "C:\\Users\\14157\\Desktop\\myproject\\api.js"));
 var _tkiQrcode = _interopRequireDefault(__webpack_require__(/*! ../../components/tki-qrcode/tki-qrcode.vue */ "C:\\Users\\14157\\Desktop\\myproject\\pages\\components\\tki-qrcode\\tki-qrcode.vue"));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
-
 var app = getApp();var _default =
 {
   components: {
     tkiQrcode: _tkiQrcode.default },
 
   data: function data() {
+    return {};
+
+
+  },
+  onShareAppMessage: function onShareAppMessage() {
     return {
-      title: 'Hello',
-      items: [{
-        src: '../../../static/img/activeCenter.png',
-        text: '活动中心' },
+      title: '周知密客',
+      path: '/pages/tabbar/tabbar-1/tabbar-1' };
 
-      {
-        src: '../../../static/img/screening&publishing.png',
-        text: '筛选及发布' },
-
-      {
-        src: '../../../static/img/privilegeManagement.png',
-        text: '管理' }]
-
-
-      // 				msg: 'hello vue',
-      // 				codes: 'cnm',
-      // 				val: '二维码', // 要生成的二维码值
-      // 				size: 200, // 二维码大小
-      // 				unit: 'upx', // 单位
-      // 				background: '#b4e9e2', // 背景色
-      // 				foreground: '#309286', // 前景色
-      // 				pdground: '#32dbc6', // 角标色
-      // 				icon: '', // 二维码图标
-      // 				iconsize: 40, // 二维码图标大小
-      // 				lv: 3, // 二维码容错级别 ， 一般不用设置，默认就行
-      // 				onval: true, // val值变化时自动重新生成二维码
-      // 				loadMake: true, // 组件加载完成后自动生成二维码
-      // 				src: '' // 二维码生成后的图片地址或base64
-    };
   },
   onLoad: function onLoad() {
     //App.saveToken("i")
+
     console.log(_App.default.getToken());
 
     uni.request({
@@ -117,22 +92,27 @@ var app = getApp();var _default =
     // 		}
     // 	});
     // },
-    jump: function jump(index) {
-      console.log('adadasd');
-      if (index == 2) {
-        uni.navigateTo({
-          url: 'authorityManagemengt/authorityManagement' });
+    jump: function jump() {
+      uni.navigateTo({
+        url: './scanning/guide/guide' });
 
-      } else if (index == 1) {
-        uni.navigateTo({
-          url: 'selectAndpush/selectAndpush' });
-
-      } else {
-        uni.navigateTo({
-          url: 'editActive/editActive' });
-
-      }
     },
+    // jump: function(index) {
+    // 	console.log('adadasd');
+    // 	if (index == 2) {
+    // 		uni.navigateTo({
+    // 			url: 'authorityManagemengt/authorityManagement',
+    // 		})
+    // 	} else if (index == 1) {
+    // 		uni.navigateTo({
+    // 			url: 'selectAndpush/selectAndpush',
+    // 		})
+    // 	} else {
+    // 		uni.navigateTo({
+    // 			url: 'editActive/editActive',
+    // 		})
+    // 	}
+    // },
     scanning: function scanning() {
       if (_App.default.getToken()) {
         // 允许从相机和相册扫码
@@ -182,24 +162,45 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("view", { staticClass: "body" }, [
-    _c("view", { staticClass: "content" }, [
-      _c("image", {
-        staticClass: "box-image",
-        attrs: { src: "../../../static/img/scan.png", eventid: "7c208f3e-0" },
-        on: { click: _vm.scanning }
-      }),
-      _c(
-        "text",
-        {
-          staticStyle: {
-            margin: "auto",
-            "font-size": "50rpx",
-            "font-weight": "bold"
-          }
-        },
-        [_vm._v("扫一扫")]
-      )
-    ])
+    _c(
+      "view",
+      { staticClass: "content" },
+      [
+        _c(
+          "scroll-view",
+          { staticClass: "content-main", attrs: { "scroll-y": true } },
+          [
+            _c("image", {
+              staticStyle: {
+                height: "50vh",
+                width: "100%",
+                position: "absolute"
+              },
+              attrs: {
+                src:
+                  "https://zhouzhi-test1.oss-cn-shenzhen.aliyuncs.com/xzData/background/poster1.png",
+                eventid: "7c208f3e-0"
+              },
+              on: { click: _vm.jump }
+            }),
+            _c("image", {
+              staticStyle: { height: "132vh", width: "100%" },
+              attrs: {
+                src:
+                  "https://zhouzhi-test1.oss-cn-shenzhen.aliyuncs.com/xzData/background/poster2.png",
+                eventid: "7c208f3e-1"
+              },
+              on: {
+                click: function($event) {
+                  _vm.scanning()
+                }
+              }
+            })
+          ]
+        )
+      ],
+      1
+    )
   ])
 }
 var staticRenderFns = []

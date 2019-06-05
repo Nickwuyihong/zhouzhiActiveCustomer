@@ -1,0 +1,2 @@
+<import src="./adEdite.vue.wxml" />
+    <template is="4cb4d5be" data="{{ ...$root['0'], $root }}"/>

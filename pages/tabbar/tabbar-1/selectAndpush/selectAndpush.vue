@@ -1,12 +1,14 @@
 <template>
 	<view class="body">
 		<scroll-view :scroll-top="scrollTop" scroll-y="true" class="scroll-Y">
+			<!-- <view class="text-content-1" style="color: #4d4d4d;background: ;">阶梯奖励活动数量为：{{number}}</view> -->
 			<view class="content" v-for="(activity,index) in activities" :key="index">
-				<view class="content-left">
+				<view class="content-left" >
 					<text class="text-content-1" style="color: #4d4d4d;">{{activity.activity_name}}</text>
+					<text style="font-size: 35upx;color: #f8b62d;" @click="intocoupons(index)">（活动详情）</text>
 				</view>
 				<view class="content-right">
-					<button class='btn' @click="intocoupons(index)" style="background: #FF6E6E;">进入</button>
+					<button class='btn'  style="background: #FF6E6E;" @click="selectCoupons(index)">筛选</button>
 				</view>
 			</view>
 		</scroll-view>
@@ -19,6 +21,7 @@
 	export default {
 		data() {
 			return {
+				number:0,
 				scan: 'true',
 				scrollTop: 0,
 				shops: [],
@@ -29,6 +32,7 @@
 		},
 		onShow() {
 			var that = this;
+			that.activities.length=0;
 			if (App.getToken()) {
 							uni.request({
 						url: Api.getActivity(),
@@ -49,17 +53,22 @@
 							} else {
 								if (res.data.value.length > 0) {
 									for (let iterm in res.data.value) {
-										that.activities = res.data.value;
+										if(res.data.value[iterm].activity_type==0&&res.data.value[iterm].is_delete==0)
+										that.activities.push(res.data.value[iterm]);
 									}
-								}else{
+								}
+								if(that.activities.length==0){
 									uni.showToast({
 										title: '您暂时没有活动',
 										duration: 2000,
 										icon:'none'
 									})
-									}
-							}
+								}
+								else{
+									that.number=that.activities.length
+								}
 					
+							}
 							console.log(that.activities);
 						}
 					})
@@ -70,8 +79,9 @@
 					icon: 'none'
 				})
 				setTimeout(function() {
-					uni.navigateTo({
-						url: '../login'
+					
+					uni.switchTab({
+						url: '../my/my'
 					})
 				}, 1000)
 			}
@@ -84,8 +94,16 @@
 					url: 'intoCoupons/intoCoupons?activity_id=' + JSON.stringify(that.activity_id) + '&shops=' + JSON.stringify(
 						that.shops)
 				});
+			},
+			selectCoupons:function(index){
+				var that=this;
+				App.setactivityId(that.activities[index].activity_id)
+				uni.navigateTo({
+					url:'./selectCoupons/selectCoupons'
+				})
 			}
-		}
+		},
+		
 	}
 </script>
 
@@ -121,7 +139,6 @@
 
 	.text-content-1 {
 		font-size: 35upx;
-		margin-right: 30upx;
 		margin-left: 20upx;
 	}
 

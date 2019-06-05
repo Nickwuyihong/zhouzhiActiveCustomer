@@ -1,5 +1,5 @@
 
-.body.data-v-009f27fc {
+.body.data-v-6e25285a {
 	
 	
 	height: 100vh;
@@ -7,7 +7,7 @@
 	width: 100%;
 	background: #F7F8F8;
 }
-.content.data-v-009f27fc {
+.content.data-v-6e25285a {
 	display: -webkit-box;
 	display: -webkit-flex;
 	display: -ms-flexbox;
@@ -18,7 +18,7 @@
 }
 
 /* 按钮部分 */
-.content-bottom.data-v-009f27fc {
+.content-bottom.data-v-6e25285a {
 	display: -webkit-box;
 	display: -webkit-flex;
 	display: -ms-flexbox;
@@ -28,7 +28,7 @@
 }
 
 /*  */
-.content-main.data-v-009f27fc {
+.content-main.data-v-6e25285a {
 	width: 100%;
 	height: 100%;
 	display: -webkit-box;
@@ -36,7 +36,7 @@
 	display: -ms-flexbox;
 	display: flex;
 }
-.picture-avtatar.data-v-009f27fc {
+.picture-avtatar.data-v-6e25285a {
 	width: 100%;
 	display: -webkit-box;
 	display: -webkit-flex;
@@ -51,7 +51,7 @@
 	    -ms-flex-wrap: wrap;
 	        flex-wrap: wrap;
 }
-.btn.data-v-009f27fc {
+.btn.data-v-6e25285a {
 	margin: auto;
 	color: #FFFFFF;
 	background: rgb(255, 100, 100);
@@ -60,7 +60,7 @@
 	height: 100rpx;
 	line-height: 100rpx;
 }
-.avatar.data-v-009f27fc {
+.avatar.data-v-6e25285a {
 	display: -webkit-box;
 	display: -webkit-flex;
 	display: -ms-flexbox;

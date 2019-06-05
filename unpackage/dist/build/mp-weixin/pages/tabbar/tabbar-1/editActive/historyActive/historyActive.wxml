@@ -1,2 +1,2 @@
 <import src="./historyActive.vue.wxml" />
-    <template is="277e36d5" data="{{ ...$root['0'], $root }}"/>
+    <template is="14b44436" data="{{ ...$root['0'], $root }}"/>

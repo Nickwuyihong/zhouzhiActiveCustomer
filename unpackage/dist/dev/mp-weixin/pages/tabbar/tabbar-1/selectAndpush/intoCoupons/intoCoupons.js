@@ -37,26 +37,17 @@
 
 
 
-
-
-
-
-
-
-
-
 var _api = _interopRequireDefault(__webpack_require__(/*! ../../../../../api.js */ "C:\\Users\\14157\\Desktop\\myproject\\api.js"));
 var _App = _interopRequireDefault(__webpack_require__(/*! ../../../../../App.vue */ "C:\\Users\\14157\\Desktop\\myproject\\App.vue"));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}var _default =
 {
   data: function data() {
     return {
+      companyName: _App.default.getcompany().company_name,
       shops: [],
-      issended: [],
-      lengthHas: '',
-      lengthNo: '',
-      nosended: [],
       couponsInfor: {},
-      hadcouponsInfor: {} };
+      hadcouponsInfor: {},
+      activity: [],
+      actName: '' };
 
   },
   onLoad: function onLoad(data) {
@@ -74,36 +65,21 @@ var _App = _interopRequireDefault(__webpack_require__(/*! ../../../../../App.vue
         companyId: _App.default.getcompany().company_id },
 
       success: function success(res) {
-        console.log(res);
-        if (res.data.code == 200) {
-          for (var c in res.data.value.coupons) {
-            if (res.data.value.coupons[c].isSend == false) {
-              that.nosended.push(res.data.value.coupons[c]);
-            } else {
-              that.issended.push(res.data.value.coupons[c]);
-            }
-          }
-        }
-        that.lengthHas = that.issended.length;
-        that.lengthNo = that.nosended.length;
-        console.log(that.nosended);
-        console.log(that.issended);
+        that.activity = res.data.value.coupons;
+        that.actName = res.data.value.actName;
       } });
 
   },
   methods: {
     jump: function jump(index) {
       var that = this;
-      that.couponsInfor = that.nosended[index];
-      console.log(that.couponsInfor);
       uni.navigateTo({
-        url: '../selectCoupons/selectCoupons?couponsInfor=' + JSON.stringify(that.couponsInfor) });
+        url: "../selectCoupons/select/scanCustomer/startSelect/scanCoupons/couponsDetails/couponsDetails?coupon_type_id=" + this.activity[index].coupon_type_id });
 
     },
     scan: function scan(index) {
       var that = this;
-      that.hadcouponsInfor = that.issended[index];
-      console.log(that.hadcouponsInfor);
+      that.hadcouponsInfor = this.activity[index];
       uni.navigateTo({
         url: '../scanwinner/scanwinner?hadcouponsInfor=' + JSON.stringify(that.hadcouponsInfor) });
 
@@ -144,155 +120,135 @@ var render = function() {
     [
       _c(
         "scroll-view",
-        {
-          staticClass: "content-top",
-          attrs: { "scroll-top": 0, "scroll-y": "true" }
-        },
+        { staticClass: "content", attrs: { "scroll-y": true } },
         [
           _c(
             "view",
             {
               staticStyle: {
-                display: "flex",
-                "justify-content": "flex-end",
-                margin: "20rpx 10% 20rpx 0",
-                color: "#898989",
-                "font-size": "32rpx"
+                "font-size": "30rpx",
+                color: "#000",
+                margin: "20rpx 30rpx",
+                "font-weight": "bold"
               }
             },
-            [_vm._v("未派发：" + _vm._s(_vm.lengthNo))]
+            [_vm._v("当前所在活动：" + _vm._s(_vm.actName))]
           ),
-          _vm._l(_vm.nosended, function(coupon, index) {
-            return _c("view", { staticClass: "content-main" }, [
-              _c("view", { staticClass: "picture" }, [
-                _c("view", { staticClass: "picture-left" }, [
-                  _c(
-                    "view",
-                    {
-                      staticStyle: {
-                        "font-size": "30rpx",
-                        "margin-left": "30rpx",
-                        "margin-top": "10rpx"
-                      }
-                    },
-                    [_vm._v(_vm._s(coupon.companyName))]
-                  ),
-                  _c(
-                    "view",
-                    {
-                      staticStyle: {
-                        "font-size": "45rpx",
-                        "margin-left": "30rpx",
-                        "margin-bottom": "10rpx"
-                      }
-                    },
-                    [_vm._v(_vm._s(coupon.couponName))]
-                  )
-                ]),
-                _c(
-                  "view",
-                  { staticClass: "picture-right" },
-                  [
-                    _c(
-                      "button",
-                      {
-                        staticClass: "btn-1",
-                        attrs: { eventid: "9e53055c-0-" + index },
-                        on: {
-                          click: function($event) {
-                            _vm.jump(index)
-                          }
-                        }
-                      },
-                      [_vm._v("筛选")]
-                    )
-                  ],
-                  1
-                )
-              ])
-            ])
-          }),
-          _c(
-            "view",
-            {
-              staticStyle: {
-                display: "flex",
-                "justify-content": "flex-end",
-                margin: "20rpx 10% 20rpx 0",
-                color: "#898989",
-                "font-size": "32rpx"
-              }
-            },
-            [_vm._v("已派发：" + _vm._s(_vm.lengthHas))]
-          ),
-          _c(
-            "view",
-            _vm._l(_vm.issended, function(coupon1, index1) {
-              return _c("view", { staticClass: "content-main" }, [
+          _vm._l(_vm.activity, function(iterm, index) {
+            return _c(
+              "view",
+              { key: iterm.coupon_type_id, staticClass: "content-main" },
+              [
                 _c(
                   "view",
                   {
-                    staticClass: "picture",
-                    staticStyle: { border: "4rpx solid #f8b62d" }
+                    staticStyle: {
+                      "font-size": "25rpx",
+                      color: "#808080",
+                      "margin-bottom": "30rpx",
+                      "margin-left": "20rpx"
+                    }
                   },
                   [
+                    _c("text", { staticStyle: { "margin-right": "20rpx" } }, [
+                      _vm._v(_vm._s(index + 1) + "等奖")
+                    ]),
+                    _c("text", [_vm._v("数量：")]),
+                    _c("text", [_vm._v(_vm._s(iterm.coupon_sum) + " 张")]),
+                    iterm.isSend == false
+                      ? _c(
+                          "text",
+                          {
+                            staticStyle: {
+                              display: "inline",
+                              position: "absolute",
+                              right: "30rpx"
+                            }
+                          },
+                          [_vm._v("未派发")]
+                        )
+                      : _vm._e(),
+                    iterm.isSend == true
+                      ? _c(
+                          "text",
+                          {
+                            staticStyle: {
+                              display: "inline",
+                              position: "absolute",
+                              right: "30rpx"
+                            }
+                          },
+                          [_vm._v("已派发")]
+                        )
+                      : _vm._e()
+                  ]
+                ),
+                _c("view", { staticClass: "picture" }, [
+                  _c("view", { staticClass: "picture-left" }, [
                     _c(
                       "view",
                       {
-                        staticClass: "picture-left",
-                        staticStyle: { color: "#f8b62d" }
+                        staticStyle: {
+                          "font-size": "30rpx",
+                          "margin-left": "30rpx",
+                          "margin-top": "10rpx"
+                        }
                       },
-                      [
-                        _c(
-                          "view",
-                          {
-                            staticStyle: {
-                              "font-size": "30rpx",
-                              "margin-left": "30rpx",
-                              "margin-top": "10rpx"
-                            }
-                          },
-                          [_vm._v(_vm._s(coupon1.companyName))]
-                        ),
-                        _c(
-                          "view",
-                          {
-                            staticStyle: {
-                              "font-size": "45rpx",
-                              "margin-left": "30rpx",
-                              "margin-bottom": "10rpx"
-                            }
-                          },
-                          [_vm._v(_vm._s(coupon1.couponName))]
-                        )
-                      ]
+                      [_vm._v(_vm._s(_vm.companyName))]
                     ),
                     _c(
                       "view",
-                      { staticClass: "picture-right" },
-                      [
-                        _c(
-                          "button",
-                          {
-                            staticClass: "btn-1",
-                            staticStyle: { background: "#f8b62d" },
-                            attrs: { eventid: "9e53055c-1-" + index1 },
-                            on: {
-                              click: function($event) {
-                                _vm.scan(index1)
-                              }
-                            }
-                          },
-                          [_vm._v("查看")]
-                        )
-                      ],
-                      1
+                      {
+                        staticStyle: {
+                          "font-size": "45rpx",
+                          "margin-left": "30rpx"
+                        }
+                      },
+                      [_vm._v(_vm._s(iterm.couponName))]
                     )
-                  ]
-                )
-              ])
-            })
-          )
+                  ]),
+                  _c(
+                    "view",
+                    { staticClass: "picture-right" },
+                    [
+                      iterm.isSend == false
+                        ? _c(
+                            "button",
+                            {
+                              staticClass: "btn-1",
+                              staticStyle: { background: "#22BB22" },
+                              attrs: { eventid: "9e53055c-0-" + index },
+                              on: {
+                                click: function($event) {
+                                  _vm.jump(index)
+                                }
+                              }
+                            },
+                            [_vm._v("查看详情")]
+                          )
+                        : _vm._e(),
+                      iterm.isSend == true
+                        ? _c(
+                            "button",
+                            {
+                              staticClass: "btn-1",
+                              attrs: { eventid: "9e53055c-1-" + index },
+                              on: {
+                                click: function($event) {
+                                  _vm.scan(index)
+                                }
+                              }
+                            },
+                            [_vm._v("查看名单")]
+                          )
+                        : _vm._e()
+                    ],
+                    1
+                  )
+                ])
+              ]
+            )
+          })
         ],
         2
       )

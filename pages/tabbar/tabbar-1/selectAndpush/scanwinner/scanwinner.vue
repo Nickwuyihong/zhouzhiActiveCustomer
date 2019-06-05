@@ -43,7 +43,7 @@
 		methods: {
 			scan: function() {
 				uni.navigateTo({
-					url: "../selectCoupons/select/scanCustomer/startSelect/scanCoupons/couponsDetails/couponsDetails?couponsInfor="+JSON.stringify(this.hadcouponsInfor)
+					url: "../selectCoupons/select/scanCustomer/startSelect/scanCoupons/couponsDetails/couponsDetails?coupon_type_id="+this.coupon_type
 				})
 			}
 		},

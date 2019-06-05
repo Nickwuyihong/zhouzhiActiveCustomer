@@ -19,21 +19,22 @@
 			return {
 				scrollTop: 0,
 				avatars: [],
-				couponsInfor: {}
+				// couponsInfor: {}
 			};
 		},
 		onLoad(res) {
 			var that = this
 			console.log(res.userid)
 			that.avatars = JSON.parse(res.userid)
-			that.couponsInfor = JSON.parse(res.couponsInfor)
-			console.log(that.couponsInfor)
+			// that.couponsInfor = JSON.parse(res.couponsInfor)
+			// console.log(that.couponsInfor)
 		},
 		methods: {
 			jump: function() {
 				uni.navigateTo({
-					url: './startSelect/scanCoupons/scanCoupons?avatars=' + JSON.stringify(this.avatars) + '&couponsInfor=' + JSON.stringify(
-						this.couponsInfor)
+					url: './startSelect/scanCoupons/scanCoupons?avatars=' + JSON.stringify(this.avatars) 
+					// + '&couponsInfor=' + JSON.stringify(
+					// 	this.couponsInfor)
 				})
 			}
 		}

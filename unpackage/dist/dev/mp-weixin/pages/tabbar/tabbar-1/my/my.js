@@ -37,23 +37,118 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 var _App = _interopRequireDefault(__webpack_require__(/*! ../../../../App.vue */ "C:\\Users\\14157\\Desktop\\myproject\\App.vue"));
 var _api = _interopRequireDefault(__webpack_require__(/*! ../../../../api.js */ "C:\\Users\\14157\\Desktop\\myproject\\api.js"));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}var _default =
 {
   data: function data() {
     return {
+      logined: true,
+      nologined: false,
+      showed: false,
       url: '',
-      errorImage: 'this.src=' + this.url,
       showed1: false,
       showed2: false,
-      identity: "",
       avatarUrl: '',
       name: '',
       shopName: '',
-      shops: [] };
+      shops: [],
+      commodity: [
+      {
+        type: '单月套餐',
+        src: '../../../../static/image/month-01.png' //单月
+      },
+      {
+        type: '季度套餐',
+        src: '../../../../static/image/quarter-01.png' //季度
+      },
+      {
+        type: '半年套餐',
+        src: '../../../../static/image/halfyear-01.png' //半年
+      },
+      {
+        type: '年度套餐',
+        src: '../../../../static/image/year-01.png' //年度
+      }] };
+
 
   },
   methods: {
+    //登录
+    login: function login() {
+      uni.navigateTo({
+        url: '../login' });
+
+    },
+    //个人信息编辑
+    edit: function edit() {
+      if (_App.default.getToken()) {
+        uni.navigateTo({
+          url: './edit/edit?avatarUrl=' + this.avatarUrl + '&' + 'name=' + this.name });
+
+      } else
+      {
+        uni.showToast({
+          title: '您尚未登录' });
+
+      }
+    },
+    show: function show() {
+      this.showed = !this.showed;
+    },
+    //错误图片
+    errorImage: function errorImage() {
+      this.avatarUrl = this.url;
+    },
+    //picker改变
     bindPickerChange: function bindPickerChange(e) {
       var that = this;
       console.log(e);
@@ -62,35 +157,31 @@ var _api = _interopRequireDefault(__webpack_require__(/*! ../../../../api.js */ 
       that.shopName = that.shops[e.target.value].company_name;
       _App.default.savecompany(that.shops[e.target.value]);
     },
+    //跳转（个人订单、钱包、门店管理）
     jump: function jump(url) {
       if (!url) return;
       uni.navigateTo({
         url: url });
 
     },
-    toQRCode: function toQRCode() {
-      var that = this;
-      if (_App.default.getToken()) {
-        uni.navigateTo({
-          url: 'QRCodeCard/QRCodeCard' });
+    //产看商城
+    scan: function scan(index) {
+      uni.navigateTo({
+        url: './commodity-detail/commodity-detail?index=' + index });
 
-      } else {
-        uni.showToast({
-          title: '未登录',
-          icon: 'none' });
-
-      }
     } },
+
+
 
   onShow: function onShow() {
     var that = this;
     if (_App.default.getToken()) {
       console.log(_App.default.getcompany());
+      //内存中有公司
       if (_App.default.getcompany()) {
-        that.showed1 = false;
+        that.showed1 = false; //显示机构，否则显示游客
         that.showed2 = true;
         this.shopName = _App.default.getcompany().company_name;
-        this.identity = '店员';
         uni.request({
           url: _api.default.shop(),
           header: {
@@ -118,14 +209,11 @@ var _api = _interopRequireDefault(__webpack_require__(/*! ../../../../api.js */ 
             if (res.data.code == 200) {
               that.showed1 = false;
               that.showed2 = true;
-              that.identity = '店员';
               that.shopName = '请选择门店';
               console.log(res);
               that.shops = res.data.value;
               console.log(that.shops);
             } else if (res.data.code == 1005) {
-              that.shopName = '无';
-              that.identity = '游客';
               that.showed1 = true;
               that.showed2 = false;
               // uni.showToast({
@@ -139,7 +227,7 @@ var _api = _interopRequireDefault(__webpack_require__(/*! ../../../../api.js */ 
       }
       console.log(_App.default.getcompany().company_name);
       uni.request({
-        url: _api.default.seeUser(),
+        url: _api.default.seeUser(), //查看个人信息
         header: {
           token: _App.default.getToken() },
 
@@ -157,21 +245,16 @@ var _api = _interopRequireDefault(__webpack_require__(/*! ../../../../api.js */ 
           } else {
             that.url = _App.default.geturlerror(res.data.user.author_image);
             console.log(that.url);
-            that.avatarUrl = _App.default.geturl(res.data.user.author_image);
+            that.avatarUrl = res.data.user.author_image;
             that.name = res.data.user.author_name;
           }
         } });
 
     } else {
-      uni.showToast({
-        title: '未登录',
-        icon: 'none' });
-
-      setTimeout(function () {
-        uni.navigateTo({
-          url: '../login' });
-
-      }, 1000);
+      this.name = '点击授权登录';
+      this.logined = false;
+      this.nologined = true;
+      this.url = '../../../../static/img/tabbar/me.png';
     }
   } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ "./node_modules/@dcloudio/uni-mp-weixin/dist/index.js")["default"]))
@@ -206,79 +289,188 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("view", { staticClass: "body" }, [
     _c("view", { staticClass: "content-top" }, [
-      _c(
-        "view",
-        {
-          staticClass: "content-top-main",
-          staticStyle: { display: "flex", height: "100rpx" }
-        },
-        [
-          _c("view", { staticClass: "content-1" }, [
-            _c("image", {
-              staticClass: "box-image",
-              attrs: { src: _vm.avatarUrl, onerror: _vm.errorImage }
-            })
-          ]),
-          _c("view", { staticClass: "content-2" }, [
-            _c("view", { staticClass: "content-2-top" }, [
-              _c(
-                "text",
-                {
-                  staticClass: "text-content",
-                  staticStyle: { color: "#000000", "font-weight": "bold" }
-                },
-                [_vm._v(_vm._s(_vm.name))]
-              )
-            ]),
-            _c(
-              "view",
-              { staticClass: "content-2-bottom" },
-              [
-                _c(
+      _c("view", { staticStyle: { display: "flex", height: "100rpx" } }, [
+        _c("view", { staticClass: "content-1" }, [
+          _c("image", {
+            staticClass: "box-image",
+            attrs: { src: _vm.avatarUrl, onerror: _vm.errorImage() }
+          })
+        ]),
+        _c("view", { staticClass: "content-2" }, [
+          _c("view", { staticClass: "content-2-top" }, [
+            _vm.logined
+              ? _c(
                   "text",
                   {
                     staticClass: "text-content",
-                    staticStyle: { "margin-right": "20rpx" }
+                    staticStyle: { color: "#000000", "font-weight": "bold" }
                   },
-                  [_vm._v(_vm._s(_vm.identity))]
-                ),
-                _vm.showed1
-                  ? _c("text", { staticClass: "text-content" }, [
-                      _vm._v("门店：" + _vm._s(_vm.shopName))
-                    ])
-                  : _vm._e(),
-                _vm.showed2
-                  ? _c(
-                      "picker",
+                  [_vm._v(_vm._s(_vm.name))]
+                )
+              : _vm._e(),
+            _vm.nologined
+              ? _c(
+                  "text",
+                  {
+                    staticClass: "text-content",
+                    staticStyle: { color: "#000000", "font-weight": "bold" },
+                    attrs: { eventid: "658ceb70-0" },
+                    on: { click: _vm.login }
+                  },
+                  [_vm._v(_vm._s(_vm.name))]
+                )
+              : _vm._e()
+          ]),
+          _c(
+            "view",
+            { staticClass: "content-2-bottom" },
+            [
+              _vm.showed1
+                ? _c("view", [
+                    _c(
+                      "text",
                       {
-                        attrs: {
-                          mode: "selector",
-                          range: _vm.shops,
-                          id: "0",
-                          "range-key": "company_name",
-                          eventid: "658ceb70-0"
-                        },
-                        on: { change: _vm.bindPickerChange }
+                        staticClass: "text-content",
+                        staticStyle: { "margin-right": "20rpx" }
                       },
-                      [
-                        _c("text", { staticClass: "text-content" }, [
-                          _vm._v("门店：" + _vm._s(_vm.shopName))
-                        ])
-                      ]
+                      [_vm._v("游客")]
                     )
-                  : _vm._e()
-              ],
-              1
-            )
-          ])
-        ]
-      )
+                  ])
+                : _vm._e(),
+              _vm.showed2
+                ? _c(
+                    "picker",
+                    {
+                      attrs: {
+                        mode: "selector",
+                        range: _vm.shops,
+                        id: "0",
+                        "range-key": "company_name",
+                        eventid: "658ceb70-1"
+                      },
+                      on: { change: _vm.bindPickerChange }
+                    },
+                    [
+                      _c("text", { staticClass: "text-content" }, [
+                        _vm._v("机构：" + _vm._s(_vm.shopName))
+                      ])
+                    ]
+                  )
+                : _vm._e()
+            ],
+            1
+          )
+        ]),
+        _c(
+          "view",
+          {
+            staticStyle: {
+              display: "flex",
+              height: "30rpx",
+              width: "150rpx",
+              position: "absolute",
+              right: "30rpx",
+              "align-items": "center",
+              "text-align": "center",
+              "margin-top": "40rpx"
+            },
+            attrs: { eventid: "658ceb70-2" },
+            on: { click: _vm.edit }
+          },
+          [
+            _c(
+              "text",
+              {
+                staticStyle: {
+                  "line-height": "30rpx",
+                  "font-size": "25rpx",
+                  color: "#595757",
+                  "margin-right": "10rpx"
+                }
+              },
+              [_vm._v("编辑资料")]
+            ),
+            _c("image", {
+              staticStyle: { height: "30rpx", width: "35rpx" },
+              attrs: { src: "../../../../static/image/1-01.png" }
+            })
+          ]
+        )
+      ])
     ]),
+    _c("view", { staticClass: "content" }, [
+      _vm._m(0),
+      _c("view", { staticClass: "content-right" }, [
+        _c("image", {
+          staticStyle: {
+            display: "block",
+            height: "30rpx",
+            width: "35rpx",
+            "margin-right": "30rpx"
+          },
+          attrs: {
+            src: "../../../../static/image/2-01.png",
+            eventid: "658ceb70-3"
+          },
+          on: { click: _vm.show }
+        })
+      ])
+    ]),
+    _vm.showed
+      ? _c(
+          "view",
+          { staticClass: "content-first" },
+          _vm._l(_vm.commodity, function(iterm, index) {
+            return _c("view", { staticClass: "content-first1" }, [
+              _c(
+                "view",
+                {
+                  staticStyle: {
+                    display: "flex",
+                    flex: "1",
+                    "flex-direction": "column",
+                    "align-items": "center",
+                    "justify-content": "center",
+                    "font-size": "25rpx",
+                    color: "#595757"
+                  }
+                },
+                [
+                  _c("image", {
+                    staticClass: "commodity-image",
+                    attrs: { src: iterm.src, eventid: "658ceb70-4-" + index },
+                    on: {
+                      click: function($event) {
+                        _vm.scan(index)
+                      }
+                    }
+                  }),
+                  _c("text", [_vm._v(_vm._s(iterm.type))])
+                ]
+              )
+            ])
+          })
+        )
+      : _vm._e(),
+    _vm._m(1),
     _c(
       "view",
       {
         staticClass: "content",
-        attrs: { eventid: "658ceb70-1" },
+        attrs: { eventid: "658ceb70-5" },
+        on: {
+          click: function($event) {
+            _vm.jump("./wallet/wallet")
+          }
+        }
+      },
+      [_vm._m(2), _vm._m(3)]
+    ),
+    _c(
+      "view",
+      {
+        staticClass: "content",
+        attrs: { eventid: "658ceb70-6" },
         on: {
           click: function($event) {
             _vm.jump(
@@ -287,37 +479,105 @@ var render = function() {
           }
         }
       },
-      [_vm._v("权限管理")]
-    ),
-    _c(
-      "view",
-      {
-        staticClass: "content",
-        attrs: { eventid: "658ceb70-2" },
-        on: {
-          click: function($event) {
-            _vm.jump("./wallet/wallet")
-          }
-        }
-      },
-      [_vm._v("钱包")]
-    ),
-    _c(
-      "view",
-      {
-        staticClass: "content",
-        attrs: { eventid: "658ceb70-3" },
-        on: {
-          click: function($event) {
-            _vm.toQRCode()
-          }
-        }
-      },
-      [_vm._v("二维码名片")]
+      [_vm._m(4), _vm._m(5)]
     )
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("view", { staticClass: "content-left" }, [
+      _c("image", {
+        staticClass: "image",
+        attrs: { src: "../../../../static/image/mall-01.png" }
+      }),
+      _c("text", [_vm._v("商城")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("view", { staticClass: "content" }, [
+      _c("view", { staticClass: "content-left" }, [
+        _c("image", {
+          staticClass: "image",
+          attrs: { src: "../../../../static/image/ordering-01.png" }
+        }),
+        _c("text", [_vm._v("我的订单")])
+      ]),
+      _c("view", { staticClass: "content-right" }, [
+        _c("image", {
+          staticStyle: {
+            display: "block",
+            height: "30rpx",
+            width: "35rpx",
+            "margin-right": "30rpx"
+          },
+          attrs: { src: "../../../../static/image/1-01.png" }
+        })
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("view", { staticClass: "content-left" }, [
+      _c("image", {
+        staticClass: "image",
+        attrs: { src: "../../../../static/image/wallet-01.png" }
+      }),
+      _c("text", [_vm._v("我的钱包")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("view", { staticClass: "content-right" }, [
+      _c("image", {
+        staticStyle: {
+          display: "block",
+          height: "30rpx",
+          width: "35rpx",
+          "margin-right": "30rpx"
+        },
+        attrs: { src: "../../../../static/image/1-01.png" }
+      })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("view", { staticClass: "content-left" }, [
+      _c("image", {
+        staticClass: "image",
+        attrs: { src: "../../../../static/image/management-01.png" }
+      }),
+      _c("text", [_vm._v("门店管理")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("view", { staticClass: "content-right" }, [
+      _c("image", {
+        staticStyle: {
+          display: "block",
+          height: "30rpx",
+          width: "35rpx",
+          "margin-right": "30rpx"
+        },
+        attrs: { src: "../../../../static/image/1-01.png" }
+      })
+    ])
+  }
+]
 render._withStripped = true
 
 

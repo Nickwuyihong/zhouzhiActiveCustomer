@@ -1,5 +1,5 @@
 
-.body.data-v-7e1542b3 {
+.body.data-v-dfb19264 {
 	
 	
 	height: 100vh;
@@ -28,12 +28,12 @@
 	background-image: url("http://www.oijkl.com:8090/basic/background.jpg");
 	background-size: cover;
 }
-.body button.data-v-7e1542b3 {
+.body button.data-v-dfb19264 {
 	width: 80%;
 	margin-top: 80rpx;
 	height: 110rpx;
 }
-.content.data-v-7e1542b3 {
+.content.data-v-dfb19264 {
 	text-align: center;
 	height: 88%;
 	width: 100%;
@@ -48,13 +48,13 @@
 	    -ms-flex-direction: column;
 	        flex-direction: column;
 }
-.box-image.data-v-7e1542b3 {
+.box-image.data-v-dfb19264 {
 	width: 600rpx;
 	height: 600rpx;
 	margin: auto;
 	margin-bottom: 0;
 }
-.bottom.data-v-7e1542b3 {
+.bottom.data-v-dfb19264 {
 	height: 12%;
 	width: 100%;
 	display: -webkit-box;
@@ -66,14 +66,14 @@
 	    -ms-flex-align: center;
 	        align-items: center;
 }
-.box-image1.data-v-7e1542b3 {
+.box-image1.data-v-dfb19264 {
 	height: 100rpx;
 	width: 100rpx;
 	border-radius: 100%;
 	margin: auto;
 	margin-bottom: 0;
 }
-.items.data-v-7e1542b3 {
+.items.data-v-dfb19264 {
 	display: -webkit-box;
 	display: -webkit-flex;
 	display: -ms-flexbox;

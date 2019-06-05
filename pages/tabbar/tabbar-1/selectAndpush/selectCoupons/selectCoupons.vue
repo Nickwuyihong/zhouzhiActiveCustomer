@@ -114,11 +114,8 @@
 				]
 			}
 		},
-		onLoad(data) {
-			var that = this
-			that.couponsInfor = JSON.parse(data.couponsInfor)
-			console.log(that.couponsInfor)
-			that.companyId = that.couponsInfor.companyId
+		onLoad() {
+			
 		},
 		methods: {
 			bindChangeStart(value) {
@@ -154,7 +151,7 @@
 				console.log(this.customers[1].number)
 				console.log(this.customers[2].number)
 				console.log(this.checkedBottom)
-				console.log(this.companyId)
+				console.log(App.getcompany().company_id)
 				uni.request({
 					url: Api.screenUser(),
 					method: "POST",
@@ -163,7 +160,7 @@
 						token: App.getToken()
 					},
 					data: {
-						companyId: this.companyId,
+						companyId: App.getcompany().company_id,
 						start: this.startTime,
 						end: this.endTime,
 						upNo: this.customers[2].number,
@@ -198,7 +195,7 @@
 				var that = this
 
 				uni.navigateTo({
-					url: './select/select?cyid=' + JSON.stringify(that.cyid) + '&couponsInfor=' + JSON.stringify(that.couponsInfor)
+					url: './select/select?cyid=' + JSON.stringify(that.cyid)
 				})
 			},
 		}

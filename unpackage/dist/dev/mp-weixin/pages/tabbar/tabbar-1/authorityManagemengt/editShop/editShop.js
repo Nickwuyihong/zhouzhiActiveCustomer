@@ -149,7 +149,7 @@ var render = function() {
             [
               _c("image", {
                 staticClass: "picture",
-                attrs: { src: "../../../../../static/image/大于号-01.png" }
+                attrs: { src: "../../../../../static/image/great-01.png" }
               })
             ]
           ),
@@ -186,7 +186,7 @@ var render = function() {
         [
           _c("image", {
             staticClass: "picture",
-            attrs: { src: "../../../../../static/image/大于号-01.png" }
+            attrs: { src: "../../../../../static/image/great-01.png" }
           })
         ]
       )
@@ -207,7 +207,7 @@ var render = function() {
         [
           _c("image", {
             staticClass: "picture",
-            attrs: { src: "../../../../../static/image/大于号-01.png" }
+            attrs: { src: "../../../../../static/image/great-01.png" }
           })
         ]
       )

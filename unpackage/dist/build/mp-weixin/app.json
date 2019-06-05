@@ -37,7 +37,13 @@
     "pages/tabbar/tabbar-1/my/payment/payment",
     "pages/tabbar/tabbar-1/my/commodity-detail/commodity-detail",
     "pages/tabbar/tabbar-1/my/payment-success/payment-success",
-    "pages/tabbar/tabbar-1/my/wallet/wallet"
+    "pages/tabbar/tabbar-1/my/wallet/wallet",
+    "pages/tabbar/tabbar-1/my/code/code",
+    "pages/tabbar/tabbar-1/my/order/order",
+    "pages/tabbar/tabbar-1/editActive/test/test",
+    "pages/tabbar/tabbar-1/editActive/limitedMode/newPublish/newPublish",
+    "pages/tabbar/tabbar-1/editActive/limitedMode/puch/puch",
+    "pages/tabbar/tabbar-1/editActive/limitedMode/likeCollect/likeCollect"
   ],
   "subPackages": [],
   "window": {

@@ -3,7 +3,7 @@
 		<scroll-view :scroll-top="scrollTop" scroll-y="true" class="scroll-Y">
 			<view class="content">
 				<view class="content-1">
-					<image class="box-image" src='../../../../../../static/image/添加奖励-01.png' @click="addOperator"></image>
+					<image class="box-image" src='../../../../../../static/image/addoperator-01.png' @click="addOperator" :onerror='errorImage()'></image>
 				</view>
 				<view class="content-2">
 					<text class="text-content">添加劵核销员</text>
@@ -131,7 +131,7 @@
 								console.log(that.userid)
 								if(res.data.code==200){
 									uni.request({
-										url: Api.seeUser(),
+										url: Api.seeotheruser(),
 										header: {
 											token: App.getToken(),
 										},

@@ -76,7 +76,7 @@ var _App = _interopRequireDefault(__webpack_require__(/*! ../../../../../../App.
 {
   data: function data() {
     return {
-      couponsInfor: {},
+      // couponsInfor: {},
       author_List: [],
       checked: false,
       number: 0,
@@ -96,8 +96,8 @@ var _App = _interopRequireDefault(__webpack_require__(/*! ../../../../../../App.
   onLoad: function onLoad(res) {
     var that = this;
     that.cyid = JSON.parse(res.cyid);
-    that.couponsInfor = JSON.parse(res.couponsInfor);
-    console.log(that.couponsInfor);
+    // that.couponsInfor = JSON.parse(res.couponsInfor)
+    // console.log(that.couponsInfor)
     console.log(that.cyid);
     for (var iterm in that.cyid) {
       console.log(that.cyid[iterm]);
@@ -113,10 +113,13 @@ var _App = _interopRequireDefault(__webpack_require__(/*! ../../../../../../App.
         success: function success(res) {
           console.log(res);
           console.log(1);
-          if (res.data.news.length > 0) {
-            that.swiperList.push(res.data.news[0]);
-            that.getCount();
+          if (res.data.status == '1') {
+            if (res.data.news.length > 0) {
+              that.swiperList.push(res.data.news[0]);
+              that.getCount();
+            }
           }
+
           console.log(2);
           console.log(that.swiperList);
         } });
@@ -125,6 +128,12 @@ var _App = _interopRequireDefault(__webpack_require__(/*! ../../../../../../App.
 
   },
   methods: {
+    errorImage: function errorImage() {
+      this.swiperList[this.currentTap].author.author_image = _App.default.geturlerror(this.swiperList[this.currentTap].author.author_image);
+    },
+    errorImage2: function errorImage2(index) {
+      this.swiperList[this.currentTap].data.img_list[index] = _App.default.geturlerror(this.swiperList[this.currentTap].data.img_list[index]);
+    },
     view: function view(index) {
       var that = this;
       console.log(index);
@@ -145,7 +154,8 @@ var _App = _interopRequireDefault(__webpack_require__(/*! ../../../../../../App.
         that.userid.push({
           author_id: that.swiperList[that.currentTap].author.author_id,
           author_image: that.swiperList[that.currentTap].author.author_image,
-          cy_id: that.swiperList[that.currentTap].cyId });
+          cy_id: that.swiperList[that.currentTap].cyId,
+          liketime: that.swiperList[that.currentTap].liketime });
 
         console.log(that.userid);
         that.number = that.userid.length;
@@ -195,10 +205,14 @@ var _App = _interopRequireDefault(__webpack_require__(/*! ../../../../../../App.
       }
     },
     jump: function jump() {
+      this.userid = this.userid.sort(function (a, b) {
+        return b.liketime - a.liketime;
+      });
       uni.navigateTo({
-        url: './scanCustomer/scanCustomer?userid=' + JSON.stringify(this.userid) + '&couponsInfor=' + JSON.stringify(
-        this.couponsInfor) });
-
+        url: './scanCustomer/scanCustomer?userid=' + JSON.stringify(this.userid)
+        // + '&couponsInfor=' + JSON.stringify(
+        // 	this.couponsInfor)
+      });
 
     } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ "./node_modules/@dcloudio/uni-mp-weixin/dist/index.js")["default"]))
@@ -304,7 +318,8 @@ var render = function() {
                               attrs: {
                                 src:
                                   _vm.swiperList[_vm.currentTap].author
-                                    .author_image
+                                    .author_image,
+                                onerror: _vm.errorImage()
                               }
                             }),
                             _c(
@@ -388,6 +403,7 @@ var render = function() {
                                     },
                                     attrs: {
                                       src: a,
+                                      onerror: _vm.errorImage2(p1),
                                       eventid: "d8433fd0-0-" + index + "-" + p1
                                     },
                                     on: {
@@ -407,12 +423,13 @@ var render = function() {
                             { staticClass: "two" },
                             _vm._l(
                               _vm.swiperList[_vm.currentTap].data.img_list,
-                              function(b, p2) {
+                              function(a, p2) {
                                 return _c(
                                   "view",
                                   {
                                     staticClass: "four-img",
                                     attrs: {
+                                      onerror: _vm.errorImage2(p2),
                                       eventid: "d8433fd0-1-" + index + "-" + p2
                                     },
                                     on: {
@@ -428,7 +445,7 @@ var render = function() {
                                         height: "100%",
                                         width: "100%"
                                       },
-                                      attrs: { src: b }
+                                      attrs: { src: a }
                                     })
                                   ]
                                 )
@@ -442,7 +459,7 @@ var render = function() {
                             { staticClass: "three" },
                             _vm._l(
                               _vm.swiperList[_vm.currentTap].data.img_list,
-                              function(c, p3) {
+                              function(a, p3) {
                                 return _c(
                                   "view",
                                   { staticClass: "night-img" },
@@ -454,7 +471,8 @@ var render = function() {
                                         width: "100%"
                                       },
                                       attrs: {
-                                        src: c,
+                                        src: a,
+                                        onerror: _vm.errorImage2(p3),
                                         eventid:
                                           "d8433fd0-2-" + index + "-" + p3
                                       },
@@ -494,7 +512,7 @@ var render = function() {
           [
             _c("image", {
               staticClass: "img",
-              attrs: { src: "../../../../../../static/image/名单-01.png" }
+              attrs: { src: "../../../../../../static/image/name-01.png" }
             }),
             _vm._v("此内容为该用户活动期间第" + _vm._s(_vm.num) + "次发布。")
           ]

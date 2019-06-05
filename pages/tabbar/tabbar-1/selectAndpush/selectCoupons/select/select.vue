@@ -6,7 +6,7 @@
 					<view style='margin-bottom:9upx;background:#F7F8F8;width:100%;display:flex;flex-direction:column;height: 100%;'>
 						<view style='width:100%;display:flex;flex-direction:row;justify-content:space-between;align-items:center;margin-top:-36upx;'>
 							<view style='height:144upx;display:flex;flex-direction:row;align-items:center;'>
-								<image style='margin-left:36upx;width:72upx;height:72upx;border-radius:50%;z-index:1;' :src='swiperList[currentTap].author.author_image'></image>
+								<image style='margin-left:36upx;width:72upx;height:72upx;border-radius:50%;z-index:1;' :src='swiperList[currentTap].author.author_image' :onerror='errorImage()'></image>
 								<view style='margin-left:18upx;display:flex;flex-direction:column;'>
 									<text style='font-size:32upx;color:#333333'>{{swiperList[currentTap].author.author_name}}</text>
 									<view style='margin-top:8upx;display:flex;flex-direction:row;'>
@@ -19,17 +19,17 @@
 						<view class="picture">
 							<view class="first" v-if="showedone">
 								<view class='one-img' v-for="(a,p1) in swiperList[currentTap].data.img_list">
-									<image :src="a" style="display: flex; height: 100%;width: 100%;" @click="view(p1)"></image>
+									<image :src="a" style="display: flex; height: 100%;width: 100%;" @click="view(p1)" :onerror="errorImage2(p1)"></image>
 								</view>
 							</view>
 							<view class="two" v-if="showedtwo">
-								<view class='four-img' v-for="(b,p2) in swiperList[currentTap].data.img_list" @click="view(p2)">
-									<image :src="b" style="display: flex; height: 100%;width: 100%;"></image>
+								<view class='four-img' v-for="(a,p2) in swiperList[currentTap].data.img_list" @click="view(p2) " :onerror="errorImage2(p2)">
+									<image :src="a" style="display: flex; height: 100%;width: 100%;"></image>
 								</view>
 							</view>
 							<view class="three" v-if="showedthree">
-								<view class='night-img' v-for="(c,p3) in swiperList[currentTap].data.img_list">
-									<image :src="c" style="display: flex; height: 100%;width: 100%;" @click="view(p3)"></image>
+								<view class='night-img' v-for="(a,p3) in swiperList[currentTap].data.img_list">
+									<image :src="a" style="display: flex; height: 100%;width: 100%;" @click="view(p3)" :onerror="errorImage2(p3)"></image>
 								</view>
 							</view>
 						</view>
@@ -40,7 +40,7 @@
 		<view class="content-bottom">
 			<view class="content-bottom-1">
 				<view style="display: flex;align-items: center; margin:0upx 20upx;">
-					<image class="img" src="../../../../../../static/image/名单-01.png"></image>此内容为该用户活动期间第{{num}}次发布。
+					<image class="img" src="../../../../../../static/image/name-01.png"></image>此内容为该用户活动期间第{{num}}次发布。
 				</view>
 			</view>
 			<view class="content-bottom-2">
@@ -66,7 +66,7 @@
 	export default {
 		data() {
 			return {
-				couponsInfor: {},
+				// couponsInfor: {},
 				author_List: [],
 				checked: false,
 				number: 0,
@@ -86,8 +86,8 @@
 		onLoad(res) {
 			var that = this
 			that.cyid = JSON.parse(res.cyid)
-			that.couponsInfor = JSON.parse(res.couponsInfor)
-			console.log(that.couponsInfor)
+			// that.couponsInfor = JSON.parse(res.couponsInfor)
+			// console.log(that.couponsInfor)
 			console.log(that.cyid)
 			for (let iterm in that.cyid) {
 				console.log(that.cyid[iterm])
@@ -103,10 +103,13 @@
 					success: function(res) {
 						console.log(res)
 						console.log(1)
-						if(res.data.news.length>0){
-							that.swiperList.push(res.data.news[0])
-							that.getCount()
-							}
+						if(res.data.status=='1'){
+							if(res.data.news.length>0){
+								that.swiperList.push(res.data.news[0])
+								that.getCount()
+								}
+						}
+						
 						console.log(2)
 						console.log(that.swiperList)
 					}
@@ -115,6 +118,12 @@
 
 		},
 		methods: {
+			errorImage:function(){
+				this.swiperList[this.currentTap].author.author_image=App.geturlerror(this.swiperList[this.currentTap].author.author_image)
+			},
+			errorImage2:function(index){
+				this.swiperList[this.currentTap].data.img_list[index]=App.geturlerror(this.swiperList[this.currentTap].data.img_list[index])
+			},
 			view:function(index){
 				var that=this;
 				console.log(index);
@@ -135,7 +144,8 @@
 					that.userid.push({
 						author_id: that.swiperList[that.currentTap].author.author_id,
 						author_image: that.swiperList[that.currentTap].author.author_image,
-						cy_id: that.swiperList[that.currentTap].cyId
+						cy_id: that.swiperList[that.currentTap].cyId,
+						liketime:that.swiperList[that.currentTap].liketime
 					})
 					console.log(that.userid)
 					that.number = that.userid.length
@@ -185,9 +195,13 @@
 				}
 			},
 			jump: function() {
+				this.userid=this.userid.sort(function(a,b){
+					return b.liketime-a.liketime
+				})
 				uni.navigateTo({
-					url: './scanCustomer/scanCustomer?userid=' + JSON.stringify(this.userid) + '&couponsInfor=' + JSON.stringify(
-						this.couponsInfor)
+					url: './scanCustomer/scanCustomer?userid=' + JSON.stringify(this.userid) 
+					// + '&couponsInfor=' + JSON.stringify(
+					// 	this.couponsInfor)
 
 				});
 			}

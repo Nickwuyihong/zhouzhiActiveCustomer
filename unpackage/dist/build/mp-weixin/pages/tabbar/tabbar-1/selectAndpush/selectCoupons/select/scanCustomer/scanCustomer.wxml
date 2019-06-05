@@ -1,2 +1,2 @@
 <import src="./scanCustomer.vue.wxml" />
-    <template is="3f6cc43a" data="{{ ...$root['0'], $root }}"/>
+    <template is="f578ce1a" data="{{ ...$root['0'], $root }}"/>

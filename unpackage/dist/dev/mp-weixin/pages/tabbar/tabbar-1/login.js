@@ -109,7 +109,7 @@ var _api = _interopRequireDefault(__webpack_require__(/*! ../../../api.js */ "C:
         url: _api.default.forelogin(),
         data: {
           JSCODE: that.JSCODE,
-          Version: 2,
+          Version: 3,
           encryptedData: e.detail.encryptedData,
           iv: e.detail.iv },
 
@@ -249,7 +249,7 @@ var render = function() {
       _c(
         "text",
         { staticClass: "name", staticStyle: { "margin-top": "-28px" } },
-        [_vm._v("i周知商家版")]
+        [_vm._v("密客")]
       ),
       _vm.showBt
         ? _c(

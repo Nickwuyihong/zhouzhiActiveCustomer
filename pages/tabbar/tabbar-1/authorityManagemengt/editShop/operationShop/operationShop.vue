@@ -3,15 +3,15 @@
 		<scroll-view :scroll-top="scrollTop" scroll-y="true" class="scroll-Y">
 			<view class="content">
 				<view class="content-1">
-					<image class="box-image" src='../../../../../../static/image/添加奖励-01.png' @click="addOperator"></image>
+					<image class="box-image" src='../../../../../../static/image/addoperator-01.png' @click="addOperator" ></image>
 				</view>
 				<view class="content-2">
 					<text class="text-content">添加运营</text>
 				</view>
 			</view>
-			<view class="content" v-for="(operator,index) in operation">
+			<view class="content" v-for="(operator,index) in operation" >
 				<view class="content-left">
-					<image class="box-image" :src='operator.image'></image>
+					<image class="box-image" :src='operator.image' :onerror='errorImage(index)'></image>
 					<view class="text-content"> {{operator.operate}}</view>
 				</view>
 				<view class="content-right">
@@ -48,12 +48,13 @@
 				},
 				success: function(res) {
 					console.log(res)
-					if(res.data.code==200){
+					if (res.data.code == 200) {
 						for (let iterm in res.data.value) {
 							if (res.data.value[iterm].level == 4) {
-								that.userid=res.data.value[iterm].userid
+								that.userid = res.data.value[iterm].userid
+								console.log(that.userid)
 								uni.request({
-									url: Api.seeUser(),
+									url: Api.seeotheruser(),
 									header: {
 										token: App.getToken(),
 									},
@@ -73,17 +74,19 @@
 								})
 							}
 						}
-					}
-					else{
+					} else {
 						uni.showToast({
 							title: '您没有这个权限',
 							icon: 'none'
 						})
-				}
+					}
 				}
 			})
 		},
 		methods: {
+			errorImage: function(index) {
+				this.operation[index].image=App.geturlerror(this.operation[index].image)
+			},
 			deleteOperator: function(index) {
 				var that = this
 				console.log(that.operation[index].userid)
@@ -129,7 +132,7 @@
 								console.log(res.data.value.userid)
 								that.userid = res.data.value.userid
 								console.log(that.userid)
-								if(res.data.code==200){
+								if (res.data.code == 200) {
 									uni.request({
 										url: Api.seeUser(),
 										header: {
@@ -139,7 +142,7 @@
 											otherId: that.userid
 										},
 										success(res) {
-									
+
 											console.log(res)
 											that.userinfor = {
 													image: res.data.user.author_image,
@@ -148,22 +151,20 @@
 												that.operation.push(that.userinfor)
 											console.log(that.operation)
 										}
-									}) 
-								}
-								else if(res.data.code==1006){
+									})
+								} else if (res.data.code == 1006) {
 									uni.showToast({
-												title: '此员工已经存在',
-												icon: 'none'
-											})
-									}
-									else{
-										uni.showToast({
-													title: '您没有权限',
-													icon: 'none'
-												})
-									}
+										title: '此员工已经存在',
+										icon: 'none'
+									})
+								} else {
+									uni.showToast({
+										title: '您没有权限',
+										icon: 'none'
+									})
 								}
-									
+							}
+
 						})
 					}
 				})

@@ -21,15 +21,15 @@
 				<text class="text-content">{{coupon_number}}</text>
 			</view>
 			<view class="text-wrapper">
-				<text class="text-name">发卷机构：</text>
+				<text class="text-name">发劵机构：</text>
 				<text class="text-content">{{company_name}}</text>
 			</view>
 			<view class="text-wrapper">
 				<text class="text-name">活动规则：</text>
 			</view>
 			<view class="text-content" style="margin-left: 115upx;">
-				<view>1.本卷有效期见卷面所示；</view>
-				<view>2.本卷为{{coupon_name}}，仅适用于本店饮品。</view>
+				<view>1.本劵有效期见劵面所示；</view>
+				<view>2.本劵为{{coupon_name}}，仅适用于本店饮品。</view>
 			</view>
 		</scroll-view>
 	</view>
@@ -42,7 +42,8 @@
 		
 		data() {
 			return {
-				couponsInfor:{},
+				// couponsInfor:{},
+				coupon_type_id:'',
 				couponsDetail:{},
 				coupon_name:'',
 				coupon_state: '',
@@ -52,16 +53,18 @@
 		},
 		onLoad(data) {
 			var that =this;
-			that.couponsInfor=JSON.parse(data.couponsInfor);
-			console.log(that.couponsInfor)
+			// that.couponsInfor=JSON.parse(data.couponsInfor);
+			console.log(data)
+			that.coupon_type_id=data.coupon_type_id;
+			console.log(that.coupon_type_id)
 			uni.request({
-				url: Api.getCouponsdetail(that.couponsInfor.coupon_type_id),
+				url: Api.getCouponsdetail(that.coupon_type_id),
 				header: {	
 					token: App.getToken()
 				},
 				data: {
 					
-					id: that.couponsInfor.coupon_type_id
+					id: that.coupon_type_id
 				},
 				success(res) {
 					console.log(res)

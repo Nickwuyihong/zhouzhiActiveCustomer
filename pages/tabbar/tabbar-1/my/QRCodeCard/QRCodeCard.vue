@@ -3,17 +3,17 @@
 
 		<view class="content">
 			<view class="user_v">
-				<image :src="icon" mode=""></image>
+				<image :src="icon" mode="" :onerror="errorimage()"></image>
 				<view style="display: flex;flex-direction: column;height: 100upx;">
 					<text>{{name}}</text>
-					<text style="color: #9a9a9a;font-size: 28upx;">{{position}}</text>
+					<!-- <text style="color: #9a9a9a;font-size: 28upx;">{{position}}</text> -->
 				</view>
 			</view>
 			
 			<tki-qrcode style="margin: auto;" ref="qrcode" :val="author_id" :size="size" :unit="unit" :background="background" :foreground="foreground"
 			 :pdground="pdground" :icon="icon" :iconSize="iconsize" :lv="lv" :onval="onval" :loadMake="loadMake" @result="qrR" />
 			 
-			 <text style="margin: auto;color: #9a9a9a;font-size: 28upx;" @click="creatQrcode">扫描二维码添加好友</text>
+			 <text style="margin: auto;color: #9a9a9a;font-size: 28upx;" @click="creatQrcode">扫一扫添加</text>
 		</view>
 
 	</view>
@@ -85,6 +85,10 @@
 			})
 		},
 		methods: {
+			errorimage:function(){
+				this.icon=App.geturlerror(this.icon)
+				console.log(this.icon)
+			},
 			sliderchange(e) {
 				this.size = e.detail.value
 			},

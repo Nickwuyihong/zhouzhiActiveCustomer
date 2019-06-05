@@ -5,11 +5,12 @@
 		</scroll-view>
 		<view class="content-bottom">
 			<view class="content-bottom-main">
-				<view class="content-bottom-main-left">
-					<text>合计：{{commodityType[index].price}}</text>
+				<view class="content-bottom-main-left" >
+					<text style="display: block;margin-bottom: 10upx;font-weight: bold;">￥{{commodityType[index].price}}</text>
+					<text style="font-size: 35upx;">{{commodityType[index].type}}</text>
 				</view>
 				<view class="content-bottom-main-right">
-					<button class="btn" @click="pay">支付</button>
+					<button class="btn" @click="pay">我想购买</button>
 				</view>
 			</view>
 		</view>
@@ -23,19 +24,27 @@
 				index: 0,
 				commodityType: [{
 						src: "../../../../../static/logo.png",
-						price: '1288'
+						price: '1288',
+						type:'单月套餐',
+						index:'2'
 					},
 					{
 						src: "../../../../../static/logo.png",
-						price: '3864'
+						price: '3864',
+						type:'季度套餐',
+						index:'3'
 					},
 					{
 						src: "../../../../../static/logo.png",
-						price: '6528'
+						price: '6528',
+						type:'半年套餐',
+						index:'4'
 					},
 					{
 						src: "../../../../../static/logo.png",
-						price: '11856'
+						price: '11856',
+						type:'年度套餐',
+						index:'5'
 					}
 				]
 			}
@@ -49,7 +58,7 @@
 			
 			pay: function() {
              uni.redirectTo({
-             	url:'../payment-success/payment-success'
+             	url:'../payment-success/payment-success?commodityType='+JSON.stringify(this.commodityType[this.index])
              })
 			}
 		}
@@ -71,35 +80,35 @@
 
 	.content {
 		display: flex;
-		height: 80%;
+		height:85%;
 		width: 100%;
 
 	}
 
 	.content-bottom {
 		display: flex;
-		height: 20%;
+		height: 15%;
 		width: 100%;
+		background: #FFFFFF;
 		align-items: center;
 		justify-content: center;
 	}
 
 	.content-bottom-main {
 		display: flex;
-		width: 80%;
-		height: 60%;
-		border: 2upx solid #000000;
-		border-radius: 25upx;
+		width: 90%;
+		height: 100%;
 		flex-direction: row;
 	}
 
 	.content-bottom-main-left {
 		display: flex;
 		flex: 1;
+		flex-direction: column;
 		padding-left: 20upx;
-		align-items: center;
-		font-size: 35upx;
-		color: #000000;
+		justify-content: center;
+		font-size: 40upx;
+		color: #595757;
 	}
 
 	.content-bottom-main-right {
@@ -121,7 +130,7 @@
 		color: #FFFFFF;
 		background: rgb(255, 100, 100);
 		display: block;
-		width: 180upx;
+		width: 250upx;
 		height: 70upx;
 		line-height: 70upx;
 		border-radius: 20upx;

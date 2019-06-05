@@ -1,0 +1,39 @@
+
+.body {
+	display: block;
+	
+	
+	height: 100vh;
+	
+	width: 100%;
+	background-color: #f7f8f8;
+}
+.content {
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: -ms-flexbox;
+	display: flex;
+	background: #FFFFFF;
+	-webkit-box-orient: horizontal;
+	-webkit-box-direction: normal;
+	-webkit-flex-direction: row;
+	    -ms-flex-direction: row;
+	        flex-direction: row;
+	font-size: 35rpx;
+	color: #595757;
+	height: 120rpx;
+	width: 100%;
+	border-bottom: 2rpx solid #EBEDF0;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	    -ms-flex-align: center;
+	        align-items: center;
+}
+.image{
+	display: block;
+	height: 70rpx;
+	width: 70rpx;
+	border-radius: 50%;
+	margin-left: 40rpx;
+}
+

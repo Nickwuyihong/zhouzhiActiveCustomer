@@ -1,21 +1,17 @@
 <template>
 	<view class="body">
 		<view class="content">
-			<image src="../../../static/img/scan.png" class="box-image" @click="scanning"></image>
-			<text style="margin: auto;font-size: 50upx;font-weight: bold;">扫一扫</text>
-
+			<!-- <image src="../../../static/img/scan.png" class="box-image" @click="scanning"></image> -->
+			<!-- <text style="margin: auto;font-size: 50upx;font-weight: bold;">扫一扫</text> -->
+			<scroll-view class="content-main" :scroll-y="true">
+				<image src="https://zhouzhi-test1.oss-cn-shenzhen.aliyuncs.com/xzData/background/poster1.png" style="height:50vh;width: 100%;position: absolute" @click="jump"></image>
+				<image src="https://zhouzhi-test1.oss-cn-shenzhen.aliyuncs.com/xzData/background/poster2.png" style="height:132vh;width: 100%;" @click="scanning()"></image>	
+			</scroll-view>
 			<!-- <view class="qrimg">
 				<tki-qrcode ref="qrcode" :val="val" :size="size" :unit="unit" :background="background" :foreground="foreground"
 				 :pdground="pdground" :icon="icon" :iconSize="iconsize" :lv="lv" :onval="onval" :loadMake="loadMake" @result="qrR" />
 			</view> -->
-
 		</view>
-		<!-- <view class="bottom">
-			<view v-for="(item,index) in items" :key="item.index" class="items">
-				<image :src='item.src' class="box-image1" :id="item.index" v-on:click="jump(index)"></image>
-				<text style="margin: auto;font-size: 37upx;color: grey;">{{item.text}}</text>
-			</view>
-		</view> -->
 	</view>
 </template>
 
@@ -23,7 +19,6 @@
 	import App from '../../../App.vue'
 	import Api from '../../../api.js'
 	import tkiQrcode from '../../components/tki-qrcode/tki-qrcode.vue'
-
 	var app = getApp()
 	export default {
 		components: {
@@ -31,38 +26,18 @@
 		},
 		data() {
 			return {
-				title: 'Hello',
-				items: [{
-						src: '../../../static/img/activeCenter.png',
-						text: '活动中心'
-					},
-					{
-						src: '../../../static/img/screening&publishing.png',
-						text: '筛选及发布'
-					},
-					{
-						src: '../../../static/img/privilegeManagement.png',
-						text: '管理'
-					},
-				],
-				// 				msg: 'hello vue',
-				// 				codes: 'cnm',
-				// 				val: '二维码', // 要生成的二维码值
-				// 				size: 200, // 二维码大小
-				// 				unit: 'upx', // 单位
-				// 				background: '#b4e9e2', // 背景色
-				// 				foreground: '#309286', // 前景色
-				// 				pdground: '#32dbc6', // 角标色
-				// 				icon: '', // 二维码图标
-				// 				iconsize: 40, // 二维码图标大小
-				// 				lv: 3, // 二维码容错级别 ， 一般不用设置，默认就行
-				// 				onval: true, // val值变化时自动重新生成二维码
-				// 				loadMake: true, // 组件加载完成后自动生成二维码
-				// 				src: '' // 二维码生成后的图片地址或base64
+
 			};
+		},
+		onShareAppMessage: function() {
+			return {
+				title: '周知密客',
+				path: '/pages/tabbar/tabbar-1/tabbar-1'
+			}
 		},
 		onLoad() {
 			//App.saveToken("i")
+
 			console.log(App.getToken())
 
 			uni.request({
@@ -107,22 +82,27 @@
 			// 		}
 			// 	});
 			// },
-			jump: function(index) {
-				console.log('adadasd');
-				if (index == 2) {
-					uni.navigateTo({
-						url: 'authorityManagemengt/authorityManagement',
-					})
-				} else if (index == 1) {
-					uni.navigateTo({
-						url: 'selectAndpush/selectAndpush',
-					})
-				} else {
-					uni.navigateTo({
-						url: 'editActive/editActive',
-					})
-				}
+			jump:function(){
+				uni.navigateTo({
+					url:'./scanning/guide/guide'
+				})
 			},
+			// jump: function(index) {
+			// 	console.log('adadasd');
+			// 	if (index == 2) {
+			// 		uni.navigateTo({
+			// 			url: 'authorityManagemengt/authorityManagement',
+			// 		})
+			// 	} else if (index == 1) {
+			// 		uni.navigateTo({
+			// 			url: 'selectAndpush/selectAndpush',
+			// 		})
+			// 	} else {
+			// 		uni.navigateTo({
+			// 			url: 'editActive/editActive',
+			// 		})
+			// 	}
+			// },
 			scanning: function() {
 				if (App.getToken()) {
 					// 允许从相机和相册扫码
@@ -154,44 +134,19 @@
 		height: 100vh;
 		/* #endif */
 		width: 100%;
+		
 	}
 
 	.content {
 		text-align: center;
 		height: 100%;
 		width: 100%;
-		background: #f2f2f2;
-		display: flex;
-		flex-direction: column;
+		
 	}
 
-	.box-image {
-		width: 600upx;
-		height: 600upx;
-		margin: auto;
-		margin-bottom: 0;
-	}
-
-	.bottom {
-		height: 12%;
+	.content-main {
+		
 		width: 100%;
-		display: flex;
-		align-items: center;
-	}
-
-	.box-image1 {
-		height: 100upx;
-		width: 100upx;
-		border-radius: 100%;
-		margin: auto;
-		margin-bottom: 0;
-	}
-
-	.items {
-		display: flex;
-		flex-direction: column;
-		margin: auto;
-		align-items: center;
 		height: 100%;
 	}
 </style>

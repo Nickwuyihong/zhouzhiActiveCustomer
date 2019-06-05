@@ -19,10 +19,10 @@
 				</view>
 				<view class="content-bottom-2">
 					<view class="bottom-detail" @click="jump('../payment/payment')">套餐收费</view>
-					<view class="bottom-detail" @click="jump('../payment/payment')">激活码</view>
+					<view class="bottom-detail" @click="jump('../code/code')">激活码</view>
 				</view>
                 <view class="content-bottom-3">
-				<view class="bottom-detail" @click="jump('../payment/payment')">订单列表</view>
+				<view class="bottom-detail" @click="jump('../order/order')">订单列表</view>
 				<view class="bottom-detail"></view>
 				</view>
 			</view>

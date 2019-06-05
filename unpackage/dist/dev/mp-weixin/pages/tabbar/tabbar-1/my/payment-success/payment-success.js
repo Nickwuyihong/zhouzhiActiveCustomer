@@ -21,11 +21,40 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 {
   data: function data() {
-    return {};
+    return {
+      commodityType: {} };
 
-
+  },
+  onLoad: function onLoad(res) {
+    console.log(JSON.parse(res.commodityType));
+    this.commodityType = JSON.parse(res.commodityType);
   },
   methods: {} };exports.default = _default;
 
@@ -66,11 +95,38 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("view", { staticClass: "body" }, [
       _c("view", { staticClass: "content" }, [
-        _c("view", { staticClass: "content-top" }, [_vm._v("支付成功")]),
-        _c("view", { staticClass: "content-bottom" }, [_vm._v("交易时间：")]),
-        _c("view", { staticClass: "content-bottom" }, [_vm._v("套餐说明：")]),
-        _c("view", { staticClass: "content-bottom" }, [_vm._v("实际金额：")]),
-        _c("view", { staticClass: "content-bottom" }, [_vm._v("订单号：")])
+        _c("view", { staticClass: "content-top" }, [
+          _c("text", [_vm._v("订单号：")]),
+          _c("text", [_vm._v("123456789123456789")]),
+          _c("text", { staticStyle: { color: "red" } }, [_vm._v("(未支付)")])
+        ]),
+        _c("view", { staticClass: "content-top" }, [
+          _c("text", [_vm._v("套餐名称：")]),
+          _c("text")
+        ]),
+        _c("view", { staticClass: "content-top" }, [
+          _c("text", [_vm._v("数量")]),
+          _vm._v("：")
+        ]),
+        _c("view", { staticClass: "content-top" }, [
+          _c("text", [_vm._v("套餐说明：")])
+        ]),
+        _c("view", { staticClass: "content-top" }, [
+          _c("text", [_vm._v("金额：")]),
+          _c("text", [_vm._v("{{}}")])
+        ]),
+        _c("view", { staticClass: "content-top" }, [
+          _c("text", [_vm._v("优惠：")]),
+          _c("text")
+        ]),
+        _c(
+          "view",
+          { staticClass: "content-top", staticStyle: { "font-size": "42rpx" } },
+          [_c("text", [_vm._v("实付：")]), _c("text")]
+        ),
+        _c("view", { staticClass: "content-top" }, [
+          _c("text", [_vm._v("支付方式：")])
+        ])
       ])
     ])
   }

@@ -4,7 +4,7 @@
 		{
 			"path": "pages/tabbar/tabbar-1/tabbar-1",
 			"style": {
-				"navigationBarTitleText": "商家版"
+				"navigationBarTitleText": "密客"
 			}
 		},
 		{
@@ -101,12 +101,12 @@
 				"navigationBarTitleText": "查看"
 			}
 		},
-		{
-			"path": "pages/tabbar/tabbar-1/selectAndpush/scanCoupons/scanCoupons",
-			"style": {
-				"navigationBarTitleText": "查看"
-			}
-		},
+		// {
+		// 	"path": "pages/tabbar/tabbar-1/selectAndpush/scanCoupons/scanCoupons",
+		// 	"style": {
+		// 		"navigationBarTitleText": "查看"
+		// 	}
+		// },
 		{
 			"path": "pages/tabbar/tabbar-1/scanning/success",
 			"style": {
@@ -122,7 +122,7 @@
 		{
 			"path": "pages/tabbar/tabbar-1/authorityManagemengt/editShop/editShop",
 			"style": {
-				"navigationBarTitleText": "门店编辑"
+				"navigationBarTitleText": "权限管理"
 			}
 		},
 		{
@@ -155,16 +155,16 @@
 			}
 		},
 		
-		{
-			"path": "pages/tabbar/tabbar-1/selectAndpush/selectCoupons/select/scanCustomer/startSelect/scanCoupons/scanCoupons",
-			"style": {
-				"navigationBarTitleText": "选择卷"
-			}
-		},
+		// {
+		// 	"path": "pages/tabbar/tabbar-1/selectAndpush/selectCoupons/select/scanCustomer/startSelect/scanCoupons/scanCoupons",
+		// 	"style": {
+		// 		"navigationBarTitleText": "选择劵"
+		// 	}
+		// },
 		{
 			"path": "pages/tabbar/tabbar-1/selectAndpush/selectCoupons/select/scanCustomer/startSelect/scanCoupons/couponsDetails/couponsDetails",
 			"style": {
-				"navigationBarTitleText": "卷详情"
+				"navigationBarTitleText": "劵详情"
 			}
 		},
 		{
@@ -206,12 +206,68 @@
         ,{
             "path" : "pages/tabbar/tabbar-1/my/payment-success/payment-success",
             "style" : {
-				"navigationBarTitleText": "支付成功"
+				"navigationBarTitleText": "支付详情"
 			}
         }
         ,{
             "path" : "pages/tabbar/tabbar-1/my/wallet/wallet",
             "style" : {"navigationBarTitleText": "支付"}
+        }
+        ,{
+            "path" : "pages/tabbar/tabbar-1/my/code/code",
+            "style" : {"navigationBarTitleText": "激活码"}
+        }
+        ,{
+            "path" : "pages/tabbar/tabbar-1/my/order/order",
+            "style" : {}
+        }
+        ,{
+            "path" : "pages/tabbar/tabbar-1/editActive/test/test",
+            "style" : {"navigationBarTitleText": "测试"}
+        }
+        ,{
+            "path" : "pages/tabbar/tabbar-1/editActive/limitedMode/newPublish/newPublish",
+            "style" : {"navigationBarTitleText": "新发布奖励"}
+        }
+        ,{
+            "path" : "pages/tabbar/tabbar-1/editActive/limitedMode/puch/puch",
+            "style" : {"navigationBarTitleText": "打卡奖励"}
+        }
+        ,{
+            "path" : "pages/tabbar/tabbar-1/editActive/limitedMode/likeCollect/likeCollect",
+            "style" : {"navigationBarTitleText": "集赞奖励"}
+        }
+        ,{
+            "path" : "pages/tabbar/tabbar-1/my/edit/edit",
+            "style" : {"navigationBarTitleText": "个人资料"}
+        }
+        ,{
+            "path" : "pages/tabbar/tabbar-1/editActive/adEdite/adEdite",
+            "style" : {"navigationBarTitleText": "广告编辑"}
+        }
+        ,{
+            "path" : "pages/tabbar/tabbar-1/editActive/tweetsEdite/tweetsEdite",
+            "style" : {"navigationBarTitleText": "推文编辑"}
+        }
+        ,{
+            "path" : "pages/tabbar/tabbar-1/scanning/guide/guide",
+            "style" : {"navigationBarTitleText": "新户引导"}
+        }
+        ,{
+            "path" : "pages/tabbar/tabbar-1/editActive/historyActive/activities/activities",
+            "style" : {}
+        }
+        ,{
+            "path" : "pages/tabbar/tabbar-1/editActive/historyActive/activities/activity-detail/activity-detail",
+            "style" : {}
+        }
+        ,{
+            "path" : "pages/tabbar/tabbar-1/editActive/historyActive/activities/coupon-Detail/coupon-Detail",
+            "style" : {}
+        }
+        ,{
+            "path" : "pages/tabbar/tabbar-1/editActive/historyActive/activities/winner/winner",
+            "style" : {}
         }
     ],
 	"globalStyle": {

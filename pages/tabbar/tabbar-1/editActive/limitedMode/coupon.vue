@@ -11,15 +11,11 @@
 					<text>{{coupon.couponName}}</text>
 				</view>
 				<view class="items">
-					<text style="color: #888888;">优惠券码：</text>
-					<text>11111111111</text>
-				</view>
-				<view class="items">
-					<text style="color: #888888;">有效日期：</text>
+					<text style="color: #888888;">有效天数：</text>
 					<text>{{coupon.exTime}}</text>
 				</view>
 				<view class="items">
-					<text style="color: #888888;">可用日期：</text>
+					<text style="color: #888888;">开始日期：</text>
 					<text>{{coupon.availableTime}}</text>
 				</view>
 				<view class="items">

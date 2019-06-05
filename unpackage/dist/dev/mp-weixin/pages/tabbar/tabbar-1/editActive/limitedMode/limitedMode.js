@@ -189,24 +189,23 @@
 
 
 
-
-
-
-
-
-
 var _xyDialog = _interopRequireDefault(__webpack_require__(/*! @/pages/components/xy-dialog/xy-dialog.vue */ "C:\\Users\\14157\\Desktop\\myproject\\pages\\components\\xy-dialog\\xy-dialog.vue"));
 var _api = _interopRequireDefault(__webpack_require__(/*! ../../../../../api.js */ "C:\\Users\\14157\\Desktop\\myproject\\api.js"));
 var _App = _interopRequireDefault(__webpack_require__(/*! ../../../../../App.vue */ "C:\\Users\\14157\\Desktop\\myproject\\App.vue"));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}var _default =
 {
   data: function data() {
+    var currentDate = this.getDate({
+      format: true });
+
     return {
-      activeName: '',
-      ads: [],
-      readyToUpdate: true,
+      successUpdate: 0,
+      activeName: '', //活动名
+      ads: [], //广告
+      readyToUpdate: true, //不可上传
+      //券对象
       coupon: {
         couponName: '请输入券名',
-        availableTime: '',
+        availableTime: currentDate,
         exTime: '',
         organization: '请选择机构',
         rule: '',
@@ -215,7 +214,7 @@ var _App = _interopRequireDefault(__webpack_require__(/*! ../../../../../App.vue
         toplimit: '',
         company_index: 0 },
 
-      organizationList: [],
+      //券数组
       couponList: [],
       activityId: 0 };
 
@@ -228,9 +227,9 @@ var _App = _interopRequireDefault(__webpack_require__(/*! ../../../../../App.vue
   },
   created: function created() {
     var that = this;
-    that.coupon.organization = '请输入发券机构';
+    that.coupon.organization = _App.default.getcompany().company_name;
     uni.getStorage({
-      key: 'active',
+      key: 'active', //从缓存中取卡券
       success: function success(res) {
         console.log(res.data);
         that.activityId = res.data.activityId;
@@ -238,44 +237,46 @@ var _App = _interopRequireDefault(__webpack_require__(/*! ../../../../../App.vue
         that.couponList = res.data.couponList;
         that.activeName = res.data.activeName;
         if (that.activeName.length > 0 && that.ads.length > 0 && that.couponList.length > 0) {
-          that.readyToUpdate = false;
+          that.readyToUpdate = false; //创建活动按钮
         } else {
           that.readyToUpdate = true;
         }
       } });
 
-    uni.request({
-      url: _api.default.usersCompany(),
-      header: {
-        token: _App.default.getToken() },
-
-      success: function success(res) {
-        console.log(res);
-        if (res.data.code == 200) {
-          that.organizationList = res.data.value;
-        } else {
-          uni.showToast({
-            title: '获取发券机构列表失败',
-            icon: 'none' });
-
-        }
-      } });
-
   },
+  computed: {
+    startDate: function startDate() {
+      return this.getDate('start');
+    },
+    endDate: function endDate() {
+      return this.getDate('end');
+    } },
+
   methods: {
-    bindPickerChange: function bindPickerChange(e) {
+    bindDateChange: function bindDateChange(e) {
       var that = this;
       console.log(e);
-      console.log('picker发送选择改变，携带值为', e.target.value);
-      var ind = e.target.value;
+      var time = e.target.value;
       if (e.currentTarget.id == 0) {
-        that.coupon.company_index = ind;
-        that.coupon.organization = that.organizationList[ind].company_name;
+        that.coupon.availableTime = time;
       } else {
         var i = e.currentTarget.id - 1;
-        that.couponList[i].company_index = ind;
-        that.couponList[i].organization = that.organizationList[ind].company_name;
+        that.couponList[i].availableTime = time;
       }
+    },
+    getDate: function getDate(type) {
+      var date = new Date();
+      var year = date.getFullYear();
+      var month = date.getMonth() + 1;
+      var day = date.getDate();
+      if (type === 'start') {
+        year = year - 60;
+      } else if (type === 'end') {
+        year = year + 2;
+      }
+      month = month > 9 ? month : '0' + month;;
+      day = day > 9 ? day : '0' + day;
+      return "".concat(year, "-").concat(month, "-").concat(day);
     },
     jump: function jump(e) {
       console.log(e);
@@ -315,7 +316,7 @@ var _App = _interopRequireDefault(__webpack_require__(/*! ../../../../../App.vue
     setTitle: function setTitle(e) {
       this.activeName = e.detail.value;
       console.log(this.activeName);
-      if (this.activeName.length > 0 && this.ads.length > 0 && this.couponList.length > 0) {
+      if (this.activeName.length > 0 && this.couponList.length > 0) {
         this.readyToUpdate = false;
       } else {
         this.readyToUpdate = true;
@@ -336,10 +337,7 @@ var _App = _interopRequireDefault(__webpack_require__(/*! ../../../../../App.vue
         if (this.coupon.couponName.length > 0 &&
         this.coupon.toplimit.length > 0 &&
         this.coupon.couponName != '请输入券名' &&
-        //this.coupon.availableTime.length>0&&
         this.coupon.exTime.length > 0 &&
-        this.coupon.organization != '请输入发券机构' &&
-        this.coupon.organization.length > 0 &&
         this.coupon.rule.length > 0) {
           this.coupon.disable = false;
         } else {
@@ -352,10 +350,7 @@ var _App = _interopRequireDefault(__webpack_require__(/*! ../../../../../App.vue
         if (this.couponList[i].couponName.length > 0 &&
         this.couponList[i].couponName != '请输入券名' &&
         this.couponList[i].toplimit.length > 0 &&
-        //this.couponList[i].availableTime.length>0&&
         this.couponList[i].exTime.length > 0 &&
-        this.couponList[i].organization != '请输入发券机构' &&
-        this.couponList[i].organization.length > 0 &&
         this.couponList[i].rule.length > 0) {
           this.couponList[i].disable = false;
         } else {
@@ -370,10 +365,7 @@ var _App = _interopRequireDefault(__webpack_require__(/*! ../../../../../App.vue
         if (this.coupon.couponName.length > 0 &&
         this.coupon.couponName != '请输入券名' &&
         this.coupon.toplimit.length > 0 &&
-        //this.coupon.availableTime.length>0&&
         this.coupon.exTime.length > 0 &&
-        this.coupon.organization != '请输入发券机构' &&
-        this.coupon.organization.length > 0 &&
         this.coupon.rule.length > 0) {
           this.coupon.disable = false;
         } else {
@@ -386,10 +378,7 @@ var _App = _interopRequireDefault(__webpack_require__(/*! ../../../../../App.vue
         if (this.couponList[i].couponName.length > 0 &&
         this.couponList[i].couponName != '请输入券名' &&
         this.couponList[i].toplimit.length > 0 &&
-        //this.couponList[i].availableTime.length>0&&
         this.couponList[i].exTime.length > 0 &&
-        this.couponList[i].organization != '请输入发券机构' &&
-        this.couponList[i].organization.length > 0 &&
         this.couponList[i].rule.length > 0) {
           this.couponList[i].disable = false;
         } else {
@@ -403,10 +392,7 @@ var _App = _interopRequireDefault(__webpack_require__(/*! ../../../../../App.vue
         if (this.coupon.couponName.length > 0 &&
         this.coupon.couponName != '请输入券名' &&
         this.coupon.toplimit.length > 0 &&
-        //this.coupon.availableTime.length>0&&
         this.coupon.exTime.length > 0 &&
-        this.coupon.organization != '请输入发券机构' &&
-        this.coupon.organization.length > 0 &&
         this.coupon.rule.length > 0) {
           this.coupon.disable = false;
         } else {
@@ -418,10 +404,7 @@ var _App = _interopRequireDefault(__webpack_require__(/*! ../../../../../App.vue
         if (this.couponList[i].couponName.length > 0 &&
         this.couponList[i].couponName != '请输入券名' &&
         this.couponList[i].toplimit.length > 0 &&
-        //this.couponList[i].availableTime.length>0&&
         this.couponList[i].exTime.length > 0 &&
-        this.couponList[i].organization != '请输入发券机构' &&
-        this.couponList[i].organization.length > 0 &&
         this.couponList[i].rule.length > 0) {
           this.couponList[i].disable = false;
         } else {
@@ -435,10 +418,7 @@ var _App = _interopRequireDefault(__webpack_require__(/*! ../../../../../App.vue
         if (this.coupon.couponName.length > 0 &&
         this.coupon.couponName != '请输入券名' &&
         this.coupon.toplimit.length > 0 &&
-        //this.coupon.availableTime.length>0&&
         this.coupon.exTime.length > 0 &&
-        this.coupon.organization != '请输入发券机构' &&
-        this.coupon.organization.length > 0 &&
         this.coupon.rule.length > 0) {
           this.coupon.disable = false;
         } else {
@@ -450,10 +430,7 @@ var _App = _interopRequireDefault(__webpack_require__(/*! ../../../../../App.vue
         if (this.couponList[i].couponName.length > 0 &&
         this.couponList[i].couponName != '请输入券名' &&
         this.couponList[i].toplimit.length > 0 &&
-        //this.couponList[i].availableTime.length>0&&
         this.couponList[i].exTime.length > 0 &&
-        this.couponList[i].organization != '请输入发券机构' &&
-        this.couponList[i].organization.length > 0 &&
         this.couponList[i].rule.length > 0) {
           this.couponList[i].disable = false;
         } else {
@@ -467,10 +444,7 @@ var _App = _interopRequireDefault(__webpack_require__(/*! ../../../../../App.vue
         if (this.coupon.couponName.length > 0 &&
         this.coupon.couponName != '请输入券名' &&
         this.coupon.toplimit.length > 0 &&
-        //this.coupon.availableTime.length>0&&
         this.coupon.exTime.length > 0 &&
-        this.coupon.organization != '请输入发券机构' &&
-        this.coupon.organization.length > 0 &&
         this.coupon.rule.length > 0) {
           this.coupon.disable = false;
         } else {
@@ -482,10 +456,7 @@ var _App = _interopRequireDefault(__webpack_require__(/*! ../../../../../App.vue
         if (this.couponList[i].couponName.length > 0 &&
         this.couponList[i].couponName != '请输入券名' &&
         this.couponList[i].toplimit.length > 0 &&
-        //this.couponList[i].availableTime.length>0&&
         this.couponList[i].exTime.length > 0 &&
-        this.couponList[i].organization != '请输入发券机构' &&
-        this.couponList[i].organization.length > 0 &&
         this.couponList[i].rule.length > 0) {
           this.couponList[i].disable = false;
         } else {
@@ -510,16 +481,18 @@ var _App = _interopRequireDefault(__webpack_require__(/*! ../../../../../App.vue
       if (this.coupon.disable == false) {
         this.coupon.modifyDiscount = false;
         this.couponList.push(this.coupon);
+        var newDate = this.getDate({
+          format: true });
+
         this.coupon = {
           couponName: '请输入券名',
-          availableTime: '',
+          availableTime: newDate,
           exTime: '',
-          organization: '请输入发券机构',
+          organization: _App.default.getcompany().company_name,
           rule: '',
           disable: true,
           modifyDiscount: false,
-          toplimit: '',
-          company_index: 0 };
+          toplimit: '' };
 
       } else {
         uni.showToast({
@@ -527,7 +500,7 @@ var _App = _interopRequireDefault(__webpack_require__(/*! ../../../../../App.vue
           icon: 'none' });
 
       }
-      if (this.activeName.length > 0 && this.ads.length > 0 && this.couponList.length > 0) {
+      if (this.activeName.length > 0 && this.couponList.length > 0) {
         this.readyToUpdate = false;
       } else {
         this.readyToUpdate = true;
@@ -540,14 +513,6 @@ var _App = _interopRequireDefault(__webpack_require__(/*! ../../../../../App.vue
       this.couponList[e].modifyDiscount = false;
     },
     createActive: function createActive() {
-      // 				if(this.activeName.length>0&&this.ads.length>0&&this.couponList.length>0){
-      // 					this.$refs.xyDialog02.alert()
-      // 				}else{
-      // 					uni.showToast({
-      // 						title: '活动尚未完成编辑，未能创建!',
-      // 						icon: 'none'
-      // 					})
-      // 				}
       this.$refs.xyDialog02.alert();
     },
     saveActive: function saveActive() {
@@ -585,84 +550,108 @@ var _App = _interopRequireDefault(__webpack_require__(/*! ../../../../../App.vue
     handleConfirm: function handleConfirm() {
       var that = this;
       console.log('点击确定按钮');
-      for (var x = 0; x < that.couponList.length; x++) {
-        console.log(x);
-        var companyId = 0;
-        for (var i = 0; i < that.organizationList.length; i++) {
-          if (that.organizationList[i].company_name == that.couponList[x].organization) {(function () {
-              console.log(x);
-              companyId = that.organizationList[i].company_id;
-              var index = x;
+      uni.request({
+        url: _api.default.companyActivity(),
+        method: 'POST',
+        header: {
+          'content-type': 'application/x-www-form-urlencoded',
+          token: _App.default.getToken() },
+
+        data: {
+          name: that.activeName,
+          companyId: _App.default.getcompany().company_id },
+
+        success: function success(res) {
+          console.log(res);
+          that.successUpdate = 0; //成功上传
+          if (res.data.code == 200) {
+            that.activityId = res.data.value.activity_id;
+            //创建卡券
+            for (var x = 0; x < that.couponList.length; x++) {
+              var atime = new Date(that.couponList[x].availableTime).getTime() / 1000;
+              if (atime.toString() == "NaN") {
+                atime = 0;
+                console.log(atime);
+              }
               uni.request({
-                url: _api.default.companyActivity(),
+                url: _api.default.company(),
                 method: 'POST',
                 header: {
                   'content-type': 'application/x-www-form-urlencoded',
                   token: _App.default.getToken() },
 
                 data: {
-                  name: that.activeName,
-                  companyId: companyId },
+                  companyId: _App.default.getcompany().company_id,
+                  activityId: that.activityId,
+                  name: that.couponList[x].couponName,
+                  state: that.couponList[x].rule,
+                  conditionContent: '1',
+                  vaildDays: that.couponList[x].exTime,
+                  num: that.couponList[x].toplimit,
+                  money: 1,
+                  start: atime },
 
                 success: function success(res) {
                   console.log(res);
                   if (res.data.code == 200) {
-                    that.activityId = res.data.value.activity_id;
-                    console.log(index);
-                    var atime = new Date(that.couponList[index].availableTime).getTime();
-                    console.log(atime);
-                    if (atime.toString() == "NaN") {
-                      atime = 0;
-                      console.log(atime);
-                    }
-                    // 										console.log(companyId)
-                    // 										console.log(that.activityId)
-                    // 										console.log(that.couponList[index].couponName)
-                    // 										console.log(that.couponList[index].rule)
-                    // 										console.log(that.couponList[index].exTime)
-                    // 										console.log(that.couponList[index].toplimit)
-                    uni.request({
-                      url: _api.default.company(),
-                      method: 'POST',
-                      header: {
-                        'content-type': 'application/x-www-form-urlencoded',
-                        token: _App.default.getToken() },
-
-                      data: {
-                        companyId: companyId,
-                        activityId: that.activityId,
-                        name: that.couponList[index].couponName,
-                        state: that.couponList[index].rule,
-                        vaildDays: that.couponList[index].exTime,
-                        num: that.couponList[index].toplimit,
-                        money: 1,
-                        start: atime },
-
-                      success: function success(res) {
-                        console.log(res);
-                        if (res.data.code == 200) {
-                          uni.showToast({
-                            title: '第' + index + '个活动创建成功' });
-
-                        } else {
-                          uni.showToast({
-                            title: '第' + index + '个' + '您没有权限进行创建!',
-                            icon: 'none' });
-
-                        }
-                      } });
-
+                    that.successUpdate = that.successUpdate + 1;
+                    console.log(that.successUpdate);
                   } else {
                     uni.showToast({
-                      title: '第' + index + '个' + '获取活动id失败',
+                      title: '第' + x + '个' + '您没有权限进行创建!',
                       icon: 'none' });
 
                   }
-                } });})();
+                  if (that.successUpdate == that.couponList.length) {
+                    uni.showToast({
+                      title: '活动创建成功',
+                      icon: 'none' });
+
+                    uni.removeStorage({
+                      key: 'active',
+                      success: function success(res) {
+                        console.log('success');
+                      } });
+
+                    setTimeout(function () {
+                      uni.redirectTo(
+                      {
+                        url: '../historyActive/historyActive' });
+
+                    }, 1000);
+
+                  }
+                } });
+
+
+            }
+            console.log(that.successUpdate);
+            console.log(that.couponList.length);
+
+            //创建广告
+            // for(var i=0;i<that.ads.length;i++){
+            // 	uni.request({
+            // 		url: Api.addAds(),
+            // 		method: 'POST',
+            // 		header:{
+            // 			token: App.getToken(),
+            // 			'content-type': 'application/x-www-form-urlencoded',
+            // 		},
+            // 		data:{
+            // 			url: that.ads[i].link,
+            // 			
+            // 		}
+            // 	})
+            // }
+
+          } else {
+            uni.showToast({
+              title: '获取活动id失败',
+              icon: 'none' });
 
           }
-        }
-      }
+        } });
+
     } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ "./node_modules/@dcloudio/uni-mp-weixin/dist/index.js")["default"]))
 
@@ -730,10 +719,11 @@ var render = function() {
           }
         })
       ]),
-      _c("view", { staticClass: "title" }, [_vm._v("活动内容")]),
-      _vm._m(0),
       _vm.ads.length == 0
         ? _c("view", { staticClass: "add_img" }, [
+            _c("view", { staticStyle: { margin: "auto" } }, [
+              _vm._v("广告内容为选填")
+            ]),
             _c(
               "view",
               { staticStyle: { margin: "auto", "margin-left": "50rpx" } },
@@ -863,7 +853,7 @@ var render = function() {
                     }
                   },
                   [
-                    _c("text", [_vm._v("优惠" + _vm._s(index + 1))]),
+                    _c("text", [_vm._v(_vm._s(index + 1) + "等奖")]),
                     _c(
                       "button",
                       {
@@ -997,25 +987,35 @@ var render = function() {
                               on: { input: _vm.setToplimit }
                             })
                           ]),
-                          _c("view", { staticClass: "inputs" }, [
-                            _c("view", { staticStyle: { width: "30%" } }, [
-                              _vm._v("可用时间：")
-                            ]),
-                            _c("input", {
-                              staticStyle: {
-                                width: "70%",
-                                "border-bottom": "1px solid #F2F2F2"
-                              },
-                              attrs: {
-                                type: "text",
-                                value: item.availableTime,
-                                placeholder: "请输入优惠券可用时间",
-                                id: index + 1,
-                                eventid: "5f056b6b-9-" + index
-                              },
-                              on: { input: _vm.setATime }
-                            })
-                          ]),
+                          _c(
+                            "view",
+                            { staticClass: "inputs" },
+                            [
+                              _c("view", { staticStyle: { width: "30%" } }, [
+                                _vm._v("开始时间：")
+                              ]),
+                              _c(
+                                "picker",
+                                {
+                                  attrs: {
+                                    mode: "date",
+                                    id: index + 1,
+                                    value: item.availableTime,
+                                    start: _vm.startDate,
+                                    end: _vm.endDate,
+                                    eventid: "5f056b6b-9-" + index
+                                  },
+                                  on: { change: _vm.bindDateChange }
+                                },
+                                [
+                                  _c("view", { staticClass: "uni-input" }, [
+                                    _vm._v(_vm._s(item.availableTime))
+                                  ])
+                                ]
+                              )
+                            ],
+                            1
+                          ),
                           _c("view", { staticClass: "inputs" }, [
                             _c("view", { staticStyle: { width: "30%" } }, [
                               _vm._v("券有效期：")
@@ -1028,48 +1028,21 @@ var render = function() {
                               attrs: {
                                 type: "text",
                                 value: item.exTime,
-                                placeholder: "请输入优惠券有效期",
+                                placeholder: "请输入优惠券有效天数",
                                 id: index + 1,
                                 eventid: "5f056b6b-10-" + index
                               },
                               on: { input: _vm.setETime }
                             })
                           ]),
-                          _c(
-                            "view",
-                            { staticClass: "inputs" },
-                            [
-                              _c("view", { staticStyle: { width: "30%" } }, [
-                                _vm._v("发券机构：")
-                              ]),
-                              _c(
-                                "picker",
-                                {
-                                  attrs: {
-                                    mode: "selector",
-                                    id: index + 1,
-                                    value: _vm.couponList[index].company_index,
-                                    range: _vm.organizationList,
-                                    "range-key": "company_name",
-                                    eventid: "5f056b6b-11-" + index
-                                  },
-                                  on: { change: _vm.bindPickerChange }
-                                },
-                                [
-                                  _c("view", { staticClass: "uni-input" }, [
-                                    _vm._v(
-                                      _vm._s(
-                                        _vm.organizationList[
-                                          _vm.couponList[index].company_index
-                                        ].company_name
-                                      )
-                                    )
-                                  ])
-                                ]
-                              )
-                            ],
-                            1
-                          ),
+                          _c("view", { staticClass: "inputs" }, [
+                            _c("view", { staticStyle: { width: "30%" } }, [
+                              _vm._v("发券机构：")
+                            ]),
+                            _c("view", { staticClass: "uni-input" }, [
+                              _vm._v(_vm._s(item.organization))
+                            ])
+                          ]),
                           _c(
                             "view",
                             {
@@ -1100,7 +1073,7 @@ var render = function() {
                                     "auto-height": "true",
                                     placeholder: "请输入使用规则",
                                     id: index + 1,
-                                    eventid: "5f056b6b-12-" + index
+                                    eventid: "5f056b6b-11-" + index
                                   },
                                   domProps: { value: item.rule },
                                   on: {
@@ -1123,7 +1096,7 @@ var render = function() {
                             "button",
                             {
                               staticClass: "btn",
-                              attrs: { eventid: "5f056b6b-13-" + index },
+                              attrs: { eventid: "5f056b6b-12-" + index },
                               on: {
                                 click: function($event) {
                                   _vm.save(index)
@@ -1173,7 +1146,7 @@ var render = function() {
                                     {
                                       attrs: {
                                         size: "mini",
-                                        eventid: "5f056b6b-14-" + index
+                                        eventid: "5f056b6b-13-" + index
                                       },
                                       on: {
                                         click: function($event) {
@@ -1205,14 +1178,14 @@ var render = function() {
             height: "100rpx"
           }
         },
-        [_c("text", [_vm._v("优惠" + _vm._s(_vm.couponList.length + 1))])]
+        [_c("text", [_vm._v(_vm._s(_vm.couponList.length + 1) + "等奖")])]
       ),
       _vm.coupon.modifyDiscount == false
         ? _c(
             "view",
             {
               staticClass: "add_reward",
-              attrs: { eventid: "5f056b6b-23" },
+              attrs: { eventid: "5f056b6b-21" },
               on: { click: _vm.add_discount }
             },
             [
@@ -1259,7 +1232,7 @@ var render = function() {
                       : _c(
                           "button",
                           {
-                            attrs: { size: "mini", eventid: "5f056b6b-15" },
+                            attrs: { size: "mini", eventid: "5f056b6b-14" },
                             on: {
                               click: function($event) {
                                 _vm.toDetail(0)
@@ -1296,7 +1269,7 @@ var render = function() {
                     value: "",
                     placeholder: "请输入券名",
                     id: "0",
-                    eventid: "5f056b6b-16"
+                    eventid: "5f056b6b-15"
                   },
                   on: { input: _vm.setName }
                 })
@@ -1314,30 +1287,40 @@ var render = function() {
                     type: "text",
                     placeholder: "请输入该券数量上限 (例: 300张)",
                     id: "0",
-                    eventid: "5f056b6b-17"
+                    eventid: "5f056b6b-16"
                   },
                   on: { input: _vm.setToplimit }
                 })
               ]),
-              _c("view", { staticClass: "inputs" }, [
-                _c("view", { staticStyle: { width: "30%" } }, [
-                  _vm._v("可用时间：")
-                ]),
-                _c("input", {
-                  staticStyle: {
-                    width: "70%",
-                    "border-bottom": "1px solid #F2F2F2"
-                  },
-                  attrs: {
-                    type: "text",
-                    value: "",
-                    placeholder: "请输入优惠券可用时间",
-                    id: "0",
-                    eventid: "5f056b6b-18"
-                  },
-                  on: { input: _vm.setATime }
-                })
-              ]),
+              _c(
+                "view",
+                { staticClass: "inputs" },
+                [
+                  _c("view", { staticStyle: { width: "30%" } }, [
+                    _vm._v("开始时间：")
+                  ]),
+                  _c(
+                    "picker",
+                    {
+                      attrs: {
+                        mode: "date",
+                        value: _vm.coupon.availableTime,
+                        start: _vm.startDate,
+                        end: _vm.endDate,
+                        id: "0",
+                        eventid: "5f056b6b-17"
+                      },
+                      on: { change: _vm.bindDateChange }
+                    },
+                    [
+                      _c("view", { staticClass: "uni-input" }, [
+                        _vm._v(_vm._s(_vm.coupon.availableTime))
+                      ])
+                    ]
+                  )
+                ],
+                1
+              ),
               _c("view", { staticClass: "inputs" }, [
                 _c("view", { staticStyle: { width: "30%" } }, [
                   _vm._v("券有效期：")
@@ -1350,48 +1333,22 @@ var render = function() {
                   attrs: {
                     type: "text",
                     value: "",
-                    placeholder: "请输入优惠券有效期",
+                    placeholder: "请输入优惠券有效天数",
                     id: "0",
-                    eventid: "5f056b6b-19"
+                    eventid: "5f056b6b-18"
                   },
                   on: { input: _vm.setETime }
                 })
               ]),
-              _c(
-                "view",
-                { staticClass: "inputs" },
-                [
-                  _c("view", { staticStyle: { width: "30%" } }, [
-                    _vm._v("发券机构：")
-                  ]),
-                  _c("view", {}),
-                  _c(
-                    "picker",
-                    {
-                      attrs: {
-                        mode: "selector",
-                        value: _vm.coupon.company_index,
-                        range: _vm.organizationList,
-                        id: "0",
-                        "range-key": "company_name",
-                        eventid: "5f056b6b-20"
-                      },
-                      on: { change: _vm.bindPickerChange }
-                    },
-                    [
-                      _c("view", { staticClass: "uni-input" }, [
-                        _vm._v(
-                          _vm._s(
-                            _vm.organizationList[_vm.coupon.company_index]
-                              .company_name
-                          )
-                        )
-                      ])
-                    ]
-                  )
-                ],
-                1
-              ),
+              _c("view", { staticClass: "inputs" }, [
+                _c("view", { staticStyle: { width: "30%" } }, [
+                  _vm._v("发券机构：")
+                ]),
+                _c("view", {}),
+                _c("view", { staticClass: "uni-input" }, [
+                  _vm._v(_vm._s(_vm.coupon.organization))
+                ])
+              ]),
               _c(
                 "view",
                 {
@@ -1421,7 +1378,7 @@ var render = function() {
                       "auto-height": "true",
                       placeholder: "请输入使用规则",
                       id: "0",
-                      eventid: "5f056b6b-21"
+                      eventid: "5f056b6b-19"
                     },
                     domProps: { value: _vm.coupon.rule },
                     on: {
@@ -1442,7 +1399,7 @@ var render = function() {
                 "button",
                 {
                   staticClass: "btn",
-                  attrs: { eventid: "5f056b6b-22" },
+                  attrs: { eventid: "5f056b6b-20" },
                   on: { click: _vm.addCoupon }
                 },
                 [_vm._v("确定")]
@@ -1467,7 +1424,7 @@ var render = function() {
                 "button",
                 {
                   staticClass: "btnSave",
-                  attrs: { size: "default", eventid: "5f056b6b-24" },
+                  attrs: { size: "default", eventid: "5f056b6b-22" },
                   on: { click: _vm.saveActive }
                 },
                 [_vm._v("保存")]
@@ -1479,7 +1436,7 @@ var render = function() {
                   attrs: {
                     size: "default",
                     disabled: _vm.readyToUpdate,
-                    eventid: "5f056b6b-25"
+                    eventid: "5f056b6b-23"
                   },
                   on: { click: _vm.createActive }
                 },
@@ -1494,7 +1451,7 @@ var render = function() {
         attrs: {
           title: "false",
           message: "确定创建？",
-          eventid: "5f056b6b-26",
+          eventid: "5f056b6b-24",
           mpcomid: "5f056b6b-0"
         },
         on: { cancelButton: _vm.handleClose, confirmButton: _vm.handleConfirm }
@@ -1504,17 +1461,7 @@ var render = function() {
     1
   )
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("view", { staticClass: "preview" }, [
-      _c("view", { staticClass: "preview_img" }),
-      _c("view", { staticClass: "preview_text" }, [_vm._v("预览图")])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 

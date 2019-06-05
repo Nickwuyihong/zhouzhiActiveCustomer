@@ -1,5 +1,5 @@
 
-.body.data-v-70cf4d1c {
+.body.data-v-487f77e8 {
 		
 		
 		height: 100vh;
@@ -8,7 +8,7 @@
 		background: #F7F8F8;
 }
     /* 优惠券+查看详情 */
-.content.data-v-70cf4d1c {
+.content.data-v-487f77e8 {
 		height: 90%;
 		width: 100%;
 		display: -webkit-box;
@@ -22,7 +22,7 @@
 		        flex-direction: column;
 }
     /* 查看详情框 */
-.content-main.data-v-70cf4d1c {
+.content-main.data-v-487f77e8 {
 		display: -webkit-box;
 		display: -webkit-flex;
 		display: -ms-flexbox;
@@ -31,7 +31,7 @@
 		height: 20%;
 }
     /* 查看详情框内容 */
-.picture.data-v-70cf4d1c {
+.picture.data-v-487f77e8 {
 		display: -webkit-box;
 		display: -webkit-flex;
 		display: -ms-flexbox;
@@ -49,7 +49,7 @@
 		border: 4rpx solid #ffdd00;
 }
     /* 查看详情框左侧 */
-.picture-left.data-v-70cf4d1c {
+.picture-left.data-v-487f77e8 {
 		display: -webkit-box;
 		display: -webkit-flex;
 		display: -ms-flexbox;
@@ -70,7 +70,7 @@
 		color: #f8b62d;
 }
     /* 查看详情框右侧 */
-.picture-right.data-v-70cf4d1c {
+.picture-right.data-v-487f77e8 {
 		display: -webkit-box;
 		display: -webkit-flex;
 		display: -ms-flexbox;
@@ -81,7 +81,7 @@
 		        flex: 1;
 }
     /* 下面显示名单框 */
-.content-center.data-v-70cf4d1c {
+.content-center.data-v-487f77e8 {
 		display: -webkit-box;
 		display: -webkit-flex;
 		display: -ms-flexbox;
@@ -90,7 +90,7 @@
 		height: 70%;
 }
     /* 名单容器scrollview */
-.picture-1.data-v-70cf4d1c {
+.picture-1.data-v-487f77e8 {
 		background: #BBBBBB;
 		width: 80%;
 		height: 97%;
@@ -99,7 +99,7 @@
 		padding-top: 3.3%;
 }
     /* 名单容器scrollview 内容 */
-.picture-avtatar.data-v-70cf4d1c {
+.picture-avtatar.data-v-487f77e8 {
 		width: 100%;
 		display: -webkit-box;
 		display: -webkit-flex;
@@ -115,7 +115,7 @@
 		        flex-wrap: wrap;
 }
     /* 名单头像 */
-.avatar.data-v-70cf4d1c {
+.avatar.data-v-487f77e8 {
 		display: -webkit-box;
 		display: -webkit-flex;
 		display: -ms-flexbox;
@@ -127,7 +127,7 @@
 		background: #808080;
 }
     /* 查看详情按钮 */
-.btn-1.data-v-70cf4d1c {
+.btn-1.data-v-487f77e8 {
 		display: -webkit-box;
 		display: -webkit-flex;
 		display: -ms-flexbox;

@@ -1,0 +1,2 @@
+<import src="./tweetsEdite.vue.wxml" />
+    <template is="2289e5e3" data="{{ ...$root['0'], $root }}"/>

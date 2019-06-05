@@ -1,7 +1,7 @@
 <template>
 	<view class="body">
 		<image style='width:56px;height:56px;' src='../../../static/logo.png'></image>
-		<text style='margin-top:-28px;' class="name">i周知商家版</text>
+		<text style='margin-top:-28px;' class="name">密客</text>
 		<button v-if="showBt" type="primary" open-type="getUserInfo" @getuserinfo="onGotUserInfo">点击授权登录</button>
 	</view>
 </template>
@@ -99,7 +99,7 @@
 					url: Api.forelogin(),
 					data: {
 						JSCODE: that.JSCODE,
-						Version: 2,
+						Version: 3,
 						encryptedData: e.detail.encryptedData,
 						iv: e.detail.iv
 					},

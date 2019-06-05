@@ -1,52 +1,43 @@
+
 <template>
 	<view class="body">
-		<scroll-view :scroll-top="0" scroll-y="true" class="content-top">
-			<view style="display: flex;justify-content: flex-end;margin:20upx 10% 20upx 0;color: #898989;font-size: 32upx;">未派发：{{lengthNo}}</view>
-			<view class="content-main" v-for="(coupon,index) in nosended">
-				<view class="picture">
-					<view class="picture-left">
-						<view style="font-size: 30upx;margin-left: 30upx;margin-top: 10upx;">{{coupon.companyName}}</view>
-						<view style="font-size: 45upx;margin-left: 30upx;margin-bottom: 10upx;">{{coupon.couponName}}</view>
+		<scroll-view class="content" :scroll-y="true">
+			<view style="font-size: 30upx;color: #000;margin: 20upx 30upx;font-weight: bold;">当前所在活动：{{actName}}</view>
+			
+				<view class="content-main" v-for="(iterm,index) in activity" :key="iterm.coupon_type_id">
+					<view style="font-size: 25upx;color: #808080;margin-bottom: 30upx;margin-left: 20upx;">
+						<text style="margin-right: 20upx;">{{index+1}}等奖</text>
+						<text>数量：</text>
+						<text>{{iterm.coupon_sum}} 张</text>
+						 <text style="display: inline;position: absolute;right: 30upx;" v-if="iterm.isSend==false">未派发</text>
+						<text style="display: inline;position: absolute;right: 30upx;" v-if="iterm.isSend==true">已派发</text>
 					</view>
-					<view class="picture-right">
-						<button class="btn-1" @click="jump(index)">筛选</button>
-					</view>
-				</view>
-			</view>
-			<view style="display: flex;justify-content: flex-end;margin:20upx 10% 20upx 0;color: #898989;font-size: 32upx;">已派发：{{lengthHas}}</view>
-			<view>
-				<view class="content-main" v-for="(coupon1,index1) in issended">
-					<view class="picture" style="border: 4upx solid #f8b62d;">
-						<view class="picture-left" style="color: #f8b62d;">
-							<view style="font-size: 30upx;margin-left: 30upx;margin-top: 10upx;">{{coupon1.companyName}}</view>
-							<view style="font-size: 45upx;margin-left: 30upx;margin-bottom: 10upx;">{{coupon1.couponName}}</view>
+					<view class="picture">
+						<view class="picture-left">
+							<view style="font-size: 30upx;margin-left: 30upx;margin-top: 10upx;">{{companyName}}</view>
+							<view style="font-size: 45upx;margin-left: 30upx;">{{iterm.couponName}}</view>
 						</view>
 						<view class="picture-right">
-							<button class="btn-1" style="background: #f8b62d;" @click="scan(index1)">查看</button>
+							<button class="btn-1" @click="jump(index)" style="background: #22BB22;" v-if="iterm.isSend==false">查看详情</button>
+							<button class="btn-1" @click="scan(index)" v-if="iterm.isSend==true">查看名单</button>
 						</view>
 					</view>
 				</view>
-			</view>
 		</scroll-view>
-		<!-- <view class="content-bottom">
-			<button class='btn'>确定</button>
-		</view> -->
 	</view>
 </template>
-
 <script>
 	import Api from '../../../../../api.js'
 	import App from '../../../../../App.vue'
 	export default {
 		data() {
 			return {
+				companyName: App.getcompany().company_name,
 				shops: [],
-				issended: [],
-				lengthHas:'',
-				lengthNo:'',
-				nosended: [],
 				couponsInfor: {},
-				hadcouponsInfor:{}
+				hadcouponsInfor:{},
+				activity:[],
+				actName:''
 			}
 		},
 		onLoad(data) {
@@ -64,36 +55,21 @@
 						companyId:App.getcompany().company_id
 					},
 					success: function(res) {
-						console.log(res);
-						if (res.data.code == 200) {
-							for (let c in res.data.value.coupons) {
-								if (res.data.value.coupons[c].isSend == false) {
-									that.nosended.push(res.data.value.coupons[c])
-								} else {
-									that.issended.push(res.data.value.coupons[c])
-								}
-							}
-						}
-						that.lengthHas=that.issended.length;
-						that.lengthNo=that.nosended.length;
-						console.log(that.nosended);
-						console.log(that.issended);
+						that.activity = res.data.value.coupons
+						that.actName = res.data.value.actName
 					}
 				})
 		},
 		methods: {
 			jump: function(index) {
 				var that = this
-				that.couponsInfor = that.nosended[index];
-				console.log(that.couponsInfor);
 				uni.navigateTo({
-					url: '../selectCoupons/selectCoupons?couponsInfor=' + JSON.stringify(that.couponsInfor),
+					 url: "../selectCoupons/select/scanCustomer/startSelect/scanCoupons/couponsDetails/couponsDetails?coupon_type_id=" + this.activity[index].coupon_type_id
 				})
 			},
 			scan:function(index){
 				var that = this
-					that.hadcouponsInfor = that.issended[index];
-					console.log(that.hadcouponsInfor);
+				that.hadcouponsInfor=this.activity[index]
 					uni.navigateTo({
 						url: '../scanwinner/scanwinner?hadcouponsInfor=' + JSON.stringify(that.hadcouponsInfor),
 					})
@@ -105,85 +81,138 @@
 </script>
 
 <style>
-	.body {
-		display: flex;
-		flex-direction: column;
+		.body {
 		/* #ifdef H5 */
 		height: calc(100vh - var(--window-bottom) - var(--window-top));
 		/* #endif */
 		/* #ifndef H5 */
 		height: 100vh;
 		/* #endif */
+		width: 100%;
 		background: #F7F8F8;
 	}
-
-	.content-top {
-		display: flex;
-		flex-direction: column;
+	
+	.content {
 		height: 100%;
 		width: 100%;
+		display: flex;
+		flex-direction: column;
 	}
-
-	/* .content-bottom {
-		display: flex;
-		height: 20%;
-		width: 100%;
-	} */
-
-	/* .btn {
-		display: flex;
-		margin: auto;
-		align-items: center;
-		justify-content: center;
-		border-radius: 25upx;
-		background: #5acc93;
-		color: #FFFFFF;
-		font-size: 40upx;
-		width: 270upx;
-		height: 100upx;
-	} */
-
+	
 	.content-main {
 		display: flex;
+		flex-direction: column;
 		width: 100%;
-		height: 20%;
-		margin-bottom: 36upx;
+		height: 200upx;
+		margin-bottom: 30upx;
 	}
-
+	
 	.picture {
 		display: flex;
 		flex-direction: row;
 		background: #FFFFFF;
-		height: 80%;
-		width: 90%;
+		height: 90%;
+		width: 80%;
 		margin: auto;
 		border-radius: 25upx;
-		border: 4upx solid #898989;
+		border: 4upx solid #ffdd00;
 	}
-
+	
 	.picture-left {
 		display: flex;
 		justify-content: center;
-		flex: 2;
+		flex: 1;
 		flex-direction: column;
-		color: #898989;
+		color: #f8b62d;
 	}
-
+	
 	.picture-right {
 		display: flex;
 		flex: 1;
-		align-items: center;
 	}
-
+	
+	.content-center {
+		width: 100%;
+		display: flex;
+		flex-direction: column;
+		height: 500upx;
+		margin-bottom: 100upx;
+	}
+	
+	.picture-1 {
+		background: #BBBBBB;
+		width: 80%;
+		height: 90%;
+		margin: auto;
+		padding-left: 3.3%;
+		padding-top: 3.3%;
+	}
+	
+	.picture-avtatar {
+		width: 100%;
+		display: flex;
+		flex-direction: row;
+		flex-wrap: wrap;
+	}
+	
+	.avatar {
+		display: flex;
+		width: 20%;
+		height: 100upx;
+		margin-right: 5%;
+		margin-bottom: 20upx;
+		background: #808080;
+	}
+	
+	.content-bottom {
+		position: fixed;
+		display: flex;
+		flex-direction: column;
+		width: 100%;
+		height: 20%;
+		bottom: 0;
+	}
+	
+	.btn {
+		display: block;
+		margin: auto;
+		color: #FFFFFF;
+		background: #5acc93;
+		border-radius: 25upx;
+		width: 300upx;
+	}
+	
 	.btn-1 {
 		display: flex;
 		height: 70upx;
-		width: 130upx;
+		width: 200upx;
 		font-size: 30upx;
+		margin: auto;
 		align-items: center;
 		justify-content: center;
 		color: #FFFFFF;
-		background-color: #ff6e6e;
+		background-color: #f8b62d;
 		border-radius: 25upx;
+	}
+	
+	.dialog-cover {
+		display: flex;
+		position: fixed;
+		height: 100%;
+		width: 100%;
+		top: 0;
+		left: 0;
+		z-index: 300;
+		background: rgba(f, f, f, 0.8);
+	}
+	
+	.sure {
+		display: flex;
+		flex-direction: column;
+		height: 300upx;
+		width: 500upx;
+		background: #FFFFFF;
+		border: 1upx solid #808080;
+		margin: auto;
 	}
 </style>

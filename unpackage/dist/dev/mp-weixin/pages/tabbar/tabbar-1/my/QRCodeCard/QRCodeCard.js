@@ -95,6 +95,10 @@ var app = getApp();var _default =
 
   },
   methods: {
+    errorimage: function errorimage() {
+      this.icon = _App.default.geturlerror(this.icon);
+      console.log(this.icon);
+    },
     sliderchange: function sliderchange(e) {
       this.size = e.detail.value;
     },
@@ -161,7 +165,9 @@ var render = function() {
       { staticClass: "content" },
       [
         _c("view", { staticClass: "user_v" }, [
-          _c("image", { attrs: { src: _vm.icon, mode: "" } }),
+          _c("image", {
+            attrs: { src: _vm.icon, mode: "", onerror: _vm.errorimage() }
+          }),
           _c(
             "view",
             {
@@ -171,14 +177,7 @@ var render = function() {
                 height: "100rpx"
               }
             },
-            [
-              _c("text", [_vm._v(_vm._s(_vm.name))]),
-              _c(
-                "text",
-                { staticStyle: { color: "#9a9a9a", "font-size": "28rpx" } },
-                [_vm._v(_vm._s(_vm.position))]
-              )
-            ]
+            [_c("text", [_vm._v(_vm._s(_vm.name))])]
           )
         ]),
         _c("tki-qrcode", {
@@ -212,7 +211,7 @@ var render = function() {
             attrs: { eventid: "7951032a-1" },
             on: { click: _vm.creatQrcode }
           },
-          [_vm._v("扫描二维码添加好友")]
+          [_vm._v("扫一扫添加")]
         )
       ],
       1

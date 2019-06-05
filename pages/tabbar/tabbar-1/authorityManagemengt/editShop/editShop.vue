@@ -9,7 +9,7 @@
 		<view class="content-2" v-if="showed1">
 			<view class="text">绑定交流圈</view>
 			<view class="image" @click="jump(0)">
-				<image class="picture" src="../../../../../static/image/大于号-01.png"></image>
+				<image class="picture" src="../../../../../static/image/great-01.png"></image>
 			</view>
 			<view></view>
 		</view>
@@ -25,13 +25,13 @@
 		<view class="content-2">
 			<view class="text">运营者管理</view>
 			<view class="image" @click="jump(1)">
-				<image class="picture" src="../../../../../static/image/大于号-01.png"></image>
+				<image class="picture" src="../../../../../static/image/great-01.png"></image>
 			</view>
 		</view>
 		<view class="content-2">
 			<view class="text">劵核销员管理</view>
 			<view class="image" @click="jump(2)">
-				<image class="picture" src="../../../../../static/image/大于号-01.png"></image>
+				<image class="picture" src="../../../../../static/image/great-01.png"></image>
 			</view>
 		</view>
 	</view>

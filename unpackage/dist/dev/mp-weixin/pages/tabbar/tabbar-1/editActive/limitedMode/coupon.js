@@ -42,10 +42,6 @@
 
 
 
-
-
-
-
 {
   data: function data() {
     return {
@@ -128,19 +124,13 @@ var render = function() {
         ]),
         _c("view", { staticClass: "items" }, [
           _c("text", { staticStyle: { color: "#888888" } }, [
-            _vm._v("优惠券码：")
-          ]),
-          _c("text", [_vm._v("11111111111")])
-        ]),
-        _c("view", { staticClass: "items" }, [
-          _c("text", { staticStyle: { color: "#888888" } }, [
-            _vm._v("有效日期：")
+            _vm._v("有效天数：")
           ]),
           _c("text", [_vm._v(_vm._s(_vm.coupon.exTime))])
         ]),
         _c("view", { staticClass: "items" }, [
           _c("text", { staticStyle: { color: "#888888" } }, [
-            _vm._v("可用日期：")
+            _vm._v("开始日期：")
           ]),
           _c("text", [_vm._v(_vm._s(_vm.coupon.availableTime))])
         ]),

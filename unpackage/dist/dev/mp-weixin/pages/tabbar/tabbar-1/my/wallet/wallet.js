@@ -136,7 +136,7 @@ var render = function() {
               attrs: { eventid: "296072ea-1" },
               on: {
                 click: function($event) {
-                  _vm.jump("../payment/payment")
+                  _vm.jump("../code/code")
                 }
               }
             },
@@ -151,7 +151,7 @@ var render = function() {
               attrs: { eventid: "296072ea-2" },
               on: {
                 click: function($event) {
-                  _vm.jump("../payment/payment")
+                  _vm.jump("../order/order")
                 }
               }
             },

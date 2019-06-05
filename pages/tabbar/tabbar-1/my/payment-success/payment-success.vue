@@ -1,11 +1,36 @@
 <template>
 	<view class="body">
 		<view class="content">
-			<view class="content-top">支付成功</view>
-			<view class="content-bottom">交易时间：</view>
-			<view class="content-bottom">套餐说明：</view>
-			<view class="content-bottom">实际金额：</view>
-			<view class="content-bottom">订单号：</view>
+			<view class="content-top">
+				<text>订单号：</text>
+				<text>123456789123456789 </text>
+				<text style="color: red;">(未支付)</text>
+			</view>
+			<view class="content-top">
+				<text>套餐名称：</text>
+				<text></text>
+			</view>
+			<view class="content-top">
+				<text>数量</text>：
+			</view>
+			<view class="content-top">
+				<text>套餐说明：</text>
+			</view>
+			<view class="content-top">
+				<text>金额：</text>
+				<text>{{}}</text>
+			</view>
+			<view class="content-top">
+				<text>优惠：</text>
+				<text></text>
+			</view>
+			<view class="content-top" style="font-size: 42upx">
+				<text >实付：</text>
+				<text></text>
+			</view>
+			<view class="content-top">
+				<text>支付方式：</text>
+			</view>
 		</view>
 	</view>
 </template>
@@ -14,8 +39,12 @@
 	export default {
 		data() {
 			return {
-				
+				commodityType:{}
 			}
+		},
+		onLoad(res) {
+			console.log(JSON.parse(res.commodityType))
+			this.commodityType=JSON.parse(res.commodityType)
 		},
 		methods: {
 			
@@ -40,14 +69,20 @@
 .content{
 	display: flex;
 	flex-direction: column;
-	height: 85%;
-	width: 90%;
+	margin-top: 2%;
+	height: 98%;
+	width: 100%;
+	background: #FFFFFF;
 }
 .content-top{
-	display: block;
-	color: #333333;
-	font-size: 40upx;
-	margin-bottom: 150upx;
+	display: flex;
+	height: 70upx;
+	width: 100%;
+	margin-left: 30upx;
+	color: #595757;
+	font-size: 30upx;
+	font-weight: 550;
+	line-height: 70upx;
 }
 .content-bottom{
 	display: block;

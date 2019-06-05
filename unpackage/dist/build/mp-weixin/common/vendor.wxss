@@ -1,3 +1,23 @@
+
+.time-template{
+  height: 10vw;
+  font-size: 4vw;
+  color: #000;
+  display: -webkit-flex;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 0 10px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  border: 1px solid #aaa;
+  border-radius: 3px;
+}
+
 @charset "UTF-8";
 /**
  * 这里是uni-app内置的常用样式变量
@@ -24,7 +44,7 @@
 /* 垂直间距 */
 /* 透明度 */
 /* 文章场景相关 */
-[class*='dialog-hairline'].data-v-5b4f2d41::after {
+[class*='dialog-hairline'].data-v-70c4894a::after {
   content: ' ';
   position: absolute;
   pointer-events: none;
@@ -39,7 +59,7 @@
       transform: scale(0.5);
   border: 0 solid #ebedf0;
 }
-.dialog.data-v-5b4f2d41 {
+.dialog.data-v-70c4894a {
   width: 100%;
   height: 100%;
   position: fixed;
@@ -51,10 +71,10 @@
   visibility: hidden;
   -webkit-transition: 0.15s;
 }
-.dialog.dialog-visibility.data-v-5b4f2d41 {
+.dialog.dialog-visibility.data-v-70c4894a {
     visibility: visible;
 }
-.dialog .dialog-model.data-v-5b4f2d41 {
+.dialog .dialog-model.data-v-70c4894a {
     width: 100%;
     height: 100%;
     background: rgba(0, 0, 0, 0.5);
@@ -65,7 +85,7 @@
     bottom: 0;
     z-index: 20;
 }
-.dialog .dialog-wrap.data-v-5b4f2d41 {
+.dialog .dialog-wrap.data-v-70c4894a {
     width: 85%;
     position: absolute;
     left: 50%;
@@ -79,13 +99,13 @@
     backface-visibility: hidden;
     z-index: 50;
 }
-.dialog .dialog-wrap .dialog-title.data-v-5b4f2d41 {
+.dialog .dialog-wrap .dialog-title.data-v-70c4894a {
       font-weight: 500;
       padding-top: 50rpx;
       text-align: center;
       color: #303133;
 }
-.dialog .dialog-wrap .dialog-content .dialog-content_message.data-v-5b4f2d41 {
+.dialog .dialog-wrap .dialog-content .dialog-content_message.data-v-70c4894a {
       padding: 30rpx;
       font-size: 30rpx;
       line-height: 1.5;
@@ -93,10 +113,10 @@
       -webkit-overflow-scrolling: touch;
       color: #606266;
 }
-.dialog .dialog-wrap .dialog-hairline--top.data-v-5b4f2d41::after {
+.dialog .dialog-wrap .dialog-hairline--top.data-v-70c4894a::after {
       border-top-width: 1px;
 }
-.dialog .dialog-wrap .dialog-footer.data-v-5b4f2d41 {
+.dialog .dialog-wrap .dialog-footer.data-v-70c4894a {
       overflow: hidden;
       position: relative;
       display: -webkit-box;
@@ -117,20 +137,30 @@
           -ms-flex-align: center;
               align-items: center;
 }
-.dialog .dialog-wrap .dialog-footer .footer-btn.data-v-5b4f2d41 {
+.dialog .dialog-wrap .dialog-footer .footer-btn.data-v-70c4894a {
         height: 100rpx;
         font-size: 32rpx;
         text-align: center;
         line-height: 100rpx;
 }
-.dialog .dialog-wrap .dialog-footer .footer-success.data-v-5b4f2d41 {
+.dialog .dialog-wrap .dialog-footer .footer-success.data-v-70c4894a {
         width: 100%;
         color: #1989fa;
 }
-.dialog .dialog-wrap .dialog-footer .footer-cancel.data-v-5b4f2d41 {
+.dialog .dialog-wrap .dialog-footer .footer-cancel.data-v-70c4894a {
         width: 100%;
         color: #303133;
 }
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -141,7 +141,7 @@ var _tkiQrcode = _interopRequireDefault(__webpack_require__(/*! ../../../../../c
               console.log(that.userid);
               if (res.data.code == 200) {
                 uni.request({
-                  url: _api.default.seeUser(),
+                  url: _api.default.seeotheruser(),
                   header: {
                     token: _App.default.getToken() },
 
@@ -224,7 +224,8 @@ var render = function() {
               _c("image", {
                 staticClass: "box-image",
                 attrs: {
-                  src: "../../../../../../static/image/添加奖励-01.png",
+                  src: "../../../../../../static/image/addoperator-01.png",
+                  onerror: _vm.errorImage(),
                   eventid: "6d5354d5-0"
                 },
                 on: { click: _vm.addOperator }
